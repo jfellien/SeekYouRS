@@ -18,15 +18,14 @@ namespace SeekYouRS.Tests
 
             var events = new List<Event>
                 {
-                    new EventBag<TestEvent>()
+                    new EventBag<TestEvent>(eventId)
                         {
-                            Id = eventId,
                             EventData = new TestEvent{Text = "HalloWelt"}
                         }
                 };
             eventStore.Store(events);
 
-            var savedEvents = eventStore.GetAggregateHistoryBy(eventId);
+            var savedEvents = eventStore.GetAggregateHistoryBy(eventId).ToList();
 
             savedEvents.Count().Should().Be(1);
             var savedEvent = savedEvents.FirstOrDefault(@event => @event.Id == eventId);

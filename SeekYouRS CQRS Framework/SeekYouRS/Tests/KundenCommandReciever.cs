@@ -12,6 +12,7 @@ namespace SeekYouRS.Tests
         {
             _eventStore = eventStore;
         }
+
         public void Recieve(dynamic command)
         {
             Execute(command);
@@ -37,7 +38,11 @@ namespace SeekYouRS.Tests
         private T GetAggregateFor<T>(Guid aggregateId) where T : Aggegate, new()
         {
             var eventHistory = _eventStore.GetAggregateHistoryBy(aggregateId);
-            var aggregate = new T {History = eventHistory};
+            var aggregate = new T
+                {
+                    Id = aggregateId,
+                    History = eventHistory
+                };
 
             return aggregate;
         }

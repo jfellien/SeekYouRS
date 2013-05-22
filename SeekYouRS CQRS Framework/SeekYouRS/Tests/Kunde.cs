@@ -7,7 +7,7 @@ namespace SeekYouRS.Tests
     {
         public void Create(Guid id, string name)
         {
-            ApplyChanges(new KundeWurdeErfasst(){Id = id, Name = name});
+            ApplyChanges(new KundeWurdeErfasst{Name = name});
         }
 
         internal string Name

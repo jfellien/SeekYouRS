@@ -20,7 +20,10 @@ namespace SeekYouRS
 
         internal void ApplyChanges<T>(T changeEvent) where T : class
         {
-            Changes.Add(new EventBag<T>{EventData = changeEvent});
+            if(Id == Guid.Empty)
+                throw new ArgumentException("Id of an Aggregate can not be Empty");
+
+            Changes.Add(new EventBag<T>(Id){EventData = changeEvent});
         }
 
         internal T FromHistory<T>() where T : new ()
