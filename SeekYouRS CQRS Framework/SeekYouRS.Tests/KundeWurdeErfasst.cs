@@ -1,5 +1,3 @@
-﻿using System;
-
 namespace SeekYouRS.Tests
 {
     public class KundeWurdeErfasst

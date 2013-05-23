@@ -1,5 +1,3 @@
-﻿using SeekYouRS.EventSource;
-
 namespace SeekYouRS.Tests
 {
     public class UI

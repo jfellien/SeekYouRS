@@ -1,4 +1,4 @@
-﻿namespace SeekYouRS.Tests
+namespace SeekYouRS.Tests
 {
     class TestEvent
     {

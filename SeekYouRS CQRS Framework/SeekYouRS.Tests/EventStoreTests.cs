@@ -1,8 +1,8 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using NUnit.Framework;
 using FluentAssertions;
+using NUnit.Framework;
 using SeekYouRS.EventSource;
 
 namespace SeekYouRS.Tests
@@ -66,9 +66,10 @@ namespace SeekYouRS.Tests
 
             api.Commands.Recieve(new ErfasseKunde{Id = id, Name = "My Kunde"});
 
-            var aggregateEvents = eventStore.GetAggregateHistoryBy(id);
+            var aggregateEvents = eventStore.GetAggregateHistoryBy(id).ToList();
 
             aggregateEvents.Count().ShouldBeEquivalentTo(1);
+            aggregateEvents.OfType<EventBag<KundeWurdeErfasst>>().Should().NotBeNull();
             aggregateEvents.OfType<EventBag<KundeWurdeErfasst>>().LastOrDefault().EventData.Name.ShouldBeEquivalentTo("My Kunde");
         }
     }

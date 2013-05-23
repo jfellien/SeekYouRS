@@ -1,8 +1,9 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using SeekYouRS.EventSource;
 
-namespace SeekYouRS.EventSource
+namespace SeekYouRS.Tests
 {
     class InMemoryEventStore : IStoreEvents
     {
@@ -30,7 +31,7 @@ namespace SeekYouRS.EventSource
         public IEnumerable<Event> EventHistory { get { return _worldhistory.ToList(); } }
 
 
-        // Weiß noch nicht wie ich damit umgehe
+        // Wei� noch nicht wie ich damit umgehe
         public void Subscribe(Action<Event> observer)
         {
             NewEvent += observer;
