@@ -45,17 +45,23 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ErfasseKunde.cs" />
-    <Compile Include="EventStoreTests.cs" />
-    <Compile Include="InMemoryEventStore.cs" />
-    <Compile Include="Kunde.cs" />
-    <Compile Include="KundenApi.cs" />
-    <Compile Include="KundenCommandReciever.cs" />
-    <Compile Include="KundenQueries.cs" />
-    <Compile Include="KundeWurdeErfasst.cs" />
+    <Compile Include="AggregateTests.cs" />
+    <Compile Include="InMemoryAggregateStore.cs" />
+    <Compile Include="InMemoryQueriesStore.cs" />
+    <Compile Include="KundeApiTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TestEvent.cs" />
-    <Compile Include="UI.cs" />
+    <Compile Include="TestObjects\Commands\ErfasseFahrzeug.cs" />
+    <Compile Include="TestObjects\Commands\ErfasseKunde.cs" />
+    <Compile Include="TestObjects\Commands\ÄndereKunde.cs" />
+    <Compile Include="TestObjects\Events\FahrzeugWurdeErfasst.cs" />
+    <Compile Include="TestObjects\Events\KundeWurdeErfasst.cs" />
+    <Compile Include="TestObjects\Events\KundeWurdeGeändert.cs" />
+    <Compile Include="TestObjects\Events\TestEvent.cs" />
+    <Compile Include="TestObjects\Fahrzeug.cs" />
+    <Compile Include="TestObjects\Customer.cs" />
+    <Compile Include="TestObjects\CustomerApi.cs" />
+    <Compile Include="TestObjects\CustomerCommandsHandler.cs" />
+    <Compile Include="TestObjects\Queries\CustomerQueriesHandler.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -66,6 +72,7 @@
       <Name>SeekYouRS</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

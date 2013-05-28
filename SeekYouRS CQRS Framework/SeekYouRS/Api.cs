@@ -4,14 +4,23 @@ namespace SeekYouRS
 {
     public abstract class Api
     {
-        protected Api(IRecieveCommands reciever, IExecuteQueries repository)
+        private readonly IExecuteCommands _commandHandler;
+        private readonly QueriesRepository _queriesRepository;
+
+        protected Api(IExecuteCommands commandHandler, QueriesRepository queriesRepository)
         {
-            Commands = reciever;
-            Repository = repository;
+            _commandHandler = commandHandler;
+            _queriesRepository = queriesRepository;
         }
 
-        public IExecuteQueries Repository { get; private set; }
+        public void Process(dynamic command)
+        {
+            _commandHandler.Process(command);
+        }
 
-        public IRecieveCommands Commands { get; private set; }
+        public TViewModel ExecuteQuery<TViewModel>(dynamic query)
+        {
+            return _queriesRepository.Execute<TViewModel>(query);
+        }
     }
 }
