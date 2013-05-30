@@ -13,65 +13,65 @@ namespace SeekYouRS.Tests
     internal class AggregateTests
     {
         [Test]
-        public void TestToCreateKundeViaAggregate()
+        public void TestToCreateCustomerViaAggregate()
         {
             var aggregateStore = new InMemoryAggregateStore();
             var id = Guid.NewGuid();
-            var kunde = aggregateStore.GetAggregate<Customer>(id);
+            var customer = aggregateStore.GetAggregate<Customer>(id);
 
-            kunde.Create(id, "Mein Customer");
-            aggregateStore.Save(kunde);
+            customer.Create(id, "My Customer");
+            aggregateStore.Save(customer);
 
-            kunde.Name.Should().BeEquivalentTo("Mein Customer");
+            customer.Name.Should().BeEquivalentTo("My Customer");
         }
 
         [Test]
-        public void TestToCreateKundeAndFahrzeug()
+        public void TestToCreateCustomerAndVehicle()
         {
             var aggregateStore = new InMemoryAggregateStore();
-            var kundeId = Guid.NewGuid();
-            var fahrzeugId = Guid.NewGuid();
+            var customerId = Guid.NewGuid();
+            var vehicleId = Guid.NewGuid();
 
-            var kunde = aggregateStore.GetAggregate<Customer>(kundeId);
-            var fahrzeug = aggregateStore.GetAggregate<Vehicle>(fahrzeugId);
+            var customer = aggregateStore.GetAggregate<Customer>(customerId);
+            var vehicle = aggregateStore.GetAggregate<Vehicle>(vehicleId);
 
-            kunde.Create(kundeId, "Mein Customer");
-            aggregateStore.Save(kunde);
+            customer.Create(customerId, "My Customer");
+            aggregateStore.Save(customer);
 
-            kunde.Id.ShouldBeEquivalentTo(kundeId);
-            kunde.Name.Should().BeEquivalentTo("Mein Customer");
-            aggregateStore.GetAggregate<Customer>(kundeId)
+            customer.Id.ShouldBeEquivalentTo(customerId);
+            customer.Name.Should().BeEquivalentTo("My Customer");
+            aggregateStore.GetAggregate<Customer>(customerId)
                 .History.OfType<AggregateEventBag<CustomerCreated>>().Any()
                 .Should().BeTrue();
 
-            fahrzeug.Create(fahrzeugId, "Mein Vehicle");
-            aggregateStore.Save(fahrzeug);
+            vehicle.Create(vehicleId, "My Vehicle");
+            aggregateStore.Save(vehicle);
 
-            fahrzeug.Typ.ShouldBeEquivalentTo("Mein Vehicle");
+            vehicle.Typ.ShouldBeEquivalentTo("My Vehicle");
 
-            aggregateStore.GetAggregate<Vehicle>(fahrzeugId)
+            aggregateStore.GetAggregate<Vehicle>(vehicleId)
                 .History.OfType<AggregateEventBag<VehicleCreated>>().Any()
                 .Should().BeTrue();
         }
 
         [Test]
-        public void TestToChangeKundenname()
+        public void TestToChangeCustomerName()
         {
             var aggregateStore = new InMemoryAggregateStore();
-            var kundeId = Guid.NewGuid();
+            var customerId = Guid.NewGuid();
 
-            var kunde = aggregateStore.GetAggregate<Customer>(kundeId);
-            kunde.Create(kundeId, "Mein Customer");
-            aggregateStore.Save(kunde);
+            var customer = aggregateStore.GetAggregate<Customer>(customerId);
+            customer.Create(customerId, "My Customer");
+            aggregateStore.Save(customer);
 
-            kunde.Name.Should().BeEquivalentTo("Mein Customer");
+            customer.Name.Should().BeEquivalentTo("My Customer");
 
-            kunde.Change("Neuer Name");
-            kunde.Name.Should().BeEquivalentTo("Neuer Name");
-            aggregateStore.Save(kunde);
+            customer.Change("New Name");
+            customer.Name.Should().BeEquivalentTo("New Name");
+            aggregateStore.Save(customer);
 
-            kunde.Changes.Count().ShouldBeEquivalentTo(0);
-            kunde.History.Count().ShouldBeEquivalentTo(2);
+            customer.Changes.Count().ShouldBeEquivalentTo(0);
+            customer.History.Count().ShouldBeEquivalentTo(2);
 
         }
     }
