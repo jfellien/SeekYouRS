@@ -1,6 +1,6 @@
 namespace SeekYouRS.Tests.TestObjects.Events
 {
-    internal class KundeWurdeGeändert
+    internal class CustomerChanged
     {
         public string Name { get; set; }
     }

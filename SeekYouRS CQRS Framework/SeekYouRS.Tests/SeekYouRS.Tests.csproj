@@ -47,21 +47,25 @@
   <ItemGroup>
     <Compile Include="AggregateTests.cs" />
     <Compile Include="InMemoryAggregateStore.cs" />
-    <Compile Include="InMemoryQueriesStore.cs" />
-    <Compile Include="KundeApiTests.cs" />
+    <Compile Include="InMemoryReadModel.cs" />
+    <Compile Include="CustomerApiTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TestObjects\Commands\ErfasseFahrzeug.cs" />
-    <Compile Include="TestObjects\Commands\ErfasseKunde.cs" />
-    <Compile Include="TestObjects\Commands\ÄndereKunde.cs" />
-    <Compile Include="TestObjects\Events\FahrzeugWurdeErfasst.cs" />
-    <Compile Include="TestObjects\Events\KundeWurdeErfasst.cs" />
-    <Compile Include="TestObjects\Events\KundeWurdeGeändert.cs" />
+    <Compile Include="TestObjects\Aggregates\Customer.cs" />
+    <Compile Include="TestObjects\Aggregates\Vehicle.cs" />
+    <Compile Include="TestObjects\Commands\CreateVehicle.cs" />
+    <Compile Include="TestObjects\Commands\CreateCustomer.cs" />
+    <Compile Include="TestObjects\Commands\ChangeCustomer.cs" />
+    <Compile Include="TestObjects\Commands\RemoveCustomer.cs" />
+    <Compile Include="TestObjects\Events\CustomerRemoved.cs" />
+    <Compile Include="TestObjects\Events\VehicleCreated.cs" />
+    <Compile Include="TestObjects\Events\CustomerCreated.cs" />
+    <Compile Include="TestObjects\Events\CustomerChanged.cs" />
     <Compile Include="TestObjects\Events\TestEvent.cs" />
-    <Compile Include="TestObjects\Fahrzeug.cs" />
-    <Compile Include="TestObjects\Customer.cs" />
+    <Compile Include="TestObjects\Handler\CustomerCommandsHandler.cs" />
+    <Compile Include="TestObjects\Handler\CustomerQueriesHandler.cs" />
+    <Compile Include="TestObjects\Models\CustomerModel.cs" />
+    <Compile Include="TestObjects\Queries\GetCustomer.cs" />
     <Compile Include="TestObjects\CustomerApi.cs" />
-    <Compile Include="TestObjects\CustomerCommandsHandler.cs" />
-    <Compile Include="TestObjects\Queries\CustomerQueriesHandler.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

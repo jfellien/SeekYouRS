@@ -4,10 +4,10 @@ namespace SeekYouRS.Tests.TestObjects
 {
     public class CustomerApi : Api
     {
-        public CustomerApi(IExecuteCommands commandHandler, QueriesRepository queriesRepository) 
-            : base(commandHandler, queriesRepository)
+        public CustomerApi(IExecuteCommands commandHandler, IRetrieveModels queriesHandler) 
+            : base(commandHandler, queriesHandler)
         {
-            commandHandler.Performed += queriesRepository.HandleChanges;
+            commandHandler.Performed += queriesHandler.HandleChanges;
         }
     }
 }

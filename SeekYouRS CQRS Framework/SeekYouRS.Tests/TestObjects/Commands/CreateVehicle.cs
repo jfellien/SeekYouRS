@@ -2,9 +2,9 @@ using System;
 
 namespace SeekYouRS.Tests.TestObjects.Commands
 {
-    internal class ÄndereKunde
+    public class CreateVehicle
     {
-        public string Name { get; set; }
+        public string Typ { get; set; }
 
         public Guid Id { get; set; }
     }

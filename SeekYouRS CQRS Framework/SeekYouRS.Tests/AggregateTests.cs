@@ -4,6 +4,7 @@ using FluentAssertions;
 using NUnit.Framework;
 using SeekYouRS.Storing;
 using SeekYouRS.Tests.TestObjects;
+using SeekYouRS.Tests.TestObjects.Aggregates;
 using SeekYouRS.Tests.TestObjects.Events;
 
 namespace SeekYouRS.Tests
@@ -32,7 +33,7 @@ namespace SeekYouRS.Tests
             var fahrzeugId = Guid.NewGuid();
 
             var kunde = aggregateStore.GetAggregate<Customer>(kundeId);
-            var fahrzeug = aggregateStore.GetAggregate<Fahrzeug>(fahrzeugId);
+            var fahrzeug = aggregateStore.GetAggregate<Vehicle>(fahrzeugId);
 
             kunde.Create(kundeId, "Mein Customer");
             aggregateStore.Save(kunde);
@@ -40,16 +41,16 @@ namespace SeekYouRS.Tests
             kunde.Id.ShouldBeEquivalentTo(kundeId);
             kunde.Name.Should().BeEquivalentTo("Mein Customer");
             aggregateStore.GetAggregate<Customer>(kundeId)
-                .History.OfType<AggregateEventBag<KundeWurdeErfasst>>().Any()
+                .History.OfType<AggregateEventBag<CustomerCreated>>().Any()
                 .Should().BeTrue();
 
-            fahrzeug.Create(fahrzeugId, "Mein Fahrzeug");
+            fahrzeug.Create(fahrzeugId, "Mein Vehicle");
             aggregateStore.Save(fahrzeug);
 
-            fahrzeug.Typ.ShouldBeEquivalentTo("Mein Fahrzeug");
+            fahrzeug.Typ.ShouldBeEquivalentTo("Mein Vehicle");
 
-            aggregateStore.GetAggregate<Fahrzeug>(fahrzeugId)
-                .History.OfType<AggregateEventBag<FahrzeugWurdeErfasst>>().Any()
+            aggregateStore.GetAggregate<Vehicle>(fahrzeugId)
+                .History.OfType<AggregateEventBag<VehicleCreated>>().Any()
                 .Should().BeTrue();
         }
 

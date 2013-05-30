@@ -2,7 +2,7 @@
 
 namespace SeekYouRS.Messaging
 {
-    public interface QueriesRepository
+    public interface IRetrieveModels
     {
         T Execute<T>(dynamic query);
         void HandleChanges(AggregateEvent aggregateEvent);

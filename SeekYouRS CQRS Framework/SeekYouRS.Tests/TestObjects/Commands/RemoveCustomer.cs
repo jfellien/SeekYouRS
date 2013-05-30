@@ -2,10 +2,8 @@ using System;
 
 namespace SeekYouRS.Tests.TestObjects.Commands
 {
-    public class ErfasseFahrzeug
+    internal class RemoveCustomer
     {
-        public string Typ { get; set; }
-
         public Guid Id { get; set; }
     }
 }

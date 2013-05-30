@@ -5,7 +5,7 @@ using SeekYouRS.Storing;
 
 namespace SeekYouRS.Tests
 {
-    class InMemoryAggregateStore : AggregateStore
+    class InMemoryAggregateStore : IStoreAggregates
     {
         public event Action<AggregateEvent> Publish;
 

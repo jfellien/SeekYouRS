@@ -1,8 +1,8 @@
 using System;
 
-namespace SeekYouRS.Tests.TestObjects.Commands
+namespace SeekYouRS.Tests.TestObjects.Events
 {
-    public class ErfasseKunde
+    public class CustomerCreated
     {
         public string Name { get; set; }
 

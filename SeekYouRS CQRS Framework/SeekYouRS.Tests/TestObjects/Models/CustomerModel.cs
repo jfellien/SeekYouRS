@@ -1,8 +1,8 @@
 using System;
 
-namespace SeekYouRS.Tests.TestObjects.Events
+namespace SeekYouRS.Tests.TestObjects.Models
 {
-    public class KundeWurdeErfasst
+    internal class CustomerModel
     {
         public string Name { get; set; }
 

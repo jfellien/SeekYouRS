@@ -41,13 +41,13 @@
   <ItemGroup>
     <Compile Include="Aggregate.cs" />
     <Compile Include="Api.cs" />
-    <Compile Include="Storing\AggregateStore.cs" />
-    <Compile Include="Storing\Event.cs" />
+    <Compile Include="Storing\IStoreAggregates.cs" />
+    <Compile Include="Storing\AggregateEvent.cs" />
     <Compile Include="Storing\Events.cs" />
     <Compile Include="Storing\IPublishAggregateEvents.cs" />
     <Compile Include="Storing\IStoreAggregateEvents.cs" />
-    <Compile Include="Storing\QueriesStore.cs" />
-    <Compile Include="Messaging\QueriesRepository.cs" />
+    <Compile Include="Storing\IStoreModels.cs" />
+    <Compile Include="Messaging\IRetrieveModels.cs" />
     <Compile Include="Messaging\IExecuteCommands.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
