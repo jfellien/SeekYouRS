@@ -3,7 +3,6 @@ using System.Linq;
 using FluentAssertions;
 using NUnit.Framework;
 using SeekYouRS.Storing;
-using SeekYouRS.Tests.TestObjects;
 using SeekYouRS.Tests.TestObjects.Aggregates;
 using SeekYouRS.Tests.TestObjects.Events;
 
