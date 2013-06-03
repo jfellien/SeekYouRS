@@ -1,8 +1,11 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using FluentAssertions;
 using NUnit.Framework;
 using SeekYouRS.Tests.TestObjects;
 using SeekYouRS.Tests.TestObjects.Commands;
+using SeekYouRS.Tests.TestObjects.Events;
 using SeekYouRS.Tests.TestObjects.Handler;
 using SeekYouRS.Tests.TestObjects.Models;
 using SeekYouRS.Tests.TestObjects.Queries;
@@ -112,6 +115,32 @@ namespace SeekYouRS.Tests
             });
 
             customer.Should().BeNull();
+        }
+
+        [Test]
+        public void TestToGetAListOfCustomers()
+        {
+            var aggregateStore = new InMemoryAggregateStore();
+            var modelsStore = new InMemoryReadModel();
+
+            var reciever = new CustomerCommandsHandler(aggregateStore);
+            var queries = new CustomerQueriesHandler(modelsStore);
+
+            var api = new CustomerApi(reciever, queries);
+
+            var id1 = Guid.NewGuid();
+            var id2 = Guid.NewGuid();
+
+            api.Process(new CreateCustomer { Id = id1, Name = "Customer One" });
+            api.Process(new CreateCustomer { Id = id2, Name = "Customer Two" });
+
+            var customers = api.Retrieve<IEnumerable<CustomerModel>>(new GetAllCustomers()).ToList();
+
+            customers.Count().ShouldBeEquivalentTo(2);
+
+            customers.Should().Contain(c => c.Id == id1);
+            customers.Should().Contain(c => c.Id == id2);
+
         }
     }
 }

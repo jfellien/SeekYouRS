@@ -15,7 +15,7 @@ namespace SeekYouRS.Tests.TestObjects.Handler
         public CustomerCommandsHandler(IStoreAggregates aggregateEventStore)
         {
             _aggregateEventStore = aggregateEventStore;
-            _aggregateEventStore.Publish += OnEventPublished ;
+            _aggregateEventStore.AggregateHasChanged += OnEventPublished ;
         }
 
         private void OnEventPublished(AggregateEvent aggregateEvent)
@@ -36,7 +36,7 @@ namespace SeekYouRS.Tests.TestObjects.Handler
 
         private void Execute(CreateCustomer command)
         {
-            var customer = _aggregateEventStore.GetAggregate<Customer>(command.Id);
+            var customer = new Customer();
             customer.Create(command.Id, command.Name);
             _aggregateEventStore.Save(customer);
         }

@@ -44,11 +44,9 @@
   <ItemGroup>
     <Compile Include="Aggregate.cs" />
     <Compile Include="Api.cs" />
+    <Compile Include="Storing\AggregateEventBag.cs" />
     <Compile Include="Storing\IStoreAggregates.cs" />
     <Compile Include="Storing\AggregateEvent.cs" />
-    <Compile Include="Storing\Events.cs" />
-    <Compile Include="Storing\IPublishAggregateEvents.cs" />
-    <Compile Include="Storing\IStoreAggregateEvents.cs" />
     <Compile Include="Storing\IStoreModels.cs" />
     <Compile Include="Messaging\IRetrieveModels.cs" />
     <Compile Include="Messaging\IExecuteCommands.cs" />

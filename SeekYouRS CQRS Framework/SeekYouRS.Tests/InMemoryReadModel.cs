@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using SeekYouRS.Storing;
+using SeekYouRS.Tests.TestObjects.Events;
 using SeekYouRS.Tests.TestObjects.Models;
 using SeekYouRS.Tests.TestObjects.Queries;
 
@@ -45,5 +46,10 @@ namespace SeekYouRS.Tests
 
             return customer;
         }
+
+        IEnumerable<CustomerModel> ExecuteQuery(GetAllCustomers query)
+        {
+            return _data.OfType<CustomerModel>();
+        } 
     }
 }

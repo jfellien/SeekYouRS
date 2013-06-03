@@ -57,6 +57,7 @@
     <Compile Include="TestObjects\Commands\ChangeCustomer.cs" />
     <Compile Include="TestObjects\Commands\RemoveCustomer.cs" />
     <Compile Include="TestObjects\Events\CustomerRemoved.cs" />
+    <Compile Include="TestObjects\Events\GetAllCustomers.cs" />
     <Compile Include="TestObjects\Events\VehicleCreated.cs" />
     <Compile Include="TestObjects\Events\CustomerCreated.cs" />
     <Compile Include="TestObjects\Events\CustomerChanged.cs" />
