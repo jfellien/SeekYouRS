@@ -14,10 +14,7 @@ namespace SeekYouRS.Messaging
         /// <param name="query">Instance of query parameters</param>
         /// <returns></returns>
         T Execute<T>(dynamic query);
-        /// <summary>
-        /// Handles changes by Aggregate Events
-        /// </summary>
-        /// <param name="aggregateEvent"></param>
-        void HandleChanges(AggregateEvent aggregateEvent);
+
+        IStoreAggregateEventsAsModels ModelStore { get; }
     }
 }

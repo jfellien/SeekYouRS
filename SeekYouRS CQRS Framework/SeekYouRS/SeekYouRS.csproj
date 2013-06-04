@@ -47,7 +47,7 @@
     <Compile Include="Storing\AggregateEventBag.cs" />
     <Compile Include="Storing\IStoreAggregates.cs" />
     <Compile Include="Storing\AggregateEvent.cs" />
-    <Compile Include="Storing\IStoreModels.cs" />
+    <Compile Include="Storing\IStoreAggregateEventsAsModels.cs" />
     <Compile Include="Messaging\IRetrieveModels.cs" />
     <Compile Include="Messaging\IExecuteCommands.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

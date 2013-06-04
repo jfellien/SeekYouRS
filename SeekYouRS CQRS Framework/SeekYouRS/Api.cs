@@ -15,6 +15,8 @@ namespace SeekYouRS
         {
             _commandHandler = commandHandler;
             _queriesHandler = queriesHandler;
+
+            _commandHandler.Performed += _queriesHandler.ModelStore.HandleChanges;
         }
         /// <summary>
         /// Passed the command to the Command Handler for processing the command.

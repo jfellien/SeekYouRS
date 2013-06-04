@@ -21,8 +21,8 @@ namespace SeekYouRS.Tests
             var aggregateStore = new InMemoryAggregateStore();
             var readModel = new InMemoryReadModel();
 
-            var commands = new CustomerCommandsHandler(aggregateStore);
-            var queries = new CustomerQueriesHandler(readModel);
+            var commands = new CustomerCommands(aggregateStore);
+            var queries = new CustomerQueries(readModel);
 
             var api = new CustomerApi(commands, queries);
             var id = Guid.NewGuid();
@@ -40,8 +40,8 @@ namespace SeekYouRS.Tests
             var aggregateStore = new InMemoryAggregateStore();
             var queriesStore = new InMemoryReadModel();
 
-            var reciever = new CustomerCommandsHandler(aggregateStore);
-            var queries = new CustomerQueriesHandler(queriesStore);
+            var reciever = new CustomerCommands(aggregateStore);
+            var queries = new CustomerQueries(queriesStore);
 
             var api = new CustomerApi(reciever, queries);
             var id = Guid.NewGuid();
@@ -63,8 +63,8 @@ namespace SeekYouRS.Tests
             var aggregateStore = new InMemoryAggregateStore();
             var modelsStore = new InMemoryReadModel();
 
-            var reciever = new CustomerCommandsHandler(aggregateStore);
-            var queries = new CustomerQueriesHandler(modelsStore);
+            var reciever = new CustomerCommands(aggregateStore);
+            var queries = new CustomerQueries(modelsStore);
 
             var api = new CustomerApi(reciever, queries);
 
@@ -91,8 +91,8 @@ namespace SeekYouRS.Tests
             var aggregateStore = new InMemoryAggregateStore();
             var modelsStore = new InMemoryReadModel();
 
-            var reciever = new CustomerCommandsHandler(aggregateStore);
-            var queries = new CustomerQueriesHandler(modelsStore);
+            var reciever = new CustomerCommands(aggregateStore);
+            var queries = new CustomerQueries(modelsStore);
 
             var api = new CustomerApi(reciever, queries);
 
@@ -123,8 +123,8 @@ namespace SeekYouRS.Tests
             var aggregateStore = new InMemoryAggregateStore();
             var modelsStore = new InMemoryReadModel();
 
-            var reciever = new CustomerCommandsHandler(aggregateStore);
-            var queries = new CustomerQueriesHandler(modelsStore);
+            var reciever = new CustomerCommands(aggregateStore);
+            var queries = new CustomerQueries(modelsStore);
 
             var api = new CustomerApi(reciever, queries);
 

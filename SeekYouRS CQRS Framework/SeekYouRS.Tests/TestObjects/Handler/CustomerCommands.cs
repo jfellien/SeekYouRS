@@ -6,13 +6,13 @@ using SeekYouRS.Tests.TestObjects.Commands;
 
 namespace SeekYouRS.Tests.TestObjects.Handler
 {
-    public class CustomerCommandsHandler : IExecuteCommands
+    public class CustomerCommands : IExecuteCommands
     {
         public event Action<AggregateEvent> Performed;
 
         private readonly IStoreAggregates _aggregateEventStore;
 
-        public CustomerCommandsHandler(IStoreAggregates aggregateEventStore)
+        public CustomerCommands(IStoreAggregates aggregateEventStore)
         {
             _aggregateEventStore = aggregateEventStore;
             _aggregateEventStore.AggregateHasChanged += OnEventPublished ;
@@ -36,7 +36,7 @@ namespace SeekYouRS.Tests.TestObjects.Handler
 
         private void Execute(CreateCustomer command)
         {
-            var customer = new Customer();
+            var customer =_aggregateEventStore.GetAggregate<Customer>(command.Id);
             customer.Create(command.Id, command.Name);
             _aggregateEventStore.Save(customer);
         }

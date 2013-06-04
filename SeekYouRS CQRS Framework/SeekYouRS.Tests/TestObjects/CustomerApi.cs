@@ -7,7 +7,6 @@ namespace SeekYouRS.Tests.TestObjects
         public CustomerApi(IExecuteCommands commandHandler, IRetrieveModels queriesHandler) 
             : base(commandHandler, queriesHandler)
         {
-            commandHandler.Performed += queriesHandler.HandleChanges;
         }
     }
 }

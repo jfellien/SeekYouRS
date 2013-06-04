@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using SeekYouRS.Storing;
@@ -7,7 +8,7 @@ using SeekYouRS.Tests.TestObjects.Queries;
 
 namespace SeekYouRS.Tests
 {
-    internal class InMemoryReadModel : IStoreModels
+    internal class InMemoryReadModel : IStoreAggregateEventsAsModels
     {
         private readonly List<dynamic> _data;
 
@@ -16,20 +17,55 @@ namespace SeekYouRS.Tests
             _data = new List<object>();
         }
 
-        public void Add(dynamic model)
+        public void HandleChanges(AggregateEvent aggregateEvent)
+        {
+            Handle((dynamic)aggregateEvent);
+        }
+
+        void Handle(object unassignedEvent)
+        {
+            var eventData = ((dynamic)unassignedEvent).EventData;
+
+            throw new ArgumentException("This event is not assigned to this instance, " + eventData.GetType().Name);
+        }
+
+        void Handle(AggregateEventBag<CustomerCreated> customerCreated)
+        {
+            Add(new CustomerModel
+            {
+                Id = customerCreated.EventData.Id,
+                Name = customerCreated.EventData.Name
+            });
+        }
+
+        void Handle(AggregateEventBag<CustomerChanged> customerChanged)
+        {
+            Change(new CustomerModel
+            {
+                Id = customerChanged.Id,
+                Name = customerChanged.EventData.Name
+            });
+        }
+
+        void Handle(AggregateEventBag<CustomerRemoved> customerRemoved)
+        {
+            Remove(new CustomerModel { Id = customerRemoved.Id });
+        }
+
+        void Add(dynamic model)
         {
             _data.Add(model);
         }
 
-        public void Change(dynamic model)
+        void Change(dynamic model)
         {
-            var oldObject =_data.SingleOrDefault(o => o.Id == model.Id);
+            var oldObject = _data.SingleOrDefault(o => o.Id == model.Id);
             _data.Remove(oldObject);
             _data.Add(model);
 
         }
 
-        public void Remove(dynamic model)
+        void Remove(dynamic model)
         {
             var oldObject = _data.SingleOrDefault(o => o.Id == model.Id);
             _data.Remove(oldObject);
@@ -50,6 +86,6 @@ namespace SeekYouRS.Tests
         IEnumerable<CustomerModel> ExecuteQuery(GetAllCustomers query)
         {
             return _data.OfType<CustomerModel>();
-        } 
+        }
     }
 }
