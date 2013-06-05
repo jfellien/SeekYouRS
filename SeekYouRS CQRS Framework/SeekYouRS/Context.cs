@@ -3,15 +3,14 @@
 namespace SeekYouRS
 {
     /// <summary>
-    /// Base class for CQRS Api components. 
-    /// Api connects the Command and Query Handler
+    /// Base class for CQRS Context components.
     /// </summary>
-    public abstract class Api
+    public abstract class Context
     {
         private readonly IExecuteCommands _commandHandler;
         private readonly IRetrieveModels _queriesHandler;
 
-        protected Api(IExecuteCommands commandHandler, IRetrieveModels queriesHandler)
+        protected Context(IExecuteCommands commandHandler, IRetrieveModels queriesHandler)
         {
             _commandHandler = commandHandler;
             _queriesHandler = queriesHandler;
