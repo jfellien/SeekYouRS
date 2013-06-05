@@ -68,7 +68,7 @@
     <Compile Include="TestObjects\Handler\CustomerQueries.cs" />
     <Compile Include="TestObjects\Models\CustomerModel.cs" />
     <Compile Include="TestObjects\Queries\GetCustomer.cs" />
-    <Compile Include="TestObjects\CustomerApi.cs" />
+    <Compile Include="TestObjects\CustomerContext.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

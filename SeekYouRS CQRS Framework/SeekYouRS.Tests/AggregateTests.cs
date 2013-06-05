@@ -73,5 +73,20 @@ namespace SeekYouRS.Tests
             customer.History.Count().ShouldBeEquivalentTo(2);
 
         }
+
+        [Test]
+        public void TestWithoutCreateAggregate()
+        {
+            var aggregateStore = new InMemoryAggregateStore();
+            var customerId = Guid.NewGuid();
+
+            var customer = aggregateStore.GetAggregate<Customer>(customerId);
+
+            aggregateStore.Save(customer);
+            var expectedId = Guid.Empty;
+
+            Assert.Catch<NullReferenceException>(() => expectedId = customer.Id);
+
+        }
     }
 }

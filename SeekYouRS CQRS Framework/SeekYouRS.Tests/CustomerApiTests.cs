@@ -24,7 +24,7 @@ namespace SeekYouRS.Tests
             var commands = new CustomerCommands(aggregateStore);
             var queries = new CustomerQueries(readModel);
 
-            var api = new CustomerApi(commands, queries);
+            var api = new CustomerContext(commands, queries);
             var id = Guid.NewGuid();
 
             api.Process(new CreateCustomer{Id = id, Name = "My Customer"});
@@ -43,7 +43,7 @@ namespace SeekYouRS.Tests
             var reciever = new CustomerCommands(aggregateStore);
             var queries = new CustomerQueries(queriesStore);
 
-            var api = new CustomerApi(reciever, queries);
+            var api = new CustomerContext(reciever, queries);
             var id = Guid.NewGuid();
 
             api.Process(new CreateCustomer { Id = id, Name = "My Customer" });
@@ -66,7 +66,7 @@ namespace SeekYouRS.Tests
             var reciever = new CustomerCommands(aggregateStore);
             var queries = new CustomerQueries(modelsStore);
 
-            var api = new CustomerApi(reciever, queries);
+            var api = new CustomerContext(reciever, queries);
 
             var id1 = Guid.NewGuid();
             var id2 = Guid.NewGuid();
@@ -94,7 +94,7 @@ namespace SeekYouRS.Tests
             var reciever = new CustomerCommands(aggregateStore);
             var queries = new CustomerQueries(modelsStore);
 
-            var api = new CustomerApi(reciever, queries);
+            var api = new CustomerContext(reciever, queries);
 
             var id = Guid.NewGuid();
 
@@ -126,7 +126,7 @@ namespace SeekYouRS.Tests
             var reciever = new CustomerCommands(aggregateStore);
             var queries = new CustomerQueries(modelsStore);
 
-            var api = new CustomerApi(reciever, queries);
+            var api = new CustomerContext(reciever, queries);
 
             var id1 = Guid.NewGuid();
             var id2 = Guid.NewGuid();
