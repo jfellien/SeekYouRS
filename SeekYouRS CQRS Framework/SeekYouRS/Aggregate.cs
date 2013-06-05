@@ -62,11 +62,7 @@ namespace SeekYouRS
 
             try
             {
-                var identifier = propertyInfos.SingleOrDefault(pi => 
-                    pi.Name.Equals("id")
-                    | pi.Name.Equals("ID")
-                    | pi.Name.Equals("Id")
-                    | pi.Name.Equals("iD"));
+                var identifier = propertyInfos.SingleOrDefault(pi => pi.Name.ToLowerInvariant().Equals("id"));
 
                 return identifier != null 
                     ? (Guid)identifier.GetValue(changeEvent) 
