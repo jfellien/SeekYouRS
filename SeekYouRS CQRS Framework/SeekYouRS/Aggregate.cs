@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Microsoft.CSharp.RuntimeBinder;
 using SeekYouRS.Storing;
 
 namespace SeekYouRS
@@ -15,13 +14,13 @@ namespace SeekYouRS
 
         public abstract Guid Id { get; }
 
-        public IList<AggregateEvent> Changes{ get; private set; }
+        public IList<AggregateEvent> Changes { get; private set; }
 
         public IEnumerable<AggregateEvent> History { get; set; }
 
         protected void ApplyChanges<T>(T changeEvent) where T : class
         {
-            var id = IdFrom((dynamic)changeEvent);
+            var id = IdFrom(changeEvent);
 
             if (id == Guid.Empty)
             {
@@ -33,37 +32,21 @@ namespace SeekYouRS
                 }
             }
 
-            Changes.Add(new AggregateEventBag<T>((Guid)id){EventData = changeEvent});
+            Changes.Add(new AggregateEventBag<T>(id) { EventData = changeEvent });
         }
 
         private static Guid IdFrom(object changeEvent)
         {
-            var propertyInfos = changeEvent.GetType().GetProperties();
-
-            try
-            {
-                var identifier = propertyInfos.SingleOrDefault(pi => 
-                    pi.Name.Equals("id")
-                    | pi.Name.Equals("ID")
-                    | pi.Name.Equals("Id")
-                    | pi.Name.Equals("iD"));
-
-                return identifier != null 
-                    ? (Guid)identifier.GetValue(changeEvent) 
-                    : Guid.Empty;
-            }
-            catch (Exception)
-            {
-                return Guid.Empty;
-            }
+            return Reflector.ReadValueOrDefault(changeEvent, "Id", Guid.Empty);
         }
 
-        protected T FromHistory<T>() where T : new ()
+        protected T FromHistory<T>() where T : new()
         {
             var lastEventOfSearchedType = History.Concat(Changes).OfType<AggregateEventBag<T>>().LastOrDefault();
-            return lastEventOfSearchedType == null 
-                ? default(T) 
+            return lastEventOfSearchedType == null
+                ? default(T)
                 : lastEventOfSearchedType.EventData;
         }
     }
+
 }
