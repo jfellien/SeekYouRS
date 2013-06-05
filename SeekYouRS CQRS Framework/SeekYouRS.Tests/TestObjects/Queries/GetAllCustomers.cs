@@ -1,4 +1,4 @@
-namespace SeekYouRS.Tests.TestObjects.Events
+namespace SeekYouRS.Tests.TestObjects.Queries
 {
     internal class GetAllCustomers 
     {
