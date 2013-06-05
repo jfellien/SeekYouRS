@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Microsoft.CSharp.RuntimeBinder;
 using SeekYouRS.Storing;
+
+using SetId = System.Action<System.Guid>;
 
 namespace SeekYouRS
 {
@@ -21,40 +22,38 @@ namespace SeekYouRS
 
         protected void ApplyChanges<T>(T changeEvent) where T : class
         {
-            var id = IdFrom((dynamic)changeEvent);
+            var accessors = IdFrom(changeEvent);
+
+            var id = accessors.Item1;
+            var setId = accessors.Item2;
 
             if (id == Guid.Empty)
             {
-                try { id = Id; }
-                catch (NullReferenceException)
-                {
-                    throw new ArgumentException(
-                        "Unable to find a valid Id for Aggregate. Ensure the Event or Aggregate contains an Id.");
-                }
+                id = Id;
+                setId(id);
+                // NOTE: needs Tests and error handling
             }
 
-            Changes.Add(new AggregateEventBag<T>((Guid)id){EventData = changeEvent});
+            Changes.Add(new AggregateEventBag<T>(id){EventData = changeEvent});
         }
 
-        private static Guid IdFrom(object changeEvent)
+        private static Tuple<Guid, SetId> IdFrom(object changeEvent)
         {
             var propertyInfos = changeEvent.GetType().GetProperties();
 
             try
             {
                 var identifier = propertyInfos.SingleOrDefault(pi => 
-                    pi.Name.Equals("id")
-                    | pi.Name.Equals("ID")
-                    | pi.Name.Equals("Id")
-                    | pi.Name.Equals("iD"));
+                    pi.Name.Equals("id", StringComparison.OrdinalIgnoreCase));
 
-                return identifier != null 
-                    ? (Guid)identifier.GetValue(changeEvent) 
-                    : Guid.Empty;
+                if (identifier == null) return Tuple.Create<Guid,SetId>(Guid.Empty, id => {});
+                var objId = (Guid) identifier.GetValue(changeEvent);
+                Action<Guid> set = id => identifier.SetValue(changeEvent, id);
+                return Tuple.Create(objId, set);
             }
             catch (Exception)
             {
-                return Guid.Empty;
+                return Tuple.Create<Guid,SetId>(Guid.Empty, id => {});
             }
         }
 

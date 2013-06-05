@@ -65,6 +65,7 @@ namespace SeekYouRS.Tests
             aggregateStore.Save(customer);
 
             customer.Name.Should().BeEquivalentTo("My Customer");
+            customer.Id.ShouldBeEquivalentTo(customerId);
 
             customer.Change("New Name");
             customer.Name.Should().BeEquivalentTo("New Name");
@@ -72,7 +73,6 @@ namespace SeekYouRS.Tests
 
             customer.Changes.Count().ShouldBeEquivalentTo(0);
             customer.History.Count().ShouldBeEquivalentTo(2);
-
         }
     }
 }
