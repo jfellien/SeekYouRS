@@ -45,6 +45,18 @@ namespace SeekYouRS
 
 			Changes.Add(new AggregateEventBag<T>(idToSaveChanges){EventData = changeEvent});
 		}
+		/// <summary>
+		/// Gets all Events of specific type
+		/// </summary>
+		/// <typeparam name="T">Type of Event</typeparam>
+		/// <returns>Data of history</returns>
+		protected T FromHistory<T>() where T : new()
+		{
+			var lastEventOfSearchedType = History.Concat(Changes).OfType<AggregateEventBag<T>>().LastOrDefault();
+			return lastEventOfSearchedType == null
+				? default(T)
+				: lastEventOfSearchedType.EventData;
+		}
 
 		/// <summary>
 		/// Gets the Id of Change Event
@@ -53,22 +65,8 @@ namespace SeekYouRS
 		/// <returns>returns the id. If Event have not an Id method returns Guid.Empty</returns>
 		Guid GetIdFrom(object changeEvent)
 		{
-			var propertyInfos = changeEvent.GetType().GetProperties();
-
-			try
-			{
-				var identifier = propertyInfos.SingleOrDefault(pi => pi.Name.Equals("id", StringComparison.OrdinalIgnoreCase));
-
-				return identifier != null
-					? (Guid)identifier.GetValue(changeEvent)
-					: Guid.Empty;
-			}
-			catch (Exception)
-			{
-				return Guid.Empty;
-			}
+		    return Reflector.ReadValueOrDefault(changeEvent, "id", Guid.Empty);
 		}
-
 		/// <summary>
 		/// Gets the Id from Aggregate. 
 		/// It is possible that an derived class of Aggregate has no correct implementation of property Id.
@@ -86,19 +84,6 @@ namespace SeekYouRS
 				throw new ArgumentException(
 					"Unable to find a valid Id for Aggregate. Ensure the Event or Aggregate contains an Id.");
 			}
-		}
-
-		/// <summary>
-		/// Gets all Events of specific type
-		/// </summary>
-		/// <typeparam name="T">Type of Event</typeparam>
-		/// <returns>Data of history</returns>
-		protected T FromHistory<T>() where T : new ()
-		{
-			var lastEventOfSearchedType = History.Concat(Changes).OfType<AggregateEventBag<T>>().LastOrDefault();
-			return lastEventOfSearchedType == null 
-				? default(T) 
-				: lastEventOfSearchedType.EventData;
 		}
 	}
 }

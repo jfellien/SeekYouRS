@@ -44,6 +44,7 @@
   <ItemGroup>
     <Compile Include="Aggregate.cs" />
     <Compile Include="Context.cs" />
+    <Compile Include="Reflector.cs" />
     <Compile Include="Storing\AggregateEventBag.cs" />
     <Compile Include="Storing\IStoreAggregates.cs" />
     <Compile Include="Storing\AggregateEvent.cs" />
