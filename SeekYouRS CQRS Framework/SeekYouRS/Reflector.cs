@@ -1,54 +1,65 @@
 ﻿using System;
 using System.Linq;
-using FSharpx;
-using Microsoft.FSharp.Core;
 
 namespace SeekYouRS
 {
     public static class Reflector
     {
-        static FSharpOption<tResult> TryReadProperty<tObject, tResult>(tObject obj, string propertyName)
+        static bool TryReadProperty<tObject, tResult>(tObject obj, string propertyName, out tResult result)
         {
+            result = default(tResult);
             var propertyInfos = obj.GetType().GetProperties();
 
             try
             {
-                var identifier = propertyInfos.SingleOrDefault(pi =>
-                                                               pi.Name.Equals(propertyName, StringComparison.OrdinalIgnoreCase));
+                var identifier =
+                    propertyInfos.SingleOrDefault(
+                        pi => pi.Name.Equals(propertyName,
+                                             StringComparison.OrdinalIgnoreCase));
 
-                if (identifier == null) return FSharpOption<tResult>.None;
-                return ((tResult) identifier.GetValue(obj)).Some();
+                if (identifier == null) return false;
+
+                result = (tResult) identifier.GetValue(obj);
+                return true;
             }
             catch (Exception)
             {
-                return FSharpOption<tResult>.None;
+                return false;
             }
         }
 
-        static FSharpOption<tResult> TryReadField<tObject, tResult>(tObject obj, string fieldName)
+        static bool TryReadField<tObject, tResult>(tObject obj, string fieldName, out tResult result)
         {
-            var fieldInfos = obj.GetType().GetFields();
+            result = default(tResult);
+            var filedInfos = obj.GetType().GetFields();
 
             try
             {
-                var identifier = fieldInfos.SingleOrDefault(pi =>
-                                                               pi.Name.Equals(fieldName, StringComparison.OrdinalIgnoreCase));
+                var identifier =
+                    filedInfos.SingleOrDefault(
+                        pi => pi.Name.Equals(fieldName,
+                                             StringComparison.OrdinalIgnoreCase));
 
-                if (identifier == null) return FSharpOption<tResult>.None;
-                return ((tResult) identifier.GetValue(obj)).Some();
+                if (identifier == null) return false;
+
+                result = (tResult)identifier.GetValue(obj);
+                return true;
             }
             catch (Exception)
             {
-                return FSharpOption<tResult>.None;
+                return false;
             }
         }
 
         public static tResult ReadValueOrDefault<tObject, tResult>(tObject obj, string name, tResult defaultValue = default(tResult))
         {
-            return TryReadField<tObject, tResult>(obj, name)
-                .OrElse<tResult>(TryReadProperty<tObject, tResult>(obj, name))
-                .GetOrElse(defaultValue);
+            tResult result;
 
+            if (TryReadField(obj, name, out result)
+                || TryReadProperty(obj, name, out result))
+                return result;
+
+            return defaultValue;
         }
     }
 }
