@@ -7,7 +7,7 @@ namespace SeekYouRS.Tests
 {
     class InMemoryAggregateStore : IStoreAggregates
     {
-        public event Action<AggregateEvent> Publish;
+        public event Action<AggregateEvent> AggregateHasChanged;
 
         private readonly List<AggregateEvent> _worldhistory;
 
@@ -20,9 +20,9 @@ namespace SeekYouRS.Tests
         {
             _worldhistory.AddRange(aggregate.Changes);
 
-            if(Publish != null)
+            if(AggregateHasChanged != null)
                 foreach (var e in aggregate.Changes) 
-                    Publish(e);
+                    AggregateHasChanged(e);
 
             aggregate.History = aggregate.History.Concat(aggregate.Changes).ToList();
             aggregate.Changes.Clear();
