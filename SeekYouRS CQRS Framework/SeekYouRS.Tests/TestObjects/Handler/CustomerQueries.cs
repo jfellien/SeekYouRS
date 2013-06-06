@@ -1,8 +1,6 @@
 using System;
 using SeekYouRS.Messaging;
 using SeekYouRS.Storing;
-using SeekYouRS.Tests.TestObjects.Events;
-using SeekYouRS.Tests.TestObjects.Models;
 
 namespace SeekYouRS.Tests.TestObjects.Handler
 {

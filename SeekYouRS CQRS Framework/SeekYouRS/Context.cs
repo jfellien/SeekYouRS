@@ -1,4 +1,4 @@
-﻿using SeekYouRS.Messaging;
+using SeekYouRS.Messaging;
 
 namespace SeekYouRS
 {
