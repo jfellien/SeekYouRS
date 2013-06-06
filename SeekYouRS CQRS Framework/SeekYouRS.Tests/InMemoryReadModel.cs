@@ -88,4 +88,34 @@ namespace SeekYouRS.Tests
             return _data.OfType<CustomerModel>();
         }
     }
+
+    class KlasseMitEigenschaft
+    {
+        public Guid Id { get; set; }
+
+        public KlasseMitEigenschaft(Guid id)
+        {
+            Id = id;
+        }
+    }
+
+    class KlasseMitFeld
+    {
+        public Guid Id;
+
+        public KlasseMitFeld(Guid id)
+        {
+            Id = id;
+        }
+    }
+
+    class GenerischeKlasseMitEigenschaft<tEigenschaft>
+    {
+        public tEigenschaft Value { get; set; }
+
+        public GenerischeKlasseMitEigenschaft(tEigenschaft value)
+        {
+            Value = value;
+        }
+    }
 }
