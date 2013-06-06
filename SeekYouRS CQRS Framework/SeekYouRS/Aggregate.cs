@@ -30,6 +30,7 @@ namespace SeekYouRS
 		/// Gets or sets the list of all status changes
 		/// </summary>
 		public IEnumerable<AggregateEvent> History { get; set; }
+
 		/// <summary>
 		/// Used the Event to change the status of this instance.
 		/// </summary>
@@ -37,26 +38,20 @@ namespace SeekYouRS
 		/// <param name="changeEvent">Event with change parameters</param>
 		protected void ApplyChanges<T>(T changeEvent) where T : class
 		{
-			var id = IdFrom((dynamic)changeEvent);
+			var idToSaveChanges = GetIdFrom(changeEvent);
 
-			if (id == Guid.Empty)
-			{
-				try { id = Id; }
-				catch (NullReferenceException)
-				{
-					throw new ArgumentException(
-						"Unable to find a valid Id for Aggregate. Ensure the Event or Aggregate contains an Id.");
-				}
-			}
+			if (idToSaveChanges == Guid.Empty)
+				idToSaveChanges = GetIdFromCurrentAggregate();
 
-			Changes.Add(new AggregateEventBag<T>((Guid)id){EventData = changeEvent});
+			Changes.Add(new AggregateEventBag<T>(idToSaveChanges){EventData = changeEvent});
 		}
+
 		/// <summary>
-		/// Gets the Id of Event
+		/// Gets the Id of Change Event
 		/// </summary>
 		/// <param name="changeEvent">Event with expected property Id</param>
-		/// <returns>returns the id. If Event has not an Id method returns Guid.Empty</returns>
-		private static Guid IdFrom(object changeEvent)
+		/// <returns>returns the id. If Event have not an Id method returns Guid.Empty</returns>
+		Guid GetIdFrom(object changeEvent)
 		{
 			var propertyInfos = changeEvent.GetType().GetProperties();
 
@@ -73,6 +68,26 @@ namespace SeekYouRS
 				return Guid.Empty;
 			}
 		}
+
+		/// <summary>
+		/// Gets the Id from Aggregate. 
+		/// It is possible that an derived class of Aggregate has no correct implementation of property Id.
+		/// So it is necessarily to secure the get of Id.
+		/// </summary>
+		/// <returns></returns>
+		Guid GetIdFromCurrentAggregate()
+		{
+			try
+			{
+				return Id;
+			}
+			catch (NullReferenceException)
+			{
+				throw new ArgumentException(
+					"Unable to find a valid Id for Aggregate. Ensure the Event or Aggregate contains an Id.");
+			}
+		}
+
 		/// <summary>
 		/// Gets all Events of specific type
 		/// </summary>
