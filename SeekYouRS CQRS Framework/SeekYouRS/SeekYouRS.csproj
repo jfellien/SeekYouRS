@@ -13,6 +13,7 @@
     <FileAlignment>512</FileAlignment>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -22,6 +23,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -30,6 +32,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -44,12 +47,11 @@
     <Compile Include="Aggregate.cs" />
     <Compile Include="Api.cs" />
     <Compile Include="Reflector.cs" />
+    <Compile Include="Context.cs" />
+    <Compile Include="Storing\AggregateEventBag.cs" />
     <Compile Include="Storing\IStoreAggregates.cs" />
     <Compile Include="Storing\AggregateEvent.cs" />
-    <Compile Include="Storing\Events.cs" />
-    <Compile Include="Storing\IPublishAggregateEvents.cs" />
-    <Compile Include="Storing\IStoreAggregateEvents.cs" />
-    <Compile Include="Storing\IStoreModels.cs" />
+    <Compile Include="Storing\IStoreAggregateEventsAsModels.cs" />
     <Compile Include="Messaging\IRetrieveModels.cs" />
     <Compile Include="Messaging\IExecuteCommands.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

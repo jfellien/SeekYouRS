@@ -1,8 +1,11 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using FluentAssertions;
 using NUnit.Framework;
 using SeekYouRS.Tests.TestObjects;
 using SeekYouRS.Tests.TestObjects.Commands;
+using SeekYouRS.Tests.TestObjects.Events;
 using SeekYouRS.Tests.TestObjects.Handler;
 using SeekYouRS.Tests.TestObjects.Models;
 using SeekYouRS.Tests.TestObjects.Queries;
@@ -18,10 +21,10 @@ namespace SeekYouRS.Tests
             var aggregateStore = new InMemoryAggregateStore();
             var readModel = new InMemoryReadModel();
 
-            var commands = new CustomerCommandsHandler(aggregateStore);
-            var queries = new CustomerQueriesHandler(readModel);
+            var commands = new CustomerCommands(aggregateStore);
+            var queries = new CustomerQueries(readModel);
 
-            var api = new CustomerApi(commands, queries);
+            var api = new CustomerContext(commands, queries);
             var id = Guid.NewGuid();
 
             api.Process(new CreateCustomer{Id = id, Name = "My Customer"});
@@ -37,10 +40,10 @@ namespace SeekYouRS.Tests
             var aggregateStore = new InMemoryAggregateStore();
             var queriesStore = new InMemoryReadModel();
 
-            var reciever = new CustomerCommandsHandler(aggregateStore);
-            var queries = new CustomerQueriesHandler(queriesStore);
+            var reciever = new CustomerCommands(aggregateStore);
+            var queries = new CustomerQueries(queriesStore);
 
-            var api = new CustomerApi(reciever, queries);
+            var api = new CustomerContext(reciever, queries);
             var id = Guid.NewGuid();
 
             api.Process(new CreateCustomer { Id = id, Name = "My Customer" });
@@ -60,10 +63,10 @@ namespace SeekYouRS.Tests
             var aggregateStore = new InMemoryAggregateStore();
             var modelsStore = new InMemoryReadModel();
 
-            var reciever = new CustomerCommandsHandler(aggregateStore);
-            var queries = new CustomerQueriesHandler(modelsStore);
+            var reciever = new CustomerCommands(aggregateStore);
+            var queries = new CustomerQueries(modelsStore);
 
-            var api = new CustomerApi(reciever, queries);
+            var api = new CustomerContext(reciever, queries);
 
             var id1 = Guid.NewGuid();
             var id2 = Guid.NewGuid();
@@ -88,10 +91,10 @@ namespace SeekYouRS.Tests
             var aggregateStore = new InMemoryAggregateStore();
             var modelsStore = new InMemoryReadModel();
 
-            var reciever = new CustomerCommandsHandler(aggregateStore);
-            var queries = new CustomerQueriesHandler(modelsStore);
+            var reciever = new CustomerCommands(aggregateStore);
+            var queries = new CustomerQueries(modelsStore);
 
-            var api = new CustomerApi(reciever, queries);
+            var api = new CustomerContext(reciever, queries);
 
             var id = Guid.NewGuid();
 
@@ -112,6 +115,32 @@ namespace SeekYouRS.Tests
             });
 
             customer.Should().BeNull();
+        }
+
+        [Test]
+        public void TestToGetAListOfCustomers()
+        {
+            var aggregateStore = new InMemoryAggregateStore();
+            var modelsStore = new InMemoryReadModel();
+
+            var reciever = new CustomerCommands(aggregateStore);
+            var queries = new CustomerQueries(modelsStore);
+
+            var api = new CustomerContext(reciever, queries);
+
+            var id1 = Guid.NewGuid();
+            var id2 = Guid.NewGuid();
+
+            api.Process(new CreateCustomer { Id = id1, Name = "Customer One" });
+            api.Process(new CreateCustomer { Id = id2, Name = "Customer Two" });
+
+            var customers = api.Retrieve<IEnumerable<CustomerModel>>(new GetAllCustomers()).ToList();
+
+            customers.Count().ShouldBeEquivalentTo(2);
+
+            customers.Should().Contain(c => c.Id == id1);
+            customers.Should().Contain(c => c.Id == id2);
+
         }
     }
 }

@@ -2,6 +2,9 @@
 
 namespace SeekYouRS.Storing
 {
+    /// <summary>
+    /// Represents an Aggregate Event. It will use as an identifier of state changes
+    /// </summary>
     public class AggregateEvent
     {
         public AggregateEvent(Guid id)
@@ -9,13 +12,5 @@ namespace SeekYouRS.Storing
             Id = id;
         }
         public Guid Id { get; private set; }
-    }
-
-    public class AggregateEventBag<T> : AggregateEvent
-    {
-        public AggregateEventBag(Guid id) : base(id)
-        {}
-
-        public T EventData { get; set; }
     }
 }
