@@ -1,23 +1,23 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using SeekYouRS.Storing;
+using SeekYouRS.Store;
 using SeekYouRS.Tests.TestObjects.Events;
 using SeekYouRS.Tests.TestObjects.Models;
 using SeekYouRS.Tests.TestObjects.Queries;
 
 namespace SeekYouRS.Tests
 {
-    internal class InMemoryReadModel : IStoreAggregateEventsAsModels
+    internal class InMemoryReadModelStore : IStoreAggregateEventsAsReadModels
     {
         private readonly List<dynamic> _data;
 
-        public InMemoryReadModel()
+        public InMemoryReadModelStore()
         {
             _data = new List<object>();
         }
 
-        public void HandleChanges(AggregateEvent aggregateEvent)
+        public void SaveChangesBy(AggregateEvent aggregateEvent)
         {
             Handle((dynamic)aggregateEvent);
         }
@@ -86,36 +86,6 @@ namespace SeekYouRS.Tests
         IEnumerable<CustomerModel> ExecuteQuery(GetAllCustomers query)
         {
             return _data.OfType<CustomerModel>();
-        }
-    }
-
-    class KlasseMitEigenschaft
-    {
-        public Guid Id { get; set; }
-
-        public KlasseMitEigenschaft(Guid id)
-        {
-            Id = id;
-        }
-    }
-
-    class KlasseMitFeld
-    {
-        public Guid Id;
-
-        public KlasseMitFeld(Guid id)
-        {
-            Id = id;
-        }
-    }
-
-    class GenerischeKlasseMitEigenschaft<tEigenschaft>
-    {
-        public tEigenschaft Value { get; set; }
-
-        public GenerischeKlasseMitEigenschaft(tEigenschaft value)
-        {
-            Value = value;
         }
     }
 }

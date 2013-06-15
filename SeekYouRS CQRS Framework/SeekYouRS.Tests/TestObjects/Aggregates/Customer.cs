@@ -41,7 +41,7 @@ namespace SeekYouRS.Tests.TestObjects.Aggregates
 
         public void Remove()
         {
-            ApplyChanges(new CustomerRemoved {Id = Id});
+            ApplyChanges(new CustomerRemoved());
         }
     }
 }

@@ -1,6 +1,6 @@
 using System;
-using SeekYouRS.Messaging;
-using SeekYouRS.Storing;
+using SeekYouRS.Handler;
+using SeekYouRS.Store;
 using SeekYouRS.Tests.TestObjects.Aggregates;
 using SeekYouRS.Tests.TestObjects.Commands;
 
@@ -8,7 +8,7 @@ namespace SeekYouRS.Tests.TestObjects.Handler
 {
     public class CustomerCommands : IExecuteCommands
     {
-        public event Action<AggregateEvent> Performed;
+        public event Action<AggregateEvent> HasPerformed;
 
         private readonly IStoreAggregates _aggregateEventStore;
 
@@ -20,8 +20,8 @@ namespace SeekYouRS.Tests.TestObjects.Handler
 
         private void OnEventPublished(AggregateEvent aggregateEvent)
         {
-            if (Performed != null)
-                Performed(aggregateEvent);
+            if (HasPerformed != null)
+                HasPerformed(aggregateEvent);
         }
 
         public void Process(dynamic command)

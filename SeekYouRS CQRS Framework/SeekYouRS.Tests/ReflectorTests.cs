@@ -1,5 +1,6 @@
 using System;
 using NUnit.Framework;
+using SeekYouRS.Tests.TestObjects;
 
 namespace SeekYouRS.Tests
 {

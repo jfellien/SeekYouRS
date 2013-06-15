@@ -7,7 +7,7 @@ using ValueGetter = System.Func<object, object>;
 
 namespace SeekYouRS
 {
-    public static class Reflector
+    internal static class Reflector
     {
         public static void ClearCache()
         {

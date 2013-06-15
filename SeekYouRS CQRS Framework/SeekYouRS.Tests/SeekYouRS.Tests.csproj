@@ -49,8 +49,8 @@
   <ItemGroup>
     <Compile Include="AggregateTests.cs" />
     <Compile Include="InMemoryAggregateStore.cs" />
-    <Compile Include="InMemoryReadModel.cs" />
-    <Compile Include="CustomerApiTests.cs" />
+    <Compile Include="InMemoryReadModelStore.cs" />
+    <Compile Include="CustomerContextTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ReflectorTests.cs" />
     <Compile Include="TestObjects\Aggregates\Customer.cs" />
@@ -60,13 +60,14 @@
     <Compile Include="TestObjects\Commands\ChangeCustomer.cs" />
     <Compile Include="TestObjects\Commands\RemoveCustomer.cs" />
     <Compile Include="TestObjects\Events\CustomerRemoved.cs" />
+    <Compile Include="TestObjects\GenerischeKlasseMitEigenschaft.cs" />
+    <Compile Include="TestObjects\KlasseMitEigenschaft.cs" />
+    <Compile Include="TestObjects\KlasseMitFeld.cs" />
     <Compile Include="TestObjects\Queries\GetAllCustomers.cs" />
     <Compile Include="TestObjects\Events\VehicleCreated.cs" />
     <Compile Include="TestObjects\Events\CustomerCreated.cs" />
     <Compile Include="TestObjects\Events\CustomerChanged.cs" />
-    <Compile Include="TestObjects\Events\TestEvent.cs" />
     <Compile Include="TestObjects\Handler\CustomerCommands.cs" />
-    <Compile Include="TestObjects\Handler\CustomerQueries.cs" />
     <Compile Include="TestObjects\Models\CustomerModel.cs" />
     <Compile Include="TestObjects\Queries\GetCustomer.cs" />
     <Compile Include="TestObjects\CustomerContext.cs" />

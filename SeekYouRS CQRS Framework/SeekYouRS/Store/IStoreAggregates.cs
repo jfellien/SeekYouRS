@@ -1,14 +1,14 @@
 ﻿using System;
 
-namespace SeekYouRS.Storing
+namespace SeekYouRS.Store
 {
     /// <summary>
-    /// Defined the behaviour of an Aggregate store.
+    /// Represents the behaviour of an AggregateStore.
     /// </summary>
     public interface IStoreAggregates
     {
         /// <summary>
-        /// Raises if state of Aggreagte has changes by command.
+        /// Raises if state of Aggreagte has changed by command.
         /// </summary>
         event Action<AggregateEvent> AggregateHasChanged;
         /// <summary>

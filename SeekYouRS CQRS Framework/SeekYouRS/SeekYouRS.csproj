@@ -43,14 +43,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Aggregate.cs" />
+    <Compile Include="AggregateEvent.cs" />
+    <Compile Include="AggregateEventBag.cs" />
     <Compile Include="Context.cs" />
+    <Compile Include="Handler\IExecuteCommands.cs" />
+    <Compile Include="Handler\ReadModelHandler.cs" />
     <Compile Include="Reflector.cs" />
-    <Compile Include="Storing\AggregateEventBag.cs" />
-    <Compile Include="Storing\IStoreAggregates.cs" />
-    <Compile Include="Storing\AggregateEvent.cs" />
-    <Compile Include="Storing\IStoreAggregateEventsAsModels.cs" />
-    <Compile Include="Messaging\IRetrieveModels.cs" />
-    <Compile Include="Messaging\IExecuteCommands.cs" />
+    <Compile Include="Store\IStoreAggregates.cs" />
+    <Compile Include="Store\IStoreAggregateEventsAsReadModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

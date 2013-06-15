@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using SeekYouRS.Storing;
+using SeekYouRS.Store;
 
 namespace SeekYouRS.Tests
 {

@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("SeekYouRS")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("Small CQRS Framework")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("SeekYouRS")]
@@ -34,3 +34,4 @@ using System.Runtime.InteropServices;
 // [assembly: AssemblyVersion("1.0.*")]
 [assembly: AssemblyVersion("0.9.2.*")]
 [assembly: AssemblyFileVersion("0.9.2.*")]
+[assembly: InternalsVisibleTo("SeekYouRS.Tests")]

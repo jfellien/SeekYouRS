@@ -1,11 +1,11 @@
-using SeekYouRS.Messaging;
+using SeekYouRS.Handler;
 
 namespace SeekYouRS.Tests.TestObjects
 {
     public class CustomerContext : Context
     {
-        public CustomerContext(IExecuteCommands commandHandler, IRetrieveModels queriesHandler) 
-            : base(commandHandler, queriesHandler)
+        public CustomerContext(IExecuteCommands commands, ReadModelHandler readModelHandler) 
+            : base(commands, readModelHandler)
         {
         }
     }
