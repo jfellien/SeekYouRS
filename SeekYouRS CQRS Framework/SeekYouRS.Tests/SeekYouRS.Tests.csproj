@@ -71,6 +71,7 @@
     <Compile Include="TestObjects\Models\CustomerModel.cs" />
     <Compile Include="TestObjects\Queries\GetCustomer.cs" />
     <Compile Include="TestObjects\CustomerContext.cs" />
+    <Compile Include="TestObjects\UnknownCommand.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
