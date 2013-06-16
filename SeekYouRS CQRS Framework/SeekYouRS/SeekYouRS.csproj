@@ -46,9 +46,12 @@
     <Compile Include="AggregateEvent.cs" />
     <Compile Include="AggregateEventBag.cs" />
     <Compile Include="Context.cs" />
+    <Compile Include="Handler\CommandHandler.cs" />
     <Compile Include="Handler\IExecuteCommands.cs" />
     <Compile Include="Handler\ReadModelHandler.cs" />
     <Compile Include="Reflector.cs" />
+    <Compile Include="Store\Aggregates.cs" />
+    <Compile Include="Store\IAmAnAggregatesUnitOfWork.cs" />
     <Compile Include="Store\IStoreAggregates.cs" />
     <Compile Include="Store\IStoreAggregateEventsAsReadModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -2,6 +2,7 @@ using System;
 using System.Linq;
 using FluentAssertions;
 using NUnit.Framework;
+using SeekYouRS.Store;
 using SeekYouRS.Tests.TestObjects.Aggregates;
 using SeekYouRS.Tests.TestObjects.Events;
 
@@ -13,12 +14,13 @@ namespace SeekYouRS.Tests
         [Test]
         public void TestToCreateCustomerViaAggregate()
         {
-            var aggregateStore = new InMemoryAggregateStore();
+	        var aggregateStore = new InMemoryAggregateStore();
+			var aggregates = new Aggregates(aggregateStore);
             var id = Guid.NewGuid();
-            var customer = aggregateStore.GetAggregate<Customer>(id);
+            var customer = aggregates.GetAggregate<Customer>(id);
 
             customer.Create(id, "My Customer");
-            aggregateStore.Save(customer);
+            aggregates.Save(customer);
 
             customer.Name.Should().BeEquivalentTo("My Customer");
         }
@@ -26,28 +28,29 @@ namespace SeekYouRS.Tests
         [Test]
         public void TestToCreateCustomerAndVehicle()
         {
-            var aggregateStore = new InMemoryAggregateStore();
+			var aggregateStore = new InMemoryAggregateStore();
+			var aggregates = new Aggregates(aggregateStore);
             var customerId = Guid.NewGuid();
             var vehicleId = Guid.NewGuid();
 
-            var customer = aggregateStore.GetAggregate<Customer>(customerId);
-            var vehicle = aggregateStore.GetAggregate<Vehicle>(vehicleId);
+            var customer = aggregates.GetAggregate<Customer>(customerId);
+            var vehicle = aggregates.GetAggregate<Vehicle>(vehicleId);
 
             customer.Create(customerId, "My Customer");
-            aggregateStore.Save(customer);
+            aggregates.Save(customer);
 
             customer.Id.ShouldBeEquivalentTo(customerId);
             customer.Name.Should().BeEquivalentTo("My Customer");
-            aggregateStore.GetAggregate<Customer>(customerId)
+            aggregates.GetAggregate<Customer>(customerId)
                 .History.OfType<AggregateEventBag<CustomerCreated>>().Any()
                 .Should().BeTrue();
 
             vehicle.Create(vehicleId, "My Vehicle");
-            aggregateStore.Save(vehicle);
+            aggregates.Save(vehicle);
 
             vehicle.Typ.ShouldBeEquivalentTo("My Vehicle");
 
-            aggregateStore.GetAggregate<Vehicle>(vehicleId)
+            aggregates.GetAggregate<Vehicle>(vehicleId)
                 .History.OfType<AggregateEventBag<VehicleCreated>>().Any()
                 .Should().BeTrue();
         }
@@ -55,18 +58,19 @@ namespace SeekYouRS.Tests
         [Test]
         public void TestToChangeCustomerName()
         {
-            var aggregateStore = new InMemoryAggregateStore();
+			var aggregateStore = new InMemoryAggregateStore();
+			var aggregates = new Aggregates(aggregateStore);
             var customerId = Guid.NewGuid();
 
-            var customer = aggregateStore.GetAggregate<Customer>(customerId);
+            var customer = aggregates.GetAggregate<Customer>(customerId);
             customer.Create(customerId, "My Customer");
-            aggregateStore.Save(customer);
+            aggregates.Save(customer);
 
             customer.Name.Should().BeEquivalentTo("My Customer");
 
             customer.Change("New Name");
             customer.Name.Should().BeEquivalentTo("New Name");
-            aggregateStore.Save(customer);
+            aggregates.Save(customer);
 
             customer.Changes.Count().ShouldBeEquivalentTo(0);
             customer.History.Count().ShouldBeEquivalentTo(2);
@@ -76,12 +80,13 @@ namespace SeekYouRS.Tests
         [Test]
         public void TestWithoutCreateAggregate()
         {
-            var aggregateStore = new InMemoryAggregateStore();
+			var aggregateStore = new InMemoryAggregateStore();
+			var aggregates = new Aggregates(aggregateStore);
             var customerId = Guid.NewGuid();
 
-            var customer = aggregateStore.GetAggregate<Customer>(customerId);
+            var customer = aggregates.GetAggregate<Customer>(customerId);
 
-            aggregateStore.Save(customer);
+            aggregates.Save(customer);
             var expectedId = Guid.Empty;
 
             Assert.Catch<NullReferenceException>(() => expectedId = customer.Id);

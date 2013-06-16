@@ -4,7 +4,7 @@ namespace SeekYouRS.Tests.TestObjects
 {
     public class CustomerContext : Context
     {
-        public CustomerContext(IExecuteCommands commands, ReadModelHandler readModelHandler) 
+        public CustomerContext(CommandHandler commands, ReadModelHandler readModelHandler) 
             : base(commands, readModelHandler)
         {
         }

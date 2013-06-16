@@ -6,54 +6,35 @@ using SeekYouRS.Tests.TestObjects.Commands;
 
 namespace SeekYouRS.Tests.TestObjects.Handler
 {
-    public class CustomerCommands : IExecuteCommands
-    {
-        public event Action<AggregateEvent> HasPerformed;
+	public class CustomerCommands : CommandHandler
+	{
+		public CustomerCommands(IStoreAggregates aggregateStore) : base(aggregateStore){}
 
-        private readonly IStoreAggregates _aggregateEventStore;
+		public override void Process(dynamic command)
+		{
+			Execute(command);
+		}
 
-        public CustomerCommands(IStoreAggregates aggregateEventStore)
-        {
-            _aggregateEventStore = aggregateEventStore;
-            _aggregateEventStore.AggregateHasChanged += OnEventPublished ;
-        }
+		private void Execute(CreateCustomer command)
+		{
+			var customer = AggregateStore.GetAggregate<Customer>(command.Id);
+			customer.Create(command.Id, command.Name);
+			AggregateStore.Save(customer);
+		}
 
-        private void OnEventPublished(AggregateEvent aggregateEvent)
-        {
-            if (HasPerformed != null)
-                HasPerformed(aggregateEvent);
-        }
+		private void Execute(ChangeCustomer command)
+		{
+			var customer = AggregateStore.GetAggregate<Customer>(command.Id);
+			customer.Change(command.Name);
+			AggregateStore.Save(customer);
+			
+		}
 
-        public void Process(dynamic command)
-        {
-            Execute(command);
-        }
-
-        private void Execute(object command)
-        {
-            throw new ArgumentException("Unnown Command detected: " + command.GetType().Name);
-        }
-
-        private void Execute(CreateCustomer command)
-        {
-            var customer =_aggregateEventStore.GetAggregate<Customer>(command.Id);
-            customer.Create(command.Id, command.Name);
-            _aggregateEventStore.Save(customer);
-        }
-
-        private void Execute(ChangeCustomer command)
-        {
-            var customer = _aggregateEventStore.GetAggregate<Customer>(command.Id);
-            customer.Change(command.Name);
-            _aggregateEventStore.Save(customer);
-            
-        }
-
-        private void Execute(RemoveCustomer command)
-        {
-            var customer = _aggregateEventStore.GetAggregate<Customer>(command.Id);
-            customer.Remove();
-            _aggregateEventStore.Save(customer);
-        }
-    }
+		private void Execute(RemoveCustomer command)
+		{
+			var customer = AggregateStore.GetAggregate<Customer>(command.Id);
+			customer.Remove();
+			AggregateStore.Save(customer);
+		}
+	}
 }

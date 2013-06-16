@@ -4,6 +4,7 @@ using System.Linq;
 using FluentAssertions;
 using NUnit.Framework;
 using SeekYouRS.Handler;
+using SeekYouRS.Store;
 using SeekYouRS.Tests.TestObjects;
 using SeekYouRS.Tests.TestObjects.Commands;
 using SeekYouRS.Tests.TestObjects.Events;
@@ -19,10 +20,11 @@ namespace SeekYouRS.Tests
 		[Test]
 		public void TestToCreateCustomerAndReadIt()
 		{
-			var aggregateStore = new InMemoryAggregateStore();
+			var aggreagteStore = new InMemoryAggregateStore();
+			var aggregates = new Aggregates(aggreagteStore);
 			var readModelStore = new InMemoryReadModelStore();
 
-			var commands = new CustomerCommands(aggregateStore);
+			var commands = new CustomerCommands(aggregates);
 			var queries = new ReadModelHandler(readModelStore);
 
 			var api = new CustomerContext(commands, queries);
@@ -38,13 +40,14 @@ namespace SeekYouRS.Tests
 		[Test]
 		public void TestToCreateAndChangeKundeViaApi()
 		{
-			var aggregateStore = new InMemoryAggregateStore();
+			var aggreagteStore = new InMemoryAggregateStore();
+			var aggregates = new Aggregates(aggreagteStore);
 			var readModelStore = new InMemoryReadModelStore();
 
-			var reciever = new CustomerCommands(aggregateStore);
+			var commands = new CustomerCommands(aggregates);
 			var queries = new ReadModelHandler(readModelStore);
 
-			var api = new CustomerContext(reciever, queries);
+			var api = new CustomerContext(commands, queries);
 			var id = Guid.NewGuid();
 
 			api.Process(new CreateCustomer { Id = id, Name = "My Customer" });
@@ -61,10 +64,11 @@ namespace SeekYouRS.Tests
 		[Test]
 		public void TestToCreateTwoCustomerAndChangeOneOfThem()
 		{
-			var aggregateStore = new InMemoryAggregateStore();
+			var aggreagteStore = new InMemoryAggregateStore();
+			var aggregates = new Aggregates(aggreagteStore);
 			var readModelStore = new InMemoryReadModelStore();
 
-			var commands = new CustomerCommands(aggregateStore);
+			var commands = new CustomerCommands(aggregates);
 			var queries = new ReadModelHandler(readModelStore);
 
 			var api = new CustomerContext(commands, queries);
@@ -89,10 +93,11 @@ namespace SeekYouRS.Tests
 		[Test]
 		public void TestToRemoveACustomer()
 		{
-			var aggregateStore = new InMemoryAggregateStore();
+			var aggreagteStore = new InMemoryAggregateStore();
+			var aggregates = new Aggregates(aggreagteStore);
 			var readModelStore = new InMemoryReadModelStore();
 
-			var commands = new CustomerCommands(aggregateStore);
+			var commands = new CustomerCommands(aggregates);
 			var queries = new ReadModelHandler(readModelStore);
 
 			var api = new CustomerContext(commands, queries);
@@ -121,10 +126,11 @@ namespace SeekYouRS.Tests
 		[Test]
 		public void TestToGetAListOfCustomers()
 		{
-			var aggregateStore = new InMemoryAggregateStore();
+			var aggreagteStore = new InMemoryAggregateStore();
+			var aggregates = new Aggregates(aggreagteStore);
 			var readModelStore = new InMemoryReadModelStore();
 
-			var commands = new CustomerCommands(aggregateStore);
+			var commands = new CustomerCommands(aggregates);
 			var queries = new ReadModelHandler(readModelStore);
 
 			var api = new CustomerContext(commands, queries);
@@ -147,16 +153,16 @@ namespace SeekYouRS.Tests
 		[Test]
 		public void TestToGetAnExceptionIfACommandUnkown()
 		{
-			var aggregateStore = new InMemoryAggregateStore();
+			var aggreagteStore = new InMemoryAggregateStore();
+			var aggregates = new Aggregates(aggreagteStore);
 			var readModelStore = new InMemoryReadModelStore();
 
-			var commands = new CustomerCommands(aggregateStore);
+			var commands = new CustomerCommands(aggregates);
 			var queries = new ReadModelHandler(readModelStore);
 
 			var api = new CustomerContext(commands, queries);
 
 			Assert.Catch<Exception>(() => api.Process(new UnknownCommand()));
 		}
-
 	}
 }

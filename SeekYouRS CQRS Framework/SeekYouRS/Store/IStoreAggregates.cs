@@ -3,7 +3,7 @@
 namespace SeekYouRS.Store
 {
     /// <summary>
-    /// Represents the behaviour of an AggregateStore.
+    /// Represents the behaviour of an Aggregate Repository.
     /// </summary>
     public interface IStoreAggregates
     {
