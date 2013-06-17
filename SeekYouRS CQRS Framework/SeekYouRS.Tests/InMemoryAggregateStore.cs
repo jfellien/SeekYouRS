@@ -5,7 +5,7 @@ using SeekYouRS.Store;
 
 namespace SeekYouRS.Tests
 {
-	class InMemoryAggregateStore : IAmAnAggregatesUnitOfWork
+	class InMemoryAggregateStore : IStoreAndRetrieveAggregates
 	{
 		private readonly List<AggregateEvent> _worldhistory;
 

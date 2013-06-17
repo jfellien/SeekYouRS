@@ -7,13 +7,13 @@ namespace SeekYouRS.Handler
 	{
 		public event Action<AggregateEvent> HasPerformed;
 
-		protected CommandHandler(IStoreAggregates aggregateStore)
+		protected CommandHandler(Aggregates aggregatesRepository)
 		{
-			AggregateStore = aggregateStore;
+			AggregateStore = aggregatesRepository;
 			AggregateStore.AggregateHasChanged += OnPublished;
 		}
 
-		protected IStoreAggregates AggregateStore { get; private set; }
+		protected Aggregates AggregateStore { get; private set; }
 
 		private void OnPublished(AggregateEvent aggregateEvent)
 		{

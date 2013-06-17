@@ -1,6 +1,4 @@
-using System;
 using SeekYouRS.Handler;
-using SeekYouRS.Store;
 using SeekYouRS.Tests.TestObjects.Aggregates;
 using SeekYouRS.Tests.TestObjects.Commands;
 
@@ -8,7 +6,7 @@ namespace SeekYouRS.Tests.TestObjects.Handler
 {
 	public class CustomerCommands : CommandHandler
 	{
-		public CustomerCommands(IStoreAggregates aggregateStore) : base(aggregateStore){}
+		public CustomerCommands(Store.Aggregates aggregatesRepository) : base(aggregatesRepository){}
 
 		public override void Process(dynamic command)
 		{

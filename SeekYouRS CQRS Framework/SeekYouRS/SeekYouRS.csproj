@@ -51,8 +51,7 @@
     <Compile Include="Handler\ReadModelHandler.cs" />
     <Compile Include="Reflector.cs" />
     <Compile Include="Store\Aggregates.cs" />
-    <Compile Include="Store\IAmAnAggregatesUnitOfWork.cs" />
-    <Compile Include="Store\IStoreAggregates.cs" />
+    <Compile Include="Store\IStoreAndRetrieveAggregates.cs" />
     <Compile Include="Store\IStoreAggregateEventsAsReadModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -3,13 +3,16 @@ using System.Linq;
 
 namespace SeekYouRS.Store
 {
-	public sealed class Aggregates : IStoreAggregates
+	/// <summary>
+	/// Sealed class, represents an aggregate repository.
+	/// </summary>
+	public sealed class Aggregates
 	{
-		readonly IAmAnAggregatesUnitOfWork _unitOfWork;
+		readonly IStoreAndRetrieveAggregates _unitOfWork;
 
 		public event Action<AggregateEvent> AggregateHasChanged;
 
-		public Aggregates(IAmAnAggregatesUnitOfWork unitOfWork)
+		public Aggregates(IStoreAndRetrieveAggregates unitOfWork)
 		{
 			_unitOfWork = unitOfWork;
 		}

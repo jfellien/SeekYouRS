@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace SeekYouRS.Store
 {
-	public interface IAmAnAggregatesUnitOfWork
+	public interface IStoreAndRetrieveAggregates
 	{
 		void Save(IEnumerable<AggregateEvent> changes);
 		IEnumerable<AggregateEvent> GetEventsBy(Guid id);
