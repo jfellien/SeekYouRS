@@ -51,9 +51,11 @@
     <Compile Include="Handler\ReadModelHandler.cs" />
     <Compile Include="Reflector.cs" />
     <Compile Include="Store\Aggregates.cs" />
+    <Compile Include="Store\IQueryReadModels.cs" />
     <Compile Include="Store\IStoreAndRetrieveAggregates.cs" />
     <Compile Include="Store\IStoreAggregateEventsAsReadModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Store\IStoreReadModels.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -1,41 +1,24 @@
+using System;
 using SeekYouRS.Store;
 
 namespace SeekYouRS.Handler
 {
-	/// <summary>
-	/// Handles changes for ReadModels and execute Queries to get this ReadModels
-	/// </summary>
-	public class ReadModelHandler
+	public abstract class ReadModelHandler
 	{
-		readonly IStoreAggregateEventsAsReadModels _readModelStore;
-
-		/// <summary>
-		/// Constructor of instance
-		/// </summary>
-		/// <param name="readModelStore">Implementation of specific ReadModelStore</param>
-		public ReadModelHandler(IStoreAggregateEventsAsReadModels readModelStore)
+		protected ReadModelHandler(IStoreReadModels readModelStore)
 		{
-			_readModelStore = readModelStore;
+			ReadModelStore = readModelStore;
 		}
 
-		/// <summary>
-		/// Exececutes a query and returns a expected instance of T
-		/// </summary>
-		/// <typeparam name="T">Expected type of Model. Lists and single Modles allowed</typeparam>
-		/// <param name="query">Instance of query parameters</param>
-		/// <returns></returns>
-		public T Execute<T>(dynamic query)
-		{
-			return (T)_readModelStore.Retrieve<T>(query);
-		}
+		public IStoreReadModels ReadModelStore { get; private set; }
 
-		/// <summary>
-		/// Applies changes described by an AggregateEvent
-		/// </summary>
-		/// <param name="aggregateEvent">Changes description</param>
-		public void ApplyChanges(AggregateEvent aggregateEvent)
+		public abstract void SaveChangesBy(AggregateEvent aggregateEvent);
+
+		internal void Handle(object unassignedEvent)
 		{
-			_readModelStore.SaveChangesBy(aggregateEvent);
+			var eventData = ((dynamic)unassignedEvent).EventData;
+
+			throw new ArgumentException("This event is not assigned to this instance, " + eventData.GetType().Name);
 		}
 	}
 }

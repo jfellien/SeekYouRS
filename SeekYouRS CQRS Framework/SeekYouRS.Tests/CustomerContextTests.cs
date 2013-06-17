@@ -22,12 +22,13 @@ namespace SeekYouRS.Tests
 		{
 			var aggreagteStore = new InMemoryAggregateStore();
 			var aggregates = new Aggregates(aggreagteStore);
-			var readModelStore = new InMemoryReadModelStore();
+			var readModelStore = new InMemoryCustomerReadModelsStore();
+			var readModelHandler = new CustomerReadModelHandler(readModelStore);
 
 			var commands = new CustomerCommands(aggregates);
-			var queries = new ReadModelHandler(readModelStore);
+			var queries = new CustomerQueries(readModelStore);
 
-			var api = new CustomerContext(commands, queries);
+			var api = new CustomerContext(commands, queries, readModelHandler);
 			var id = Guid.NewGuid();
 
 			api.Process(new CreateCustomer{Id = id, Name = "My Customer"});
@@ -42,12 +43,13 @@ namespace SeekYouRS.Tests
 		{
 			var aggreagteStore = new InMemoryAggregateStore();
 			var aggregates = new Aggregates(aggreagteStore);
-			var readModelStore = new InMemoryReadModelStore();
+			var readModelStore = new InMemoryCustomerReadModelsStore();
+			var readModelHandler = new CustomerReadModelHandler(readModelStore);
 
 			var commands = new CustomerCommands(aggregates);
-			var queries = new ReadModelHandler(readModelStore);
+			var queries = new CustomerQueries(readModelStore);
 
-			var api = new CustomerContext(commands, queries);
+			var api = new CustomerContext(commands, queries, readModelHandler);
 			var id = Guid.NewGuid();
 
 			api.Process(new CreateCustomer { Id = id, Name = "My Customer" });
@@ -66,12 +68,13 @@ namespace SeekYouRS.Tests
 		{
 			var aggreagteStore = new InMemoryAggregateStore();
 			var aggregates = new Aggregates(aggreagteStore);
-			var readModelStore = new InMemoryReadModelStore();
+			var readModelStore = new InMemoryCustomerReadModelsStore();
+			var readModelHandler = new CustomerReadModelHandler(readModelStore);
 
 			var commands = new CustomerCommands(aggregates);
-			var queries = new ReadModelHandler(readModelStore);
+			var queries = new CustomerQueries(readModelStore);
 
-			var api = new CustomerContext(commands, queries);
+			var api = new CustomerContext(commands, queries, readModelHandler);
 
 			var id1 = Guid.NewGuid();
 			var id2 = Guid.NewGuid();
@@ -95,12 +98,13 @@ namespace SeekYouRS.Tests
 		{
 			var aggreagteStore = new InMemoryAggregateStore();
 			var aggregates = new Aggregates(aggreagteStore);
-			var readModelStore = new InMemoryReadModelStore();
+			var readModelStore = new InMemoryCustomerReadModelsStore();
+			var readModelHandler = new CustomerReadModelHandler(readModelStore);
 
 			var commands = new CustomerCommands(aggregates);
-			var queries = new ReadModelHandler(readModelStore);
+			var queries = new CustomerQueries(readModelStore);
 
-			var api = new CustomerContext(commands, queries);
+			var api = new CustomerContext(commands, queries, readModelHandler);
 
 			var id = Guid.NewGuid();
 
@@ -128,12 +132,13 @@ namespace SeekYouRS.Tests
 		{
 			var aggreagteStore = new InMemoryAggregateStore();
 			var aggregates = new Aggregates(aggreagteStore);
-			var readModelStore = new InMemoryReadModelStore();
+			var readModelStore = new InMemoryCustomerReadModelsStore();
+			var readModelHandler = new CustomerReadModelHandler(readModelStore);
 
 			var commands = new CustomerCommands(aggregates);
-			var queries = new ReadModelHandler(readModelStore);
+			var queries = new CustomerQueries(readModelStore);
 
-			var api = new CustomerContext(commands, queries);
+			var api = new CustomerContext(commands, queries, readModelHandler);
 
 			var id1 = Guid.NewGuid();
 			var id2 = Guid.NewGuid();
@@ -155,12 +160,13 @@ namespace SeekYouRS.Tests
 		{
 			var aggreagteStore = new InMemoryAggregateStore();
 			var aggregates = new Aggregates(aggreagteStore);
-			var readModelStore = new InMemoryReadModelStore();
+			var readModelStore = new InMemoryCustomerReadModelsStore();
+			var readModelHandler = new CustomerReadModelHandler(readModelStore);
 
 			var commands = new CustomerCommands(aggregates);
-			var queries = new ReadModelHandler(readModelStore);
+			var queries = new CustomerQueries(readModelStore);
 
-			var api = new CustomerContext(commands, queries);
+			var api = new CustomerContext(commands, queries, readModelHandler);
 
 			Assert.Catch<Exception>(() => api.Process(new UnknownCommand()));
 		}

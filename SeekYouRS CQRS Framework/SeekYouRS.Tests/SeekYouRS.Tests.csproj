@@ -49,7 +49,7 @@
   <ItemGroup>
     <Compile Include="AggregateTests.cs" />
     <Compile Include="InMemoryAggregateStore.cs" />
-    <Compile Include="InMemoryReadModelStore.cs" />
+    <Compile Include="InMemoryCustomerReadModelsStore.cs" />
     <Compile Include="CustomerContextTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ReflectorTests.cs" />
@@ -61,8 +61,10 @@
     <Compile Include="TestObjects\Commands\RemoveCustomer.cs" />
     <Compile Include="TestObjects\Events\CustomerRemoved.cs" />
     <Compile Include="TestObjects\GenerischeKlasseMitEigenschaft.cs" />
+    <Compile Include="TestObjects\Handler\CustomerReadModelHandler.cs" />
     <Compile Include="TestObjects\KlasseMitEigenschaft.cs" />
     <Compile Include="TestObjects\KlasseMitFeld.cs" />
+    <Compile Include="TestObjects\Queries\CustomerQueries.cs" />
     <Compile Include="TestObjects\Queries\GetAllCustomers.cs" />
     <Compile Include="TestObjects\Events\VehicleCreated.cs" />
     <Compile Include="TestObjects\Events\CustomerCreated.cs" />
