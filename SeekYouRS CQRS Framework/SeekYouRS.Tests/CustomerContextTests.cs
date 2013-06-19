@@ -33,7 +33,7 @@ namespace SeekYouRS.Tests
 
 			api.Process(new CreateCustomer{Id = id, Name = "My Customer"});
 
-			var customerModel = api.Retrieve<CustomerModel>(new GetCustomer {Id = id});
+			var customerModel = api.ExecuteQuery<CustomerModel>(new GetCustomer {Id = id});
 
 			customerModel.Name.ShouldBeEquivalentTo("My Customer");
 		}
@@ -55,7 +55,7 @@ namespace SeekYouRS.Tests
 			api.Process(new CreateCustomer { Id = id, Name = "My Customer" });
 			api.Process(new ChangeCustomer { Id = id, Name = "New Name" });
 
-			var customer = api.Retrieve<CustomerModel>(new GetCustomer
+			var customer = api.ExecuteQuery<CustomerModel>(new GetCustomer
 				{
 					Id = id
 				});
@@ -84,7 +84,7 @@ namespace SeekYouRS.Tests
 
 			api.Process(new ChangeCustomer { Id = id2, Name = "Customer Two Changed" });
 
-			var customer = api.Retrieve<CustomerModel>(new GetCustomer
+			var customer = api.ExecuteQuery<CustomerModel>(new GetCustomer
 			{
 				Id = id2
 			});
@@ -110,7 +110,7 @@ namespace SeekYouRS.Tests
 
 			api.Process(new CreateCustomer { Id = id, Name = "Customer To Remove" });
 
-			var customer = api.Retrieve<CustomerModel>(new GetCustomer
+			var customer = api.ExecuteQuery<CustomerModel>(new GetCustomer
 			{
 				Id = id
 			});
@@ -119,7 +119,7 @@ namespace SeekYouRS.Tests
 
 			api.Process(new RemoveCustomer { Id = id });
 
-			customer = api.Retrieve<CustomerModel>(new GetCustomer
+			customer = api.ExecuteQuery<CustomerModel>(new GetCustomer
 			{
 				Id = id
 			});
@@ -146,7 +146,7 @@ namespace SeekYouRS.Tests
 			api.Process(new CreateCustomer { Id = id1, Name = "Customer One" });
 			api.Process(new CreateCustomer { Id = id2, Name = "Customer Two" });
 
-			var customers = api.Retrieve<IEnumerable<CustomerModel>>(new GetAllCustomers()).ToList();
+			var customers = api.ExecuteQuery<IEnumerable<CustomerModel>>(new GetAllCustomers()).ToList();
 
 			customers.Count().ShouldBeEquivalentTo(2);
 
@@ -168,7 +168,24 @@ namespace SeekYouRS.Tests
 
 			var api = new CustomerContext(commands, queries, readModelHandler);
 
-			Assert.Catch<Exception>(() => api.Process(new UnknownCommand()));
+			Assert.Catch<ArgumentException>(() => api.Process(new UnknownCommand()));
 		}
+
+		[Test]
+		public void TestToGetAnExceptionIfQueryIsUnknown()
+		{
+			var aggreagteStore = new InMemoryAggregateStore();
+			var aggregates = new Aggregates(aggreagteStore);
+			var readModelStore = new InMemoryCustomerReadModelsStore();
+			var readModelHandler = new CustomerReadModelHandler(readModelStore);
+
+			var commands = new CustomerCommands(aggregates);
+			var queries = new CustomerQueries(readModelStore);
+
+			var api = new CustomerContext(commands, queries, readModelHandler);
+			
+			Assert.Catch<ArgumentException>(() => api.ExecuteQuery<CustomerModel>(new UnknownQuery()));
+		}
+
 	}
 }

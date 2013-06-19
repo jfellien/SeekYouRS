@@ -3,7 +3,7 @@ using SeekYouRS.Store;
 
 namespace SeekYouRS.Handler
 {
-	public abstract class ReadModelHandler
+	public abstract class ReadModelHandler : IHandleAggregateEvents
 	{
 		protected ReadModelHandler(IStoreReadModels readModelStore)
 		{

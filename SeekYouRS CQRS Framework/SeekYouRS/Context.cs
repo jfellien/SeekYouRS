@@ -10,16 +10,16 @@ namespace SeekYouRS
 	public abstract class Context
 	{
 		private readonly IExecuteCommands _commands;
-		readonly IQueryReadModels _readModelQueries;
-		private readonly ReadModelHandler _readModelHandler;
+		readonly IQueryReadModels _queries;
+		private readonly IHandleAggregateEvents _eventHandler;
 
-		protected Context(IExecuteCommands commands, IQueryReadModels readModelQueries, ReadModelHandler readModelHandler)
+		protected Context(IExecuteCommands commands, IQueryReadModels queries, IHandleAggregateEvents eventHandler)
 		{
 			_commands = commands;
-			_readModelQueries = readModelQueries;
-			_readModelHandler = readModelHandler;
+			_queries = queries;
+			_eventHandler = eventHandler;
 
-			_commands.HasPerformed += _readModelHandler.SaveChangesBy;
+			_commands.HasPerformed += _eventHandler.SaveChangesBy;
 		}
 		/// <summary>
 		/// Passed the command to the Command Handler for processing the command.
@@ -35,9 +35,9 @@ namespace SeekYouRS
 		/// <typeparam name="T">Type of expected result</typeparam>
 		/// <param name="query">Query parameters</param>
 		/// <returns>Query result</returns>
-		public T Retrieve<T>(dynamic query)
+		public T ExecuteQuery<T>(dynamic query)
 		{
-			return (T)_readModelQueries.Retrieve<T>(query);
+			return (T)_queries.Retrieve<T>(query);
 		}
 	}
 }

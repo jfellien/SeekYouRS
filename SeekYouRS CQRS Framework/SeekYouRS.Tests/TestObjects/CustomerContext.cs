@@ -5,8 +5,8 @@ namespace SeekYouRS.Tests.TestObjects
 {
     public class CustomerContext : Context
     {
-        public CustomerContext(CommandHandler commands, IQueryReadModels queries, ReadModelHandler readModelHandler) 
-            : base(commands, queries, readModelHandler)
+		public CustomerContext(IExecuteCommands commands, IQueryReadModels queries, IHandleAggregateEvents eventHandler) 
+            : base(commands, queries, eventHandler)
         {
         }
     }
