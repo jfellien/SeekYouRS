@@ -55,11 +55,13 @@
     <Compile Include="ReflectorTests.cs" />
     <Compile Include="TestObjects\Aggregates\Customer.cs" />
     <Compile Include="TestObjects\Aggregates\Vehicle.cs" />
+    <Compile Include="TestObjects\Commands\CommandWithoutEventHandling.cs" />
     <Compile Include="TestObjects\Commands\CreateVehicle.cs" />
     <Compile Include="TestObjects\Commands\CreateCustomer.cs" />
     <Compile Include="TestObjects\Commands\ChangeCustomer.cs" />
     <Compile Include="TestObjects\Commands\RemoveCustomer.cs" />
     <Compile Include="TestObjects\Events\CustomerRemoved.cs" />
+    <Compile Include="TestObjects\Events\UnhandlesEventRaised.cs" />
     <Compile Include="TestObjects\GenerischeKlasseMitEigenschaft.cs" />
     <Compile Include="TestObjects\Handler\CustomerReadModelHandler.cs" />
     <Compile Include="TestObjects\KlasseMitEigenschaft.cs" />

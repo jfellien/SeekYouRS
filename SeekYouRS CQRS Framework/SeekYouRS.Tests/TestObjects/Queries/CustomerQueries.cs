@@ -12,7 +12,7 @@ namespace SeekYouRS.Tests.TestObjects.Queries
 		}
 
 		public override T Retrieve<T>(dynamic query)
-		{
+		{ 
 			return ExecuteQuery(query);
 		}
 

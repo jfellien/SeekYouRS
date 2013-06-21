@@ -43,5 +43,10 @@ namespace SeekYouRS.Tests.TestObjects.Aggregates
         {
             ApplyChanges(new CustomerRemoved());
         }
+
+	    public void RaiseUnhandledEvent()
+	    {
+		    ApplyChanges(new UnhandlesEventRaised());
+	    }
     }
 }

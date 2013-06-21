@@ -172,6 +172,22 @@ namespace SeekYouRS.Tests
 		}
 
 		[Test]
+		public void TestToGetAnExceptionIfAggregateEventIsUnknown()
+		{
+			var aggreagteStore = new InMemoryAggregateStore();
+			var aggregates = new Aggregates(aggreagteStore);
+			var readModelStore = new InMemoryCustomerReadModelsStore();
+			var readModelHandler = new CustomerReadModelHandler(readModelStore);
+
+			var commands = new CustomerCommands(aggregates);
+			var queries = new CustomerQueries(readModelStore);
+
+			var api = new CustomerContext(commands, queries, readModelHandler);
+
+			Assert.Catch<ArgumentException>(() => api.Process(new CommandWithoutEventHandling()));
+		}
+
+		[Test]
 		public void TestToGetAnExceptionIfQueryIsUnknown()
 		{
 			var aggreagteStore = new InMemoryAggregateStore();

@@ -34,5 +34,12 @@ namespace SeekYouRS.Tests.TestObjects.Handler
 			customer.Remove();
 			AggregateStore.Save(customer);
 		}
+
+		private void Execute(CommandWithoutEventHandling command)
+		{
+			var customer = AggregateStore.GetAggregate<Customer>(command.Id);
+			customer.RaiseUnhandledEvent();
+			AggregateStore.Save(customer);
+		}
 	}
 }
