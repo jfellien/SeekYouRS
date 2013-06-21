@@ -29,7 +29,7 @@ namespace SeekYouRS.Handler
 		/// Fallback method to handle unassigned AggregateEvent
 		/// </summary>
 		/// <param name="unassignedEvent"></param>
-		internal void Handle(object unassignedEvent)
+		public void Handle(object unassignedEvent)
 		{
 			var eventData = ((dynamic) unassignedEvent).EventData;
 

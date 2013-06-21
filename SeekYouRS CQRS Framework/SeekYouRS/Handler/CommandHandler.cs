@@ -44,7 +44,7 @@ namespace SeekYouRS.Handler
 		/// Fallback method to handle unassigned Commands
 		/// </summary>
 		/// <param name="command"></param>
-		internal void Execute(object command)
+		public void Execute(object command)
 		{
 			throw new ArgumentException("Unnown Command detected: " + command.GetType().Name);
 		}
