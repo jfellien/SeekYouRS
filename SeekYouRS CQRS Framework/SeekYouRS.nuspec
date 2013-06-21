@@ -13,11 +13,10 @@
 Developed under the paradigm of KISS (keep it simple and stupid) cause the LOB's are complex enough.
 This framework provides full control of Command, Query and Event Handling.</description>
         <summary>CQRS Framwork, created for rapid development</summary>
-        <releaseNotes>This realease is published to go the first step. Planed is a release 1.0 for business applications. 
-Currently this release proviedes only .Net Framework 4.5. Release 1.0 or higher will provides .Net 4.0 and if possible 3.5.</releaseNotes>
+        <releaseNotes></releaseNotes>
         <tags>CQRS Distributed Enterprise Applictions</tags>
     </metadata>
     <files>
-        <file src="SeekYouRS\bin\Release\SeekYouRS.dll" target="SeekYouRS.dll" />
+        <file src="SeekYouRS\bin\Release\SeekYouRS.dll" target="lib\net45\SeekYouRS.dll" />
     </files>
 </package>
