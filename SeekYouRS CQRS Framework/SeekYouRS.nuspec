@@ -4,7 +4,7 @@
         <id>SeekYouRS</id>
         <version>1.1.0</version>
         <title>SeekYouRS</title>
-        <authors>Jan Fellien</authors>
+        <authors>Jan Fellien, Carsten Koenig, Maximilian Krauss</authors>
         <owners>Jan Fellien</owners>
         <projectUrl>https://github.com/jfellien/SeekYouRS</projectUrl>
         <iconUrl>http://devcrowd.s3.amazonaws.com/community/seekyours.jpg</iconUrl>
