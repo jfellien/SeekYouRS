@@ -29,7 +29,7 @@ namespace SeekYouRS.Handler
 		/// <summary>
 		/// Gets the AggregateStore who saves the state changes
 		/// </summary>
-		internal Aggregates AggregateStore { get; private set; }
+		protected Aggregates AggregateStore { get; private set; }
 
 		void OnPublished(AggregateEvent aggregateEvent)
 		{
