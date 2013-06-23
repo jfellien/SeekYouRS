@@ -6,7 +6,8 @@ namespace SeekYouRS.Tests.TestObjects.Handler
 {
 	public class CustomerCommands : CommandHandler
 	{
-		public CustomerCommands(Store.Aggregates aggregatesRepository) : base(aggregatesRepository){}
+		public CustomerCommands(Store.IStoreAndRetrieveAggregates aggregatesStore) 
+		: base(aggregatesStore) { }
 
 		public override void Process(dynamic command)
 		{

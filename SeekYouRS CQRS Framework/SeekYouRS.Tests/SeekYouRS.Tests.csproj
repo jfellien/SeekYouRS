@@ -49,7 +49,7 @@
   <ItemGroup>
     <Compile Include="AggregateTests.cs" />
     <Compile Include="InMemoryAggregateStore.cs" />
-    <Compile Include="InMemoryCustomerReadModelsStore.cs" />
+    <Compile Include="InMemoryReadModelsStore.cs" />
     <Compile Include="CustomerContextTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ReflectorTests.cs" />

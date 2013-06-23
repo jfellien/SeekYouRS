@@ -15,16 +15,21 @@ namespace SeekYouRS.Handler
 		/// </summary>
 		public event Action<AggregateEvent> HasPerformed;
 
-		protected CommandHandler(Aggregates aggregatesRepository)
+		protected CommandHandler(IStoreAndRetrieveAggregates aggregatesStore)
 		{
-			AggregateStore = aggregatesRepository;
+			SetupAggregateStore(aggregatesStore);
+		}
+
+		void SetupAggregateStore(IStoreAndRetrieveAggregates aggregatesStore)
+		{
+			AggregateStore = new Aggregates(aggregatesStore);
 			AggregateStore.AggregateHasChanged += OnPublished;
 		}
 
 		/// <summary>
 		/// Gets the AggregateStore who saves the state changes
 		/// </summary>
-		protected Aggregates AggregateStore { get; private set; }
+		internal Aggregates AggregateStore { get; private set; }
 
 		void OnPublished(AggregateEvent aggregateEvent)
 		{

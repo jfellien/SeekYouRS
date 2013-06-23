@@ -6,7 +6,7 @@ namespace SeekYouRS.Store
 	/// <summary>
 	/// Sealed class, represents an Aggregates repository.
 	/// </summary>
-	public sealed class Aggregates
+	sealed class Aggregates
 	{
 		readonly IStoreAndRetrieveAggregates _unitOfWork;
 

@@ -5,11 +5,11 @@ using SeekYouRS.Store;
 
 namespace SeekYouRS.Tests
 {
-	public class InMemoryCustomerReadModelsStore : IStoreReadModels
+	public class InMemoryReadModelsStore : IStoreReadModels
 	{
 		private readonly List<dynamic> _data;
 
-		public InMemoryCustomerReadModelsStore()
+		public InMemoryReadModelsStore()
 		{
 			_data = new List<dynamic>();
 		}

@@ -21,11 +21,10 @@ namespace SeekYouRS.Tests
 		public void TestToCreateCustomerAndReadIt()
 		{
 			var aggreagteStore = new InMemoryAggregateStore();
-			var aggregates = new Aggregates(aggreagteStore);
-			var readModelStore = new InMemoryCustomerReadModelsStore();
-			var readModelHandler = new CustomerReadModelHandler(readModelStore);
+			var readModelStore = new InMemoryReadModelsStore();
 
-			var commands = new CustomerCommands(aggregates);
+			var readModelHandler = new CustomerReadModelHandler(readModelStore);
+			var commands = new CustomerCommands(aggreagteStore);
 			var queries = new CustomerQueries(readModelStore);
 
 			var api = new CustomerContext(commands, queries, readModelHandler);
@@ -42,11 +41,10 @@ namespace SeekYouRS.Tests
 		public void TestToCreateAndChangeKundeViaApi()
 		{
 			var aggreagteStore = new InMemoryAggregateStore();
-			var aggregates = new Aggregates(aggreagteStore);
-			var readModelStore = new InMemoryCustomerReadModelsStore();
+			var readModelStore = new InMemoryReadModelsStore();
 			var readModelHandler = new CustomerReadModelHandler(readModelStore);
 
-			var commands = new CustomerCommands(aggregates);
+			var commands = new CustomerCommands(aggreagteStore);
 			var queries = new CustomerQueries(readModelStore);
 
 			var api = new CustomerContext(commands, queries, readModelHandler);
@@ -67,11 +65,10 @@ namespace SeekYouRS.Tests
 		public void TestToCreateTwoCustomerAndChangeOneOfThem()
 		{
 			var aggreagteStore = new InMemoryAggregateStore();
-			var aggregates = new Aggregates(aggreagteStore);
-			var readModelStore = new InMemoryCustomerReadModelsStore();
+			var readModelStore = new InMemoryReadModelsStore();
 			var readModelHandler = new CustomerReadModelHandler(readModelStore);
 
-			var commands = new CustomerCommands(aggregates);
+			var commands = new CustomerCommands(aggreagteStore);
 			var queries = new CustomerQueries(readModelStore);
 
 			var api = new CustomerContext(commands, queries, readModelHandler);
@@ -97,11 +94,10 @@ namespace SeekYouRS.Tests
 		public void TestToRemoveACustomer()
 		{
 			var aggreagteStore = new InMemoryAggregateStore();
-			var aggregates = new Aggregates(aggreagteStore);
-			var readModelStore = new InMemoryCustomerReadModelsStore();
+			var readModelStore = new InMemoryReadModelsStore();
 			var readModelHandler = new CustomerReadModelHandler(readModelStore);
 
-			var commands = new CustomerCommands(aggregates);
+			var commands = new CustomerCommands(aggreagteStore);
 			var queries = new CustomerQueries(readModelStore);
 
 			var api = new CustomerContext(commands, queries, readModelHandler);
@@ -131,11 +127,10 @@ namespace SeekYouRS.Tests
 		public void TestToGetAListOfCustomers()
 		{
 			var aggreagteStore = new InMemoryAggregateStore();
-			var aggregates = new Aggregates(aggreagteStore);
-			var readModelStore = new InMemoryCustomerReadModelsStore();
+			var readModelStore = new InMemoryReadModelsStore();
 			var readModelHandler = new CustomerReadModelHandler(readModelStore);
 
-			var commands = new CustomerCommands(aggregates);
+			var commands = new CustomerCommands(aggreagteStore);
 			var queries = new CustomerQueries(readModelStore);
 
 			var api = new CustomerContext(commands, queries, readModelHandler);
@@ -159,11 +154,10 @@ namespace SeekYouRS.Tests
 		public void TestToGetAnExceptionIfACommandUnkown()
 		{
 			var aggreagteStore = new InMemoryAggregateStore();
-			var aggregates = new Aggregates(aggreagteStore);
-			var readModelStore = new InMemoryCustomerReadModelsStore();
+			var readModelStore = new InMemoryReadModelsStore();
 			var readModelHandler = new CustomerReadModelHandler(readModelStore);
 
-			var commands = new CustomerCommands(aggregates);
+			var commands = new CustomerCommands(aggreagteStore);
 			var queries = new CustomerQueries(readModelStore);
 
 			var api = new CustomerContext(commands, queries, readModelHandler);
@@ -175,11 +169,10 @@ namespace SeekYouRS.Tests
 		public void TestToGetAnExceptionIfAggregateEventIsUnknown()
 		{
 			var aggreagteStore = new InMemoryAggregateStore();
-			var aggregates = new Aggregates(aggreagteStore);
-			var readModelStore = new InMemoryCustomerReadModelsStore();
+			var readModelStore = new InMemoryReadModelsStore();
 			var readModelHandler = new CustomerReadModelHandler(readModelStore);
 
-			var commands = new CustomerCommands(aggregates);
+			var commands = new CustomerCommands(aggreagteStore);
 			var queries = new CustomerQueries(readModelStore);
 
 			var api = new CustomerContext(commands, queries, readModelHandler);
@@ -191,11 +184,10 @@ namespace SeekYouRS.Tests
 		public void TestToGetAnExceptionIfQueryIsUnknown()
 		{
 			var aggreagteStore = new InMemoryAggregateStore();
-			var aggregates = new Aggregates(aggreagteStore);
-			var readModelStore = new InMemoryCustomerReadModelsStore();
+			var readModelStore = new InMemoryReadModelsStore();
 			var readModelHandler = new CustomerReadModelHandler(readModelStore);
 
-			var commands = new CustomerCommands(aggregates);
+			var commands = new CustomerCommands(aggreagteStore);
 			var queries = new CustomerQueries(readModelStore);
 
 			var api = new CustomerContext(commands, queries, readModelHandler);
