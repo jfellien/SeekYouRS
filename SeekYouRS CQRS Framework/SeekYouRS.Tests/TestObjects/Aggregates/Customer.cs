@@ -1,31 +1,61 @@
 using System;
 using SeekYouRS.Tests.TestObjects.Events;
+using SeekYouRS.Utilities;
 
 namespace SeekYouRS.Tests.TestObjects.Aggregates
 {
-    internal class Customer : Aggregate
+    internal class CustomerModel
     {
+        private readonly string _name;
+        private readonly Guid _id;
+
+        public CustomerModel(Guid id, string name)
+        {
+            _name = name;
+            _id = id;
+        }
+
+        public Guid Id { get { return _id; } }
+        public string Name {get { return _name; }}
+
+        public CustomerModel ChangeName(string newName)
+        {
+            return new CustomerModel(Id, newName);
+        }
+    }
+
+    internal class Customer : GenericAggregate<CustomerModel>
+    {
+        public Customer()
+        {
+            base.RegisterModelTransformer<CustomerCreated>((co, ev) => (new CustomerModel(ev.Id, ev.Name)).Some());
+            base.RegisterModelTransformer<CustomerRemoved>((co, ev) => Option.None<CustomerModel>());
+            base.RegisterModelTransformer<CustomerChanged>((co, ev) => co.Map(c => c.ChangeName(ev.Name)));
+        }
+
+        private Option<CustomerModel> CurrentModel
+        {
+            get { return base.AggregateCurrentModel(); }
+        }
+
         public string Name
         {
             get
             {
-                var removed = FromHistory<CustomerRemoved>();
-                if (removed != null)
-                    return null;
-
-                var lastChange = FromHistory<CustomerChanged>();
-                
-                return lastChange != null 
-                    ? lastChange.Name 
-                    : FromHistory<CustomerCreated>().Name;
+                return
+                CurrentModel
+                    .Map(m => m.Name)
+                    .DefaultsTo(null);
             }
         }
 
         public override Guid Id {
             get
             {
-                var removed = FromHistory<CustomerRemoved>();
-                return removed != null ? Guid.Empty : FromHistory<CustomerCreated>().Id;
+                return
+                CurrentModel
+                    .Map(m => m.Id)
+                    .ThrowsOnNone(new NullReferenceException());
             }
         }
 

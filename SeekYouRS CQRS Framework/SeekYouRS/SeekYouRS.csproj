@@ -46,11 +46,11 @@
     <Compile Include="AggregateEvent.cs" />
     <Compile Include="AggregateEventBag.cs" />
     <Compile Include="Context.cs" />
+    <Compile Include="GenericAggregate.cs" />
     <Compile Include="Handler\CommandHandler.cs" />
     <Compile Include="Handler\IExecuteCommands.cs" />
     <Compile Include="Handler\IHandleAggregateEvents.cs" />
     <Compile Include="Handler\ReadModelHandler.cs" />
-    <Compile Include="Reflector.cs" />
     <Compile Include="Store\Aggregates.cs" />
     <Compile Include="Store\IQueryReadModels.cs" />
     <Compile Include="Store\IStoreAndRetrieveAggregates.cs" />
@@ -58,6 +58,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Store\IStoreReadModels.cs" />
     <Compile Include="Store\Queries.cs" />
+    <Compile Include="Utilities\Option.cs" />
+    <Compile Include="Utilities\Reflector.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

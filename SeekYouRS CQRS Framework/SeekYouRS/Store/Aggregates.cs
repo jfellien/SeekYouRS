@@ -31,17 +31,12 @@ namespace SeekYouRS.Store
 		/// <param name="aggregate">Instance of Aggregate</param>
 		public void Save<TAggregate>(TAggregate aggregate) where TAggregate : Aggregate
 		{
-			_unitOfWork.Save(aggregate.Changes);
-
-			if (AggregateHasChanged != null)
-				foreach (var e in aggregate.Changes)
-					AggregateHasChanged(e);
-
-			aggregate.History = aggregate.History.Concat(aggregate.Changes).ToList();
-			aggregate.Changes.Clear();
+			SaveChangesToUnitOfWork(aggregate);
+		    OnAggregateHasChanged(aggregate);
+		    CommitChangesToHistory(aggregate);
 		}
-		
-		/// <summary>
+
+	    /// <summary>
 		/// Gets an Aggregate
 		/// </summary>
 		/// <typeparam name="TAggregate">Type of Aggregate</typeparam>
@@ -50,11 +45,29 @@ namespace SeekYouRS.Store
 		public TAggregate GetAggregate<TAggregate>(Guid id) where TAggregate : Aggregate, new()
 		{
 			var aggregateHistory = _unitOfWork.GetEventsBy(id).ToList();
-			var aggregate = new TAggregate
-				{
-					History = aggregateHistory
-				};
+	        var aggregate = new TAggregate();
+	        aggregate.InitializeHistory(aggregateHistory);
 			return aggregate;
 		}
+
+        private void SaveChangesToUnitOfWork<TAggregate>(TAggregate aggregate) where TAggregate : Aggregate
+        {
+            _unitOfWork.Save(aggregate.Changes);
+        }
+
+        private static void CommitChangesToHistory<TAggregate>(TAggregate aggregate) where TAggregate : Aggregate
+        {
+            aggregate.CommitChangesToHistory();
+        }
+
+        private void OnAggregateHasChanged<TAggregate>(TAggregate aggregate) where TAggregate : Aggregate
+        {
+            var handler = AggregateHasChanged;
+            if (handler != null)
+                foreach (var e in aggregate.Changes)
+                    handler(e);
+        }
+
+
 	}
 }

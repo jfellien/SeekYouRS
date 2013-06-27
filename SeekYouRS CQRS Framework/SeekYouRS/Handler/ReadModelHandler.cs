@@ -5,7 +5,7 @@ namespace SeekYouRS.Handler
 {
 	/// <summary>
 	/// Base class for ReadModelHandler. 
-	/// This handles AggregateEvents and gets the ReadModelStore setted by constructor.
+	/// This handles AggregateEvents and gets the ReadModelStore assigned by constructor.
 	/// </summary>
 	public abstract class ReadModelHandler : IHandleAggregateEvents
 	{

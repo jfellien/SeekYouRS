@@ -89,6 +89,7 @@ namespace SeekYouRS.Tests
             aggregates.Save(customer);
             var expectedId = Guid.Empty;
 
+            // ich finde diese Spec seltsam - aber ok, ich lass das mal so
             Assert.Catch<NullReferenceException>(() => expectedId = customer.Id);
 
         }
