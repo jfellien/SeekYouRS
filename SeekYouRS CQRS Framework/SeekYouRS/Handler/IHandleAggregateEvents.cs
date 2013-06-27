@@ -1,7 +1,7 @@
 namespace SeekYouRS.Handler
 {
 	/// <summary>
-	/// Represents an Event Handler fpr Aggregate Events.
+	/// Represents an Event Handler for Aggregate Events.
 	/// </summary>
 	public interface IHandleAggregateEvents
 	{

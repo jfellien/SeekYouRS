@@ -4,7 +4,7 @@ using SeekYouRS.Store;
 namespace SeekYouRS.Handler
 {
 	/// <summary>
-	/// Base calss for CommandHandler.
+	/// Base class for CommandHandler.
 	/// This handles Commands who informs the Aggregates to change the state.
 	/// After Handling the Handler informs a Subscriber about state changes.
 	/// </summary>
@@ -33,8 +33,9 @@ namespace SeekYouRS.Handler
 
 		void OnPublished(AggregateEvent aggregateEvent)
 		{
-			if (HasPerformed != null)
-				HasPerformed(aggregateEvent);
+		    var handler = HasPerformed;
+			if (handler != null)
+				handler(aggregateEvent);
 		}
 
 		/// <summary>

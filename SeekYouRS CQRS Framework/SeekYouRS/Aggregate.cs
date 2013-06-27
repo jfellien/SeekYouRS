@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Microsoft.CSharp.RuntimeBinder;
 
 namespace SeekYouRS
 {
@@ -12,9 +11,13 @@ namespace SeekYouRS
 	/// </summary>
 	public abstract class Aggregate
 	{
+	    private readonly List<AggregateEvent> _changes;
+	    private readonly List<AggregateEvent> _history;
+
 		protected Aggregate()
 		{
-			Changes = new List<AggregateEvent>();
+		    _changes = new List<AggregateEvent>();
+		    _history = new List<AggregateEvent>();
 		}
 
 		/// <summary>
@@ -23,13 +26,19 @@ namespace SeekYouRS
 		public abstract Guid Id { get; }
 
 		/// <summary>
-		/// Gets the list of current changes. List will reset after successful saving.
+		/// Gets the list of current changes
 		/// </summary>
-		public IList<AggregateEvent> Changes{ get; private set; }
+		public IEnumerable<AggregateEvent> Changes{ get { return _changes.ToArray(); } }
 		/// <summary>
 		/// Gets or sets the list of all status changes
 		/// </summary>
-		public IEnumerable<AggregateEvent> History { get; set; }
+        public IEnumerable<AggregateEvent> History { get { return _history.ToArray(); } }
+
+        public void CommitChangesToHistory()
+        {
+            _history.AddRange(_changes);
+            _changes.Clear();
+        }
 
 		/// <summary>
 		/// Puts the change event into list of changes. The list will use by saveing the Aggregate.
@@ -43,8 +52,19 @@ namespace SeekYouRS
 			if (idToSaveChanges == Guid.Empty)
 				idToSaveChanges = GetIdFromCurrentAggregate();
 
-			Changes.Add(new AggregateEventBag<T>(idToSaveChanges, DateTime.Now){EventData = changeEvent});
+			_changes.Add(new AggregateEventBag<T>(idToSaveChanges, DateTime.Now){EventData = changeEvent});
 		}
+
+        /// <summary>
+        /// cleares all Changes and replaces the current history with aggregateHistory
+        /// </summary>
+	    public void InitializeHistory(IEnumerable<AggregateEvent> aggregateHistory)
+	    {
+	        _changes.Clear();
+            _history.Clear();
+	        _history.AddRange(aggregateHistory);
+	    }
+
 		/// <summary>
 		/// Gets all Events of specific type from the list of all historical AggregateEvents
 		/// </summary>
@@ -52,7 +72,7 @@ namespace SeekYouRS
 		/// <returns>Data of history</returns>
 		protected T FromHistory<T>() where T : new()
 		{
-			var allEvents = History.Concat(Changes);
+			var allEvents = _history.Concat(_changes);
 			var lastEventOfSearchedType = allEvents
 				.OfType<AggregateEventBag<T>>()
 				.OrderBy(eventBag => eventBag.Timestamp)
