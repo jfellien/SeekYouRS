@@ -33,12 +33,17 @@ namespace SeekYouRS.Tests.TestObjects.Aggregates
             base.RegisterModelTransformer<CustomerChanged>((co, ev) => co.Map(c => c.ChangeName(ev.Name)));
         }
 
+        private Option<CustomerModel> CurrentModel
+        {
+            get { return base.AggregateCurrentModel(); }
+        }
+
         public string Name
         {
             get
             {
                 return
-                base.AggregateCurrentModel()
+                CurrentModel
                     .Map(m => m.Name)
                     .DefaultsTo(null);
             }
@@ -48,7 +53,7 @@ namespace SeekYouRS.Tests.TestObjects.Aggregates
             get
             {
                 return
-                base.AggregateCurrentModel()
+                CurrentModel
                     .Map(m => m.Id)
                     .ThrowsOnNone(new NullReferenceException());
             }
