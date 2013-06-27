@@ -46,6 +46,7 @@
     <Compile Include="AggregateEvent.cs" />
     <Compile Include="AggregateEventBag.cs" />
     <Compile Include="Context.cs" />
+    <Compile Include="GenericAggregate.cs" />
     <Compile Include="Handler\CommandHandler.cs" />
     <Compile Include="Handler\IExecuteCommands.cs" />
     <Compile Include="Handler\IHandleAggregateEvents.cs" />

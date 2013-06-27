@@ -71,7 +71,7 @@ namespace SeekYouRS
 		/// </summary>
 		/// <typeparam name="T">Type of Event</typeparam>
 		/// <returns>Data of history</returns>
-		protected T FromHistory<T>() where T : new()
+		virtual protected T FromHistory<T>() where T : new()
 		{
 			var allEvents = _history.Concat(_changes);
 			var lastEventOfSearchedType = allEvents
@@ -83,6 +83,12 @@ namespace SeekYouRS
 				? default(T)
 				: lastEventOfSearchedType.EventData;
 		}
+
+        virtual protected TState AggregateHistoryAndChanges<TState>(TState initial, Func<TState, AggregateEvent, TState> folder)
+        {
+            var allEvents = _history.Concat(_changes).ToArray();
+            return !allEvents.Any() ? initial : allEvents.Aggregate(initial, folder);
+        }
 
 		/// <summary>
 		/// Gets the Id of Change Event

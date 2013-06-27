@@ -27,6 +27,12 @@ namespace SeekYouRS.Utilities
             return option.Maybe(defValue, x => x);
         }
 
+        public static tValue ThrowsOnNone<tValue>(this Option<tValue> option, Exception failureOnNone)
+        {
+            if (option.IsSome) return option.Value;
+            throw failureOnNone;
+        }
+
         public static Option<tResult> Map<tInput, tResult>(this Option<tInput> option,
                                                    Func<tInput, tResult> map)
         {
@@ -89,6 +95,21 @@ namespace SeekYouRS.Utilities
         {
             if (o.IsSome) return o;
             return altGen();
+        }
+
+        public static Option<tR> ApplyTo<tI, tR>(this Option<Func<tI, tR>> fopt, tI i)
+        {
+            return fopt.Map(f => f(i));
+        }
+
+        public static Option<tR> ApplyTo<tI1, tI2, tR>(this Option<Func<tI1, tI2, tR>> fopt, tI1 i1, tI2 i2)
+        {
+            return fopt.Map(f => f(i1, i2));
+        }
+
+        public static Option<tR> ApplyTo<tI1, tI2, tI3, tR>(this Option<Func<tI1, tI2, tI3, tR>> fopt, tI1 i1, tI2 i2, tI3 i3)
+        {
+            return fopt.Map(f => f(i1, i2, i3));
         }
     }
 
