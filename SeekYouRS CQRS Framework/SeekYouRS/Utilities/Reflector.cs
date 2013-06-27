@@ -21,7 +21,7 @@ namespace SeekYouRS.Utilities
             var key = CreateKey(type, resultType, name);
 
             var result = TryGetReaderFromCache(key)
-                .OrElse(TryAddReaderToCache(type, resultType, name))
+                .OrElse(() => TryAddReaderToCache(type, resultType, name))
                 .Map(r => (TTResult) r(obj))
                 .DefaultsTo(defaultValue);
 
@@ -44,7 +44,7 @@ namespace SeekYouRS.Utilities
         {
             var reader =
                 TryGetPropertyReader(type, resultType, propertyName)
-                    .OrElse(TryGetFieldReader(type, resultType, propertyName));
+                    .OrElse(() => TryGetFieldReader(type, resultType, propertyName));
             reader.Do(r => _valueReadersCache.Add(CreateKey(type, resultType, propertyName), r));
             return reader;
         }
