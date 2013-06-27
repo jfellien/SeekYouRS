@@ -7,7 +7,7 @@ namespace SeekYouRS.Tests.TestObjects.Queries
 {
 	public class CustomerQueries : Store.Queries
 	{
-		public CustomerQueries(IStoreReadModels readModelStore) : base(readModelStore)
+		public CustomerQueries(IStoreAndQueryReadModels readModelStore) : base(readModelStore)
 		{
 		}
 

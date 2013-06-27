@@ -5,9 +5,9 @@ using SeekYouRS.Tests.TestObjects.Models;
 
 namespace SeekYouRS.Tests.TestObjects.Handler
 {
-	public class VehicleReadModelHandler : ReadModelHandler
+	public class VehicleAggregateEventHandler : AggregateEventsHandler
 	{
-		public VehicleReadModelHandler(IStoreReadModels readModelStore) : base(readModelStore)
+		public VehicleAggregateEventHandler(IStoreAndQueryReadModels readModelStore) : base(readModelStore)
 		{
 		}
 

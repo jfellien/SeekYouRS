@@ -10,10 +10,10 @@ namespace SeekYouRS
 	/// </summary>
 	public abstract class Context
 	{
-		private readonly IExecuteCommands _commands;
+		private readonly IHandleCommands _commands;
 		readonly IQueryReadModels _queries;
 
-		protected Context(IExecuteCommands commands, IQueryReadModels queries, IHandleAggregateEvents eventHandler)
+		protected Context(IHandleCommands commands, IQueryReadModels queries, IHandleAggregateEvents eventHandler)
 		{
 			_commands = commands;
 			_queries = queries;
@@ -21,7 +21,7 @@ namespace SeekYouRS
 			_commands.HasPerformed += eventHandler.SaveChangesBy;
 		}
 
-		protected Context(IExecuteCommands commands, IQueryReadModels queries, IEnumerable<IHandleAggregateEvents> eventHandlers)
+		protected Context(IHandleCommands commands, IQueryReadModels queries, IEnumerable<IHandleAggregateEvents> eventHandlers)
 		{
 			_commands = commands;
 			_queries = queries;

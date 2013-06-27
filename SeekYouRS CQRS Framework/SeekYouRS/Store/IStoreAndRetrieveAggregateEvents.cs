@@ -6,7 +6,7 @@ namespace SeekYouRS.Store
 	/// <summary>
 	/// Represents the behaviour of a AggregateStore
 	/// </summary>
-	public interface IStoreAndRetrieveAggregates
+	public interface IStoreAndRetrieveAggregateEvents
 	{
 		/// <summary>
 		/// Saves a list of AggregateEvents who describes the changes

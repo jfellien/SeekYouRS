@@ -5,11 +5,11 @@ using SeekYouRS.Store;
 
 namespace SeekYouRS.Tests
 {
-	class InMemoryAggregateStore : IStoreAndRetrieveAggregates
+	class InMemoryAggregateEventStore : IStoreAndRetrieveAggregateEvents
 	{
 		private readonly List<AggregateEvent> _worldhistory;
 
-		public InMemoryAggregateStore()
+		public InMemoryAggregateEventStore()
 		{
 			_worldhistory = new List<AggregateEvent>();
 		}

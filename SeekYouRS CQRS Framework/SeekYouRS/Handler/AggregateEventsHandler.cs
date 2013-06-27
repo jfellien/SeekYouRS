@@ -4,17 +4,17 @@ using SeekYouRS.Store;
 namespace SeekYouRS.Handler
 {
 	/// <summary>
-	/// Base class for ReadModelHandler. 
+	/// Base class for AggregateEventsHandler. 
 	/// This handles AggregateEvents and gets the ReadModelStore setted by constructor.
 	/// </summary>
-	public abstract class ReadModelHandler : IHandleAggregateEvents
+	public abstract class AggregateEventsHandler : IHandleAggregateEvents
 	{
-		protected ReadModelHandler(IStoreReadModels readModelStore)
+		protected AggregateEventsHandler(IStoreAndQueryReadModels readModelStore)
 		{
 			ReadModelStore = readModelStore;
 		}
 
-		public IStoreReadModels ReadModelStore { get; private set; }
+		public IStoreAndQueryReadModels ReadModelStore { get; private set; }
 
 		/// <summary>
 		/// Derived method from interface IHandleAggregateEvents. 

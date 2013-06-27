@@ -8,21 +8,21 @@ namespace SeekYouRS.Handler
 	/// This handles Commands who informs the Aggregates to change the state.
 	/// After Handling the Handler informs a Subscriber about state changes.
 	/// </summary>
-	public abstract class CommandHandler : IExecuteCommands
+	public abstract class CommandHandler : IHandleCommands
 	{
 		/// <summary>
 		/// Raises if Command is ready and the state of an Aggregate has changed.
 		/// </summary>
 		public event Action<AggregateEvent> HasPerformed;
 
-		protected CommandHandler(IStoreAndRetrieveAggregates aggregatesStore)
+		protected CommandHandler(IStoreAndRetrieveAggregateEvents aggregateEventsStore)
 		{
-			SetupAggregateStore(aggregatesStore);
+			SetupAggregateStore(aggregateEventsStore);
 		}
 
-		void SetupAggregateStore(IStoreAndRetrieveAggregates aggregatesStore)
+		void SetupAggregateStore(IStoreAndRetrieveAggregateEvents aggregateEventsStore)
 		{
-			AggregateStore = new Aggregates(aggregatesStore);
+			AggregateStore = new Aggregates(aggregateEventsStore);
 			AggregateStore.AggregateHasChanged += OnPublished;
 		}
 
@@ -38,9 +38,9 @@ namespace SeekYouRS.Handler
 		}
 
 		/// <summary>
-		/// Derived method from interface IExecuteCommands.
-		/// You should implement this Method by calling 'Execute(comand)' and 
-		/// implement for any Command an Execute method.
+		/// Derived method from interface IHandleCommands.
+		/// You should implement this Method by calling 'Handle(comand)' and 
+		/// implement for any Command an Handle method.
 		/// </summary>
 		/// <param name="command">The Command who will handle</param>
 		public abstract void Process(dynamic command);
@@ -49,7 +49,7 @@ namespace SeekYouRS.Handler
 		/// Fallback method to handle unassigned Commands
 		/// </summary>
 		/// <param name="command"></param>
-		public void Execute(object command)
+		public void Handle(object command)
 		{
 			throw new ArgumentException("Unnown Command detected: " + command.GetType().Name);
 		}

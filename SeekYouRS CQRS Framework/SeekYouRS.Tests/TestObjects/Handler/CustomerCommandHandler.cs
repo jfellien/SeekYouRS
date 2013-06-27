@@ -4,14 +4,14 @@ using SeekYouRS.Tests.TestObjects.Commands;
 
 namespace SeekYouRS.Tests.TestObjects.Handler
 {
-	public class CustomerCommands : CommandHandler
+	public class CustomerCommandHandler : CommandHandler
 	{
-		public CustomerCommands(Store.IStoreAndRetrieveAggregates aggregatesStore) 
-		: base(aggregatesStore) { }
+		public CustomerCommandHandler(Store.IStoreAndRetrieveAggregateEvents aggregateEventsStore) 
+		: base(aggregateEventsStore) { }
 
 		public override void Process(dynamic command)
 		{
-			Execute(command);
+			Handle(command);
 		}
 
 		private void Execute(CreateCustomer command)

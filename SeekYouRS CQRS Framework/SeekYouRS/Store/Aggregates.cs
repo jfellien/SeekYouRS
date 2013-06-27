@@ -8,7 +8,7 @@ namespace SeekYouRS.Store
 	/// </summary>
 	public sealed class Aggregates
 	{
-		readonly IStoreAndRetrieveAggregates _unitOfWork;
+		readonly IStoreAndRetrieveAggregateEvents _unitOfWork;
 
 		/// <summary>
 		/// Raises if Aggregate has changed
@@ -19,7 +19,7 @@ namespace SeekYouRS.Store
 		/// 
 		/// </summary>
 		/// <param name="unitOfWork">Concrete implementation of AggregateStore</param>
-		public Aggregates(IStoreAndRetrieveAggregates unitOfWork)
+		public Aggregates(IStoreAndRetrieveAggregateEvents unitOfWork)
 		{
 			_unitOfWork = unitOfWork;
 		}

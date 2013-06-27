@@ -6,7 +6,7 @@ namespace SeekYouRS.Handler
 	/// Represents the behaviour of a Command Handler. 
 	/// Use CommandHandler class as base for your projects. It contains all base features.
 	/// </summary>
-	public interface IExecuteCommands
+	public interface IHandleCommands
 	{
 		/// <summary>
 		/// Starts the processing of a command

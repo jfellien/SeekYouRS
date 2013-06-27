@@ -7,7 +7,7 @@ namespace SeekYouRS.Store
 	/// </summary>
 	public abstract class Queries : IQueryReadModels
 	{
-		protected Queries(IStoreReadModels readModelStore)
+		protected Queries(IStoreAndQueryReadModels readModelStore)
 		{
 			ReadModelStore = readModelStore;
 		}
@@ -15,7 +15,7 @@ namespace SeekYouRS.Store
 		/// <summary>
 		/// Gets the ReadModelStore who knows the ReadModels to retrieve
 		/// </summary>
-		public IStoreReadModels ReadModelStore { get; set; }
+		public IStoreAndQueryReadModels ReadModelStore { get; set; }
 
 		/// <summary>
 		/// Derived method from interface IQueryReadModels.

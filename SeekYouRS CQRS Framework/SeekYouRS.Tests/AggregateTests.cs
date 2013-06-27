@@ -14,7 +14,7 @@ namespace SeekYouRS.Tests
         [Test]
         public void TestToCreateCustomerViaAggregate()
         {
-	        var aggregateStore = new InMemoryAggregateStore();
+	        var aggregateStore = new InMemoryAggregateEventStore();
 			var aggregates = new Aggregates(aggregateStore);
             var id = Guid.NewGuid();
             var customer = aggregates.GetAggregate<Customer>(id);
@@ -28,7 +28,7 @@ namespace SeekYouRS.Tests
         [Test]
         public void TestToCreateCustomerAndVehicle()
         {
-			var aggregateStore = new InMemoryAggregateStore();
+			var aggregateStore = new InMemoryAggregateEventStore();
 			var aggregates = new Aggregates(aggregateStore);
             var customerId = Guid.NewGuid();
             var vehicleId = Guid.NewGuid();
@@ -58,7 +58,7 @@ namespace SeekYouRS.Tests
         [Test]
         public void TestToChangeCustomerName()
         {
-			var aggregateStore = new InMemoryAggregateStore();
+			var aggregateStore = new InMemoryAggregateEventStore();
 			var aggregates = new Aggregates(aggregateStore);
             var customerId = Guid.NewGuid();
 
@@ -80,7 +80,7 @@ namespace SeekYouRS.Tests
         [Test]
         public void TestWithoutCreateAggregate()
         {
-			var aggregateStore = new InMemoryAggregateStore();
+			var aggregateStore = new InMemoryAggregateEventStore();
 			var aggregates = new Aggregates(aggregateStore);
             var customerId = Guid.NewGuid();
 

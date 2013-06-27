@@ -5,7 +5,7 @@ namespace SeekYouRS.Store
 	/// <summary>
 	/// Represents the Behaviour of a ReadModelStore
 	/// </summary>
-	public interface IStoreReadModels
+	public interface IStoreAndQueryReadModels
 	{
 		/// <summary>
 		/// Adds a ReadModel to Store

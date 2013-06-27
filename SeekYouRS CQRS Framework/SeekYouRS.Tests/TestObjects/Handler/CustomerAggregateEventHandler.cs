@@ -5,9 +5,9 @@ using SeekYouRS.Tests.TestObjects.Models;
 
 namespace SeekYouRS.Tests.TestObjects.Handler
 {
-	public class CustomerReadModelHandler : ReadModelHandler
+	public class CustomerAggregateEventHandler : AggregateEventsHandler
 	{
-		public CustomerReadModelHandler(IStoreReadModels readModelStore) : base(readModelStore)
+		public CustomerAggregateEventHandler(IStoreAndQueryReadModels readModelStore) : base(readModelStore)
 		{
 		}
 
