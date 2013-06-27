@@ -1,4 +1,4 @@
-namespace SeekYouRS.Store
+namespace SeekYouRS.Contracts
 {
 	/// <summary>
 	/// Represents the behaviour of a component who can returns query results

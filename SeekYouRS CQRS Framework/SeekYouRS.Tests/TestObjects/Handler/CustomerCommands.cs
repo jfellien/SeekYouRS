@@ -4,9 +4,9 @@ using SeekYouRS.Tests.TestObjects.Commands;
 
 namespace SeekYouRS.Tests.TestObjects.Handler
 {
-	public class CustomerCommandHandler : CommandHandler
+	public class CustomerCommands : SeekYouRS.Handler.Commands
 	{
-		public CustomerCommandHandler(Store.IStoreAndRetrieveAggregateEvents aggregateEventsStore) 
+		public CustomerCommands(Store.IStoreAndRetrieveAggregateEvents aggregateEventsStore) 
 		: base(aggregateEventsStore) { }
 
 		public override void Process(dynamic command)

@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
-using SeekYouRS.Handler;
-using SeekYouRS.Store;
+using SeekYouRS.Contracts;
 
 namespace SeekYouRS
 {
@@ -10,25 +9,25 @@ namespace SeekYouRS
 	/// </summary>
 	public abstract class Context
 	{
-		private readonly IHandleCommands _commands;
+		private readonly IExecuteCommands _commands;
 		readonly IQueryReadModels _queries;
 
-		protected Context(IHandleCommands commands, IQueryReadModels queries, IHandleAggregateEvents eventHandler)
+		protected Context(IExecuteCommands commands, IQueryReadModels queries, IHandleAggregateEvents eventHandler)
 		{
 			_commands = commands;
 			_queries = queries;
 
-			_commands.HasPerformed += eventHandler.SaveChangesBy;
+			_commands.HasPerformed += eventHandler.Handle;
 		}
 
-		protected Context(IHandleCommands commands, IQueryReadModels queries, IEnumerable<IHandleAggregateEvents> eventHandlers)
+		protected Context(IExecuteCommands commands, IQueryReadModels queries, IEnumerable<IHandleAggregateEvents> eventHandlers)
 		{
 			_commands = commands;
 			_queries = queries;
 
 			foreach (var eventHandler in eventHandlers)
 			{
-				_commands.HasPerformed += eventHandler.SaveChangesBy;
+				_commands.HasPerformed += eventHandler.Handle;
 			}
 		}
 

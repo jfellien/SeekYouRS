@@ -1,22 +1,22 @@
-using SeekYouRS.Handler;
-using SeekYouRS.Store;
+using SeekYouRS.Contracts;
 using SeekYouRS.Tests.TestObjects.Events;
 using SeekYouRS.Tests.TestObjects.Models;
 
 namespace SeekYouRS.Tests.TestObjects.Handler
 {
-	public class CustomerAggregateEventHandler : AggregateEventsHandler
+	public class CustomerAggregateEventHandler : AggregateEventHandler
 	{
-		public CustomerAggregateEventHandler(IStoreAndQueryReadModels readModelStore) : base(readModelStore)
+		public CustomerAggregateEventHandler(IStoreAndRetrieveReadModels readModelStore) 
+		: base(readModelStore)
 		{
 		}
 
-		public override void SaveChangesBy(AggregateEvent aggregateEvent)
+		public override void Handle(AggregateEvent aggregateEvent)
 		{
-			Handle((dynamic)aggregateEvent);
+			HandleAggregateEvent((dynamic)aggregateEvent);
 		}
 
-		void Handle(AggregateEventBag<CustomerCreated> customerCreated)
+		void HandleAggregateEvent(AggregateEventBag<CustomerCreated> customerCreated)
 		{
 			ReadModelStore.Add(new CustomerModel
 				{
@@ -25,7 +25,7 @@ namespace SeekYouRS.Tests.TestObjects.Handler
 				});
 		}
 
-		void Handle(AggregateEventBag<CustomerChanged> customerChanged)
+		void HandleAggregateEvent(AggregateEventBag<CustomerChanged> customerChanged)
 		{
 			ReadModelStore.Change(new CustomerModel
 				{
@@ -34,7 +34,7 @@ namespace SeekYouRS.Tests.TestObjects.Handler
 				});
 		}
 
-		void Handle(AggregateEventBag<CustomerRemoved> customerRemoved)
+		void HandleAggregateEvent(AggregateEventBag<CustomerRemoved> customerRemoved)
 		{
 			ReadModelStore.Remove(new CustomerModel { Id = customerRemoved.Id });
 		}

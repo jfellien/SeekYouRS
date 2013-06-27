@@ -1,18 +1,18 @@
 using System;
 
-namespace SeekYouRS.Handler
+namespace SeekYouRS.Contracts
 {
 	/// <summary>
 	/// Represents the behaviour of a Command Handler. 
-	/// Use CommandHandler class as base for your projects. It contains all base features.
+	/// Use Commands class as base for your projects. It contains all base features.
 	/// </summary>
-	public interface IHandleCommands
+	public interface IExecuteCommands
 	{
 		/// <summary>
 		/// Starts the processing of a command
 		/// </summary>
 		/// <param name="command">Object with parameters of command</param>
-		void Process(dynamic command);
+		void Execute(dynamic command);
 
 		/// <summary>
 		/// Raises if the process of command is ready

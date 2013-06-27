@@ -1,7 +1,7 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 
-namespace SeekYouRS.Store
+namespace SeekYouRS.Contracts
 {
 	/// <summary>
 	/// Represents the behaviour of a AggregateStore

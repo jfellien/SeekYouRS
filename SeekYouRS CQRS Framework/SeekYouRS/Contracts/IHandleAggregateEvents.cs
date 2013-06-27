@@ -1,4 +1,4 @@
-namespace SeekYouRS.Handler
+namespace SeekYouRS.Contracts
 {
 	/// <summary>
 	/// Represents an Event Handler fpr Aggregate Events.
@@ -9,6 +9,6 @@ namespace SeekYouRS.Handler
 		/// Handles the AggregateEvent by saving the changes, decribed as properties of AggregateEvent. 
 		/// </summary>
 		/// <param name="aggregateEvent"></param>
-		void SaveChangesBy(AggregateEvent aggregateEvent);
+		void Handle(AggregateEvent aggregateEvent);
 	}
 }

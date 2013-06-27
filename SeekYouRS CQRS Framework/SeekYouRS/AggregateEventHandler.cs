@@ -1,42 +1,42 @@
 using System;
-using SeekYouRS.Store;
+using SeekYouRS.Contracts;
 
-namespace SeekYouRS.Handler
+namespace SeekYouRS
 {
 	/// <summary>
-	/// Base class for AggregateEventsHandler. 
+	/// Base class for AggregateEventHandler. 
 	/// This handles AggregateEvents and gets the ReadModelStore setted by constructor.
 	/// </summary>
-	public abstract class AggregateEventsHandler : IHandleAggregateEvents
+	public abstract class AggregateEventHandler : IHandleAggregateEvents
 	{
-		protected AggregateEventsHandler(IStoreAndQueryReadModels readModelStore)
+		protected AggregateEventHandler(IStoreAndRetrieveReadModels unitOfWork)
 		{
-			ReadModelStore = readModelStore;
+			ReadModelStore = unitOfWork;
 		}
 
-		public IStoreAndQueryReadModels ReadModelStore { get; private set; }
+		public IStoreAndRetrieveReadModels ReadModelStore { get; private set; }
 
 		/// <summary>
 		/// Derived method from interface IHandleAggregateEvents. 
-		/// You should implement this method only with calling 'Handle(aggregateEvent)' 
+		/// You should implement this method only with calling 'HandleAggregateEvent(aggregateEvent)' 
 		/// and implement all your AggregateEvent Handler with own method 
-		/// 'private void Handle(YorAggregateEvent aggregateEvent)'
+		/// 'private void HandleAggregateEvent(YorAggregateEvent aggregateEvent)'
 		/// </summary>
 		/// <param name="aggregateEvent">The Event who will handled and contains the change data</param>
-		public abstract void SaveChangesBy(AggregateEvent aggregateEvent);
+		public abstract void Handle(AggregateEvent aggregateEvent);
 
 		/// <summary>
 		/// Fallback method to handle unassigned AggregateEvent
 		/// </summary>
 		/// <param name="unassignedEvent"></param>
-		public void Handle(object unassignedEvent)
+		public void HandleAggregateEvent(object unassignedEvent)
 		{
 			var eventData = ((dynamic) unassignedEvent).EventData;
 			var eventTypeName = eventData.GetType().Name;
 			throw new ArgumentException(
 				String.Format(
 					"This event is not assigned to this instance, {0}\r\n"
-					+ "Be sure you have write a methode like void Handle(AggregateBag<{0}> aggregateEvent)",
+					+ "Be sure you have write a methode like void HandleAggregateEvent(AggregateBag<{0}> aggregateEvent)",
 					eventTypeName));
 		}
 	}

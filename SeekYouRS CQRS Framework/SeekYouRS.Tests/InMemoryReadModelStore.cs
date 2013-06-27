@@ -1,11 +1,11 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using SeekYouRS.Store;
+using SeekYouRS.Contracts;
 
 namespace SeekYouRS.Tests
 {
-	public class InMemoryReadModelStore : IStoreAndQueryReadModels
+	public class InMemoryReadModelStore : IStoreAndRetrieveReadModels
 	{
 		private readonly List<dynamic> _data;
 
@@ -32,7 +32,7 @@ namespace SeekYouRS.Tests
 			_data.Remove(oldObject);
 		}
 
-		public IEnumerable<T> Query<T>()
+		public IEnumerable<T> Retrieve<T>()
 		{
 			return _data.OfType<T>().AsEnumerable();
 		}

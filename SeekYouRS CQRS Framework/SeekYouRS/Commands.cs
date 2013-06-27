@@ -1,21 +1,21 @@
 using System;
-using SeekYouRS.Store;
+using SeekYouRS.Contracts;
 
-namespace SeekYouRS.Handler
+namespace SeekYouRS
 {
 	/// <summary>
-	/// Base calss for CommandHandler.
+	/// Base calss for Commands.
 	/// This handles Commands who informs the Aggregates to change the state.
 	/// After Handling the Handler informs a Subscriber about state changes.
 	/// </summary>
-	public abstract class CommandHandler : IHandleCommands
+	public abstract class Commands : IExecuteCommands
 	{
 		/// <summary>
 		/// Raises if Command is ready and the state of an Aggregate has changed.
 		/// </summary>
 		public event Action<AggregateEvent> HasPerformed;
 
-		protected CommandHandler(IStoreAndRetrieveAggregateEvents aggregateEventsStore)
+		protected Commands(IStoreAndRetrieveAggregateEvents aggregateEventsStore)
 		{
 			SetupAggregateStore(aggregateEventsStore);
 		}
@@ -38,12 +38,12 @@ namespace SeekYouRS.Handler
 		}
 
 		/// <summary>
-		/// Derived method from interface IHandleCommands.
+		/// Derived method from interface IExecuteCommands.
 		/// You should implement this Method by calling 'Handle(comand)' and 
 		/// implement for any Command an Handle method.
 		/// </summary>
 		/// <param name="command">The Command who will handle</param>
-		public abstract void Process(dynamic command);
+		public abstract void Execute(dynamic command);
 
 		/// <summary>
 		/// Fallback method to handle unassigned Commands

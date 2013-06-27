@@ -1,7 +1,8 @@
-﻿using System;
+using System;
 using System.Linq;
+using SeekYouRS.Contracts;
 
-namespace SeekYouRS.Store
+namespace SeekYouRS
 {
 	/// <summary>
 	/// Sealed class, represents an Aggregates repository.

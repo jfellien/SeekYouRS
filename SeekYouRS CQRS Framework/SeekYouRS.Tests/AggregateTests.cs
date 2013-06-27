@@ -2,7 +2,6 @@ using System;
 using System.Linq;
 using FluentAssertions;
 using NUnit.Framework;
-using SeekYouRS.Store;
 using SeekYouRS.Tests.TestObjects.Aggregates;
 using SeekYouRS.Tests.TestObjects.Events;
 

@@ -1,13 +1,13 @@
 using System.Collections.Generic;
 using System.Linq;
-using SeekYouRS.Store;
+using SeekYouRS.Contracts;
 using SeekYouRS.Tests.TestObjects.Models;
 
 namespace SeekYouRS.Tests.TestObjects.Queries
 {
-	public class CustomerQueries : Store.Queries
+	public class CustomerQueries : SeekYouRS.Queries
 	{
-		public CustomerQueries(IStoreAndQueryReadModels readModelStore) : base(readModelStore)
+		public CustomerQueries(IStoreAndRetrieveReadModels readModelStore) : base(readModelStore)
 		{
 		}
 
@@ -18,7 +18,7 @@ namespace SeekYouRS.Tests.TestObjects.Queries
 
 		CustomerModel ExecuteQuery(GetCustomer query)
 		{
-			var customer = ReadModelStore.Query<CustomerModel>()
+			var customer = ReadModelStore.Retrieve<CustomerModel>()
 			                             .SingleOrDefault(cust => cust.Id == query.Id);
 
 			return customer;
@@ -26,7 +26,7 @@ namespace SeekYouRS.Tests.TestObjects.Queries
 
 		IEnumerable<CustomerModel> ExecuteQuery(GetAllCustomers query)
 		{
-			return ReadModelStore.Query<CustomerModel>();
+			return ReadModelStore.Retrieve<CustomerModel>();
 		}
 	}
 }

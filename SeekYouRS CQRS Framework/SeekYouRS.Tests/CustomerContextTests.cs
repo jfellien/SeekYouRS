@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using FluentAssertions;
 using NUnit.Framework;
-using SeekYouRS.Handler;
-using SeekYouRS.Store;
+using SeekYouRS.Contracts;
 using SeekYouRS.Tests.TestObjects;
 using SeekYouRS.Tests.TestObjects.Commands;
 using SeekYouRS.Tests.TestObjects.Events;
@@ -24,7 +23,7 @@ namespace SeekYouRS.Tests
 			var readModelStore = new InMemoryReadModelStore();
 
 			var readModelHandler = new CustomerAggregateEventHandler(readModelStore);
-			var commands = new CustomerCommandHandler(aggreagteStore);
+			var commands = new CustomerCommands(aggreagteStore);
 			var queries = new CustomerQueries(readModelStore);
 
 			var api = new CustomerContext(commands, queries, readModelHandler);
@@ -44,7 +43,7 @@ namespace SeekYouRS.Tests
 			var readModelStore = new InMemoryReadModelStore();
 			var readModelHandler = new CustomerAggregateEventHandler(readModelStore);
 
-			var commands = new CustomerCommandHandler(aggreagteStore);
+			var commands = new CustomerCommands(aggreagteStore);
 			var queries = new CustomerQueries(readModelStore);
 
 			var api = new CustomerContext(commands, queries, readModelHandler);
@@ -68,7 +67,7 @@ namespace SeekYouRS.Tests
 			var readModelStore = new InMemoryReadModelStore();
 			var readModelHandler = new CustomerAggregateEventHandler(readModelStore);
 
-			var commands = new CustomerCommandHandler(aggreagteStore);
+			var commands = new CustomerCommands(aggreagteStore);
 			var queries = new CustomerQueries(readModelStore);
 
 			var api = new CustomerContext(commands, queries, readModelHandler);
@@ -97,7 +96,7 @@ namespace SeekYouRS.Tests
 			var readModelStore = new InMemoryReadModelStore();
 			var readModelHandler = new CustomerAggregateEventHandler(readModelStore);
 
-			var commands = new CustomerCommandHandler(aggreagteStore);
+			var commands = new CustomerCommands(aggreagteStore);
 			var queries = new CustomerQueries(readModelStore);
 
 			var api = new CustomerContext(commands, queries, readModelHandler);
@@ -130,7 +129,7 @@ namespace SeekYouRS.Tests
 			var readModelStore = new InMemoryReadModelStore();
 			var readModelHandler = new CustomerAggregateEventHandler(readModelStore);
 
-			var commands = new CustomerCommandHandler(aggreagteStore);
+			var commands = new CustomerCommands(aggreagteStore);
 			var queries = new CustomerQueries(readModelStore);
 
 			var api = new CustomerContext(commands, queries, readModelHandler);
@@ -157,7 +156,7 @@ namespace SeekYouRS.Tests
 			var readModelStore = new InMemoryReadModelStore();
 			var readModelHandler = new CustomerAggregateEventHandler(readModelStore);
 
-			var commands = new CustomerCommandHandler(aggreagteStore);
+			var commands = new CustomerCommands(aggreagteStore);
 			var queries = new CustomerQueries(readModelStore);
 
 			var api = new CustomerContext(commands, queries, readModelHandler);
@@ -172,7 +171,7 @@ namespace SeekYouRS.Tests
 			var readModelStore = new InMemoryReadModelStore();
 			var readModelHandler = new CustomerAggregateEventHandler(readModelStore);
 
-			var commands = new CustomerCommandHandler(aggreagteStore);
+			var commands = new CustomerCommands(aggreagteStore);
 			var queries = new CustomerQueries(readModelStore);
 
 			var api = new CustomerContext(commands, queries, readModelHandler);
@@ -187,7 +186,7 @@ namespace SeekYouRS.Tests
 			var readModelStore = new InMemoryReadModelStore();
 			var readModelHandler = new CustomerAggregateEventHandler(readModelStore);
 
-			var commands = new CustomerCommandHandler(aggreagteStore);
+			var commands = new CustomerCommands(aggreagteStore);
 			var queries = new CustomerQueries(readModelStore);
 
 			var api = new CustomerContext(commands, queries, readModelHandler);
@@ -203,7 +202,7 @@ namespace SeekYouRS.Tests
 			var customerReadModelHandler = new CustomerAggregateEventHandler(readModelStore);
 			var vehicleReadModelHandler = new VehicleAggregateEventHandler(readModelStore);
 
-			var commands = new CustomerCommandHandler(aggreagteStore);
+			var commands = new CustomerCommands(aggreagteStore);
 			var queries = new CustomerQueries(readModelStore);
 
 			var api = new CustomerContext(commands, queries,

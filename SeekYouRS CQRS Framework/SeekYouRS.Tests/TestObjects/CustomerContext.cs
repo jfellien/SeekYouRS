@@ -1,13 +1,12 @@
 using System.Collections.Generic;
-using SeekYouRS.Handler;
-using SeekYouRS.Store;
+using SeekYouRS.Contracts;
 
 namespace SeekYouRS.Tests.TestObjects
 {
 	public class CustomerContext : Context
 	{
 		public CustomerContext(
-			IHandleCommands commands,
+			IExecuteCommands commands,
 			IQueryReadModels queries,
 			IEnumerable<IHandleAggregateEvents> eventHandlers)
 			: base(commands, queries, eventHandlers)
@@ -15,7 +14,7 @@ namespace SeekYouRS.Tests.TestObjects
 		}
 
 		public CustomerContext(
-			IHandleCommands commands,
+			IExecuteCommands commands,
 			IQueryReadModels queries,
 			IHandleAggregateEvents eventHandler)
 			: base(commands, queries, eventHandler)

@@ -1,11 +1,11 @@
 using System.Collections.Generic;
 
-namespace SeekYouRS.Store
+namespace SeekYouRS.Contracts
 {
 	/// <summary>
 	/// Represents the Behaviour of a ReadModelStore
 	/// </summary>
-	public interface IStoreAndQueryReadModels
+	public interface IStoreAndRetrieveReadModels
 	{
 		/// <summary>
 		/// Adds a ReadModel to Store
@@ -27,6 +27,6 @@ namespace SeekYouRS.Store
 		/// </summary>
 		/// <typeparam name="T">Type of ReadModel</typeparam>
 		/// <returns></returns>
-		IEnumerable<T> Query<T>();
+		IEnumerable<T> Retrieve<T>();
 	}
 }

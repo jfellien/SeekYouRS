@@ -1,13 +1,14 @@
 using System;
+using SeekYouRS.Contracts;
 
-namespace SeekYouRS.Store
+namespace SeekYouRS
 {
 	/// <summary>
 	/// Base class for Query Repositories.
 	/// </summary>
 	public abstract class Queries : IQueryReadModels
 	{
-		protected Queries(IStoreAndQueryReadModels readModelStore)
+		protected Queries(IStoreAndRetrieveReadModels readModelStore)
 		{
 			ReadModelStore = readModelStore;
 		}
@@ -15,7 +16,7 @@ namespace SeekYouRS.Store
 		/// <summary>
 		/// Gets the ReadModelStore who knows the ReadModels to retrieve
 		/// </summary>
-		public IStoreAndQueryReadModels ReadModelStore { get; set; }
+		public IStoreAndRetrieveReadModels ReadModelStore { get; set; }
 
 		/// <summary>
 		/// Derived method from interface IQueryReadModels.
