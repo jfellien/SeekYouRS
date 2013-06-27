@@ -1,6 +1,9 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
+
+using Reader = System.Func<object, object>;
+using Key = System.Tuple<System.Type, string, System.Type>;
+using Cache = System.Collections.Generic.Dictionary<System.Tuple<System.Type, string, System.Type>, System.Func<object, object>>;
 
 namespace SeekYouRS.Utilities
 {
@@ -8,34 +11,46 @@ namespace SeekYouRS.Utilities
     {
         public static void ClearCache()
         {
-            ValueGetters.Clear();
+            _valueReadersCache.Clear();
         }
 
         public static TTResult ReadValueOrDefault<TTObject, TTResult>(TTObject obj, string name, TTResult defaultValue = default(TTResult))
         {
             var type = obj.GetType();
             var resultType = typeof(TTResult);
-            var key = Tuple.Create(type, name, resultType);
-            Func<object, object> getter;
+            var key = CreateKey(type, resultType, name);
 
-            if (ValueGetters.TryGetValue(key, out getter))
-                return (TTResult)getter(obj);
+            var result = TryGetReaderFromCache(key)
+                .OrElse(TryAddReaderToCache(type, resultType, name))
+                .Map(r => (TTResult) r(obj))
+                .DefaultsTo(defaultValue);
 
-            if (!TryGetPropertyReader(type, resultType, name, out getter)
-                && !TryGetFieldReader(type, resultType, name, out getter))
-                getter = _ => defaultValue;
-
-            ValueGetters.Add(key, getter);
-            return (TTResult)getter(obj);
+            return result;
         }
 
-        private static readonly Dictionary<Tuple<Type, string, Type>, Func<object, object>>
-            ValueGetters = new Dictionary<Tuple<Type, string, Type>, Func<object, object>>();
+        private static readonly Cache _valueReadersCache = new Cache();
 
-        static bool TryGetPropertyReader(Type type, Type resultType, string propertyName, out Func<object, object> propertyReader)
+        private static Key CreateKey(Type type, Type resultType, string propertyName)
         {
-            propertyReader = _ => { throw new NotSupportedException(); };
+            return Tuple.Create(type, propertyName, resultType);
+        }
 
+        static Option<Reader> TryGetReaderFromCache(Key key)
+        {
+            return Option.Try<Key,Reader>(_valueReadersCache.TryGetValue, key);
+        }
+
+        static Option<Reader> TryAddReaderToCache(Type type, Type resultType, string propertyName)
+        {
+            var reader =
+                TryGetPropertyReader(type, resultType, propertyName)
+                    .OrElse(TryGetFieldReader(type, resultType, propertyName));
+            reader.Do(r => _valueReadersCache.Add(CreateKey(type, resultType, propertyName), r));
+            return reader;
+        }
+
+        static Option<Reader> TryGetPropertyReader(Type type, Type resultType, string propertyName)
+        {
             var propertyInfos = type.GetProperties();
             try
             {
@@ -44,23 +59,19 @@ namespace SeekYouRS.Utilities
                         pi => pi.Name.Equals(propertyName,
                                              StringComparison.OrdinalIgnoreCase));
 
-                if (identifier == null) return false;
-                if (!resultType.IsAssignableFrom(identifier.PropertyType)) return false;
+                if (identifier == null) return Option<Reader>.None;
+                if (!resultType.IsAssignableFrom(identifier.PropertyType)) return Option<Reader>.None;
 
-                propertyReader = identifier.GetValue;
-
-                return true;
+                return Option<Reader>.Some(identifier.GetValue);
             }
             catch (Exception)
             {
-                return false;
+                return Option<Reader>.None;
             }
         }
 
-        static bool TryGetFieldReader(Type type, Type resultType, string fieldName, out Func<object, object> fieldReader)
+        static Option<Reader> TryGetFieldReader(Type type, Type resultType, string fieldName)
         {
-            fieldReader = _ => { throw new NotSupportedException(); };
-
             var fieldInfos = type.GetFields();
             try
             {
@@ -69,15 +80,13 @@ namespace SeekYouRS.Utilities
                         pi => pi.Name.Equals(fieldName,
                                              StringComparison.OrdinalIgnoreCase));
 
-                if (identifier == null) return false;
-                if (!resultType.IsAssignableFrom(identifier.FieldType)) return false;
-                fieldReader = identifier.GetValue;
-
-                return true;
+                if (identifier == null) return Option<Reader>.None;
+                if (!resultType.IsAssignableFrom(identifier.FieldType)) return Option<Reader>.None;
+                return Option<Reader>.Some(identifier.GetValue);
             }
             catch (Exception)
             {
-                return false;
+                return Option<Reader>.None;
             }
         }
     }
