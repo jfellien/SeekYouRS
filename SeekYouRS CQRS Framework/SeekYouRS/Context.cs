@@ -1,4 +1,5 @@
-﻿using SeekYouRS.Handler;
+﻿using System.Collections.Generic;
+using SeekYouRS.Handler;
 using SeekYouRS.Store;
 
 namespace SeekYouRS
@@ -11,16 +12,26 @@ namespace SeekYouRS
 	{
 		private readonly IExecuteCommands _commands;
 		readonly IQueryReadModels _queries;
-		private readonly IHandleAggregateEvents _eventHandler;
 
 		protected Context(IExecuteCommands commands, IQueryReadModels queries, IHandleAggregateEvents eventHandler)
 		{
 			_commands = commands;
 			_queries = queries;
-			_eventHandler = eventHandler;
 
-			_commands.HasPerformed += _eventHandler.SaveChangesBy;
+			_commands.HasPerformed += eventHandler.SaveChangesBy;
 		}
+
+		protected Context(IExecuteCommands commands, IQueryReadModels queries, IEnumerable<IHandleAggregateEvents> eventHandlers)
+		{
+			_commands = commands;
+			_queries = queries;
+
+			foreach (var eventHandler in eventHandlers)
+			{
+				_commands.HasPerformed += eventHandler.SaveChangesBy;
+			}
+		}
+
 		/// <summary>
 		/// Passed the command to the Command Handler for processing the command.
 		/// </summary>

@@ -195,5 +195,32 @@ namespace SeekYouRS.Tests
 			Assert.Catch<ArgumentException>(() => api.ExecuteQuery<CustomerModel>(new UnknownQuery()));
 		}
 
+		[Test]
+		public void TestToRecieveAggregateEventsOnMultipleHandler()
+		{
+			var aggreagteStore = new InMemoryAggregateStore();
+			var readModelStore = new InMemoryReadModelsStore();
+			var customerReadModelHandler = new CustomerReadModelHandler(readModelStore);
+			var vehicleReadModelHandler = new VehicleReadModelHandler(readModelStore);
+
+			var commands = new CustomerCommands(aggreagteStore);
+			var queries = new CustomerQueries(readModelStore);
+
+			var api = new CustomerContext(commands, queries,
+			                              new List<IHandleAggregateEvents>
+				                              {
+					                              customerReadModelHandler,
+					                              vehicleReadModelHandler
+				                              });
+
+			var id1 = Guid.NewGuid();
+
+			api.Process(new CreateCustomer { Id = id1, Name = "Customer One" });
+
+			var customers = api.ExecuteQuery<IEnumerable<CustomerModel>>(new GetAllCustomers()).ToList();
+
+
+		}
+
 	}
 }

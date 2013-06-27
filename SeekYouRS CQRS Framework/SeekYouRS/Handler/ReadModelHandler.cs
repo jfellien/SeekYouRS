@@ -32,8 +32,12 @@ namespace SeekYouRS.Handler
 		public void Handle(object unassignedEvent)
 		{
 			var eventData = ((dynamic) unassignedEvent).EventData;
-
-			throw new ArgumentException("This event is not assigned to this instance, " + eventData.GetType().Name);
+			var eventTypeName = eventData.GetType().Name;
+			throw new ArgumentException(
+				String.Format(
+					"This event is not assigned to this instance, {0}\r\n"
+					+ "Be sure you have write a methode like void Handle(AggregateBag<{0}> aggregateEvent)",
+					eventTypeName));
 		}
 	}
 }

@@ -64,8 +64,10 @@
     <Compile Include="TestObjects\Events\UnhandlesEventRaised.cs" />
     <Compile Include="TestObjects\GenerischeKlasseMitEigenschaft.cs" />
     <Compile Include="TestObjects\Handler\CustomerReadModelHandler.cs" />
+    <Compile Include="TestObjects\Handler\VehicleReadModelHandler.cs" />
     <Compile Include="TestObjects\KlasseMitEigenschaft.cs" />
     <Compile Include="TestObjects\KlasseMitFeld.cs" />
+    <Compile Include="TestObjects\Models\VehicleBaseOfferForNewCustomers.cs" />
     <Compile Include="TestObjects\Queries\CustomerQueries.cs" />
     <Compile Include="TestObjects\Queries\GetAllCustomers.cs" />
     <Compile Include="TestObjects\Events\VehicleCreated.cs" />
