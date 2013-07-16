@@ -73,7 +73,7 @@
     <Compile Include="TestObjects\Events\VehicleCreated.cs" />
     <Compile Include="TestObjects\Events\CustomerCreated.cs" />
     <Compile Include="TestObjects\Events\CustomerChanged.cs" />
-    <Compile Include="TestObjects\Handler\CustomerCommandHandler.cs" />
+    <Compile Include="TestObjects\Handler\CustomerCommands.cs" />
     <Compile Include="TestObjects\Models\CustomerModel.cs" />
     <Compile Include="TestObjects\Queries\GetCustomer.cs" />
     <Compile Include="TestObjects\CustomerContext.cs" />

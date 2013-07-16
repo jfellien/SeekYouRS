@@ -1,6 +1,7 @@
 using System;
 using System.Linq;
 using SeekYouRS.Contracts;
+using SeekYouRS.EventStore;
 
 namespace SeekYouRS
 {

@@ -43,21 +43,22 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Aggregate.cs" />
-    <Compile Include="AggregateEvent.cs" />
-    <Compile Include="AggregateEventBag.cs" />
-    <Compile Include="Context.cs" />
-    <Compile Include="Handler\CommandHandler.cs" />
-    <Compile Include="Handler\IHandleCommands.cs" />
-    <Compile Include="Handler\IHandleAggregateEvents.cs" />
-    <Compile Include="Handler\AggregateEventsHandler.cs" />
+    <Compile Include="Aggregates.cs" />
+    <Compile Include="Commands.cs" />
+    <Compile Include="DomainContext.cs" />
+    <Compile Include="Contracts\IExecuteCommands.cs" />
+    <Compile Include="Contracts\IQueryReadModels.cs" />
+    <Compile Include="Contracts\IHandleAggregateEvents.cs" />
+    <Compile Include="Contracts\IStoreAndRetrieveAggregateEvents.cs" />
+    <Compile Include="Contracts\IStoreAndRetrieveReadModels.cs" />
+    <Compile Include="EventStore\AggregateEvent.cs" />
+    <Compile Include="EventStore\AggregateEventBag.cs" />
+    <Compile Include="EventStore\AggregateEventHandler.cs" />
+    <Compile Include="Queries.cs" />
     <Compile Include="Reflector.cs" />
-    <Compile Include="Store\Aggregates.cs" />
-    <Compile Include="Store\IQueryReadModels.cs" />
-    <Compile Include="Store\IStoreAndRetrieveAggregateEvents.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Store\IStoreAndQueryReadModels.cs" />
-    <Compile Include="Store\Queries.cs" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

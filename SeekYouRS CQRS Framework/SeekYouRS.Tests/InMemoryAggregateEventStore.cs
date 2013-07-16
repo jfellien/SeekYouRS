@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using SeekYouRS.Contracts;
+using SeekYouRS.EventStore;
 
 namespace SeekYouRS.Tests
 {

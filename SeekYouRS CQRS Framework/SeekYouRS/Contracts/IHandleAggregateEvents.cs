@@ -1,3 +1,5 @@
+using SeekYouRS.EventStore;
+
 namespace SeekYouRS.Contracts
 {
 	/// <summary>

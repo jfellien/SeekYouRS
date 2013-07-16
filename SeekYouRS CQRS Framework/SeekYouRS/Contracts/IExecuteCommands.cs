@@ -1,4 +1,5 @@
 using System;
+using SeekYouRS.EventStore;
 
 namespace SeekYouRS.Contracts
 {

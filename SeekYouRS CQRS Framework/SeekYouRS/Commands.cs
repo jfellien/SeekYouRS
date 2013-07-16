@@ -1,10 +1,11 @@
 using System;
 using SeekYouRS.Contracts;
+using SeekYouRS.EventStore;
 
 namespace SeekYouRS
 {
 	/// <summary>
-	/// Base calss for Commands.
+	/// Base class for Commands.
 	/// This handles Commands who informs the Aggregates to change the state.
 	/// After Handling the Handler informs a Subscriber about state changes.
 	/// </summary>

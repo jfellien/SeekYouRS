@@ -1,4 +1,5 @@
 using SeekYouRS.Contracts;
+using SeekYouRS.EventStore;
 using SeekYouRS.Tests.TestObjects.Events;
 using SeekYouRS.Tests.TestObjects.Models;
 

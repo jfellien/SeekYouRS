@@ -3,7 +3,7 @@ using SeekYouRS.Contracts;
 
 namespace SeekYouRS.Tests.TestObjects
 {
-	public class CustomerContext : Context
+	public class CustomerContext : DomainContext
 	{
 		public CustomerContext(
 			IExecuteCommands commands,

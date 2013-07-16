@@ -1,19 +1,19 @@
 using SeekYouRS.Contracts;
-using SeekYouRS.Store;
+using SeekYouRS.EventStore;
 using SeekYouRS.Tests.TestObjects.Events;
 using SeekYouRS.Tests.TestObjects.Models;
 
 namespace SeekYouRS.Tests.TestObjects.Handler
 {
-	public class VehicleAggregateEvents : AggregateEvents
+	public class VehicleAggregateEventHandler : AggregateEventHandler
 	{
-		public VehicleAggregateEvents(IStoreAndRetrieveReadModels readModelStore) : base(readModelStore)
+		public VehicleAggregateEventHandler(IStoreAndRetrieveReadModels readModelStore) : base(readModelStore)
 		{
 		}
 
-		public override void SaveChangesBy(AggregateEvent aggregateEvent)
+		public override void Handle(AggregateEvent aggregateEvent)
 		{
-			Save((dynamic)aggregateEvent);
+			Handle((dynamic)aggregateEvent); 
 		}
 
 		void Handle(AggregateEventBag<CustomerCreated> customerCreated)

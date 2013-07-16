@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.CSharp.RuntimeBinder;
+using SeekYouRS.EventStore;
 
 namespace SeekYouRS
 {
