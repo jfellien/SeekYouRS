@@ -1,18 +1,13 @@
 using System;
 using SeekYouRS.Contracts;
 
-namespace SeekYouRS
+namespace SeekYouRS.BaseComponents
 {
 	/// <summary>
 	/// Base class for Query Repositories.
 	/// </summary>
-	public abstract class Queries : IQueryReadModels
+	public abstract class ReadModelQueries : IQueryReadModels
 	{
-		protected Queries(IStoreAndRetrieveReadModels readModelStore)
-		{
-			ReadModelStore = readModelStore;
-		}
-
 		/// <summary>
 		/// Gets the ReadModelStore who knows the ReadModels to retrieve
 		/// </summary>
@@ -20,7 +15,7 @@ namespace SeekYouRS
 
 		/// <summary>
 		/// Derived method from interface IQueryReadModels.
-		/// You should implement this method onlxy with call 'ExecuteQuery(query)' and
+		/// You should implement this method only with call 'ExecuteQuery(query)' and
 		/// implement for any Query an private ExecuteQuery method.
 		/// </summary>
 		/// <typeparam name="T">Type of expected returned ReadModel</typeparam>
@@ -30,7 +25,7 @@ namespace SeekYouRS
 
 		public object ExecuteQuery(object query)
 		{
-			throw new ArgumentException(String.Format("I'm so sorry, this query {0} is not assigned to this Queries Repository", query.GetType().Name));
+			throw new ArgumentException(String.Format("I'm so sorry, this query {0} is not assigned to this ReadModelQueries Repository", query.GetType().Name));
 		}
 	}
 }

@@ -1,9 +1,7 @@
-using SeekYouRS.EventStore;
-
 namespace SeekYouRS.Contracts
 {
 	/// <summary>
-	/// Represents an Event Handler fpr Aggregate Events.
+	/// Represents an Event Handler for Aggregate Events.
 	/// </summary>
 	public interface IHandleAggregateEvents
 	{
@@ -11,6 +9,8 @@ namespace SeekYouRS.Contracts
 		/// Handles the AggregateEvent by saving the changes, decribed as properties of AggregateEvent. 
 		/// </summary>
 		/// <param name="aggregateEvent"></param>
-		void Handle(AggregateEvent aggregateEvent);
+		void Handle(IAmAnAggregateEvent aggregateEvent);
+
+		IStoreAndRetrieveReadModels ReadModelStore { get; set; }
 	}
 }

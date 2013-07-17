@@ -1,7 +1,12 @@
+using System;
+using SeekYouRS.Contracts;
+
 namespace SeekYouRS.Tests.TestObjects.Events
 {
-    internal class CustomerChanged
-    {
-        public string Name { get; set; }
-    }
+	internal class CustomerChanged : IAmAnAggregateEvent
+	{
+		public string Name { get; set; }
+
+		public Guid Id { get; set; }
+	}
 }

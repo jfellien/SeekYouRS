@@ -8,21 +8,21 @@ namespace SeekYouRS.Tests
 {
 	class InMemoryAggregateEventStore : IStoreAndRetrieveAggregateEvents
 	{
-		private readonly List<AggregateEvent> _worldhistory;
+		private readonly List<AggregateEventBag> _worldhistory;
 
 		public InMemoryAggregateEventStore()
 		{
-			_worldhistory = new List<AggregateEvent>();
+			_worldhistory = new List<AggregateEventBag>();
 		}
 
-		public void Save(IEnumerable<AggregateEvent> changes)
+		public void Store(AggregateEventBag changes)
 		{
-			_worldhistory.AddRange(changes);
+			_worldhistory.Add(changes);
 		}
 
-		public IEnumerable<AggregateEvent> GetEventsBy(Guid id)
+		public IEnumerable<AggregateEventBag> RetrieveBy(Guid aggregateId)
 		{
-			return _worldhistory.Where(@event => @event.Id == id);
+			return _worldhistory.Where(aggregateEventBag => aggregateEventBag.AggregateId == aggregateId);
 		}
 	}
 }

@@ -14,8 +14,9 @@ namespace SeekYouRS.Tests
         [Test]
         public void TestToCreateCustomerViaAggregate()
         {
-	        var aggregateStore = new InMemoryAggregateEventStore();
-			var aggregates = new Aggregates(aggregateStore);
+	        var eventRecorder = new EventRecorder(new InMemoryAggregateEventStore());
+			var aggregates = new AggregateStore(eventRecorder);
+			
             var id = Guid.NewGuid();
             var customer = aggregates.GetAggregate<Customer>(id);
 
@@ -28,8 +29,9 @@ namespace SeekYouRS.Tests
         [Test]
         public void TestToCreateCustomerAndVehicle()
         {
-			var aggregateStore = new InMemoryAggregateEventStore();
-			var aggregates = new Aggregates(aggregateStore);
+			var eventRecorder = new EventRecorder(new InMemoryAggregateEventStore());
+			var aggregates = new AggregateStore(eventRecorder);
+
             var customerId = Guid.NewGuid();
             var vehicleId = Guid.NewGuid();
 
@@ -42,7 +44,7 @@ namespace SeekYouRS.Tests
             customer.Id.ShouldBeEquivalentTo(customerId);
             customer.Name.Should().BeEquivalentTo("My Customer");
             aggregates.GetAggregate<Customer>(customerId)
-                .History.OfType<AggregateEventBag<CustomerCreated>>().Any()
+                .History.OfType<CustomerCreated>().Any()
                 .Should().BeTrue();
 
             vehicle.Create(vehicleId, "My Vehicle");
@@ -51,15 +53,16 @@ namespace SeekYouRS.Tests
             vehicle.Typ.ShouldBeEquivalentTo("My Vehicle");
 
             aggregates.GetAggregate<Vehicle>(vehicleId)
-                .History.OfType<AggregateEventBag<VehicleCreated>>().Any()
+                .History.OfType<VehicleCreated>().Any()
                 .Should().BeTrue();
         }
 
         [Test]
         public void TestToChangeCustomerName()
         {
-			var aggregateStore = new InMemoryAggregateEventStore();
-			var aggregates = new Aggregates(aggregateStore);
+			var eventRecorder = new EventRecorder(new InMemoryAggregateEventStore());
+			var aggregates = new AggregateStore(eventRecorder);
+
             var customerId = Guid.NewGuid();
 
             var customer = aggregates.GetAggregate<Customer>(customerId);
@@ -80,8 +83,9 @@ namespace SeekYouRS.Tests
         [Test]
         public void TestWithoutCreateAggregate()
         {
-			var aggregateStore = new InMemoryAggregateEventStore();
-			var aggregates = new Aggregates(aggregateStore);
+			var eventRecorder = new EventRecorder(new InMemoryAggregateEventStore());
+			var aggregates = new AggregateStore(eventRecorder);
+
             var customerId = Guid.NewGuid();
 
             var customer = aggregates.GetAggregate<Customer>(customerId);

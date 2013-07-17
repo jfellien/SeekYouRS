@@ -1,16 +1,13 @@
 using System.Collections.Generic;
 using System.Linq;
+using SeekYouRS.BaseComponents;
 using SeekYouRS.Contracts;
 using SeekYouRS.Tests.TestObjects.Models;
 
 namespace SeekYouRS.Tests.TestObjects.Queries
 {
-	public class CustomerQueries : SeekYouRS.Queries
+	public class CustomerQueries : ReadModelQueries
 	{
-		public CustomerQueries(IStoreAndRetrieveReadModels readModelStore) : base(readModelStore)
-		{
-		}
-
 		public override T Retrieve<T>(dynamic query)
 		{ 
 			return ExecuteQuery(query);

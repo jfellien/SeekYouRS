@@ -1,23 +1,20 @@
 using System.Collections.Generic;
+using SeekYouRS.BaseComponents;
 using SeekYouRS.Contracts;
+using SeekYouRS.EventStore;
+using SeekYouRS.Tests.TestObjects.Handler;
+using SeekYouRS.Tests.TestObjects.Queries;
 
 namespace SeekYouRS.Tests.TestObjects
 {
-	public class CustomerContext : DomainContext
+	public class CustomerContext : DomainContext<CustomerCommands, CustomerQueries, CustomerAggregateEventHandler>
 	{
-		public CustomerContext(
-			IExecuteCommands commands,
-			IQueryReadModels queries,
-			IEnumerable<IHandleAggregateEvents> eventHandlers)
-			: base(commands, queries, eventHandlers)
-		{
-		}
+		readonly CustomerAggregateEventHandler _readModelHandler;
 
 		public CustomerContext(
-			IExecuteCommands commands,
-			IQueryReadModels queries,
-			IHandleAggregateEvents eventHandler)
-			: base(commands, queries, eventHandler)
+			EventRecorder eventRecorder, 
+			IStoreAndRetrieveReadModels readModelStore) 
+			: base(eventRecorder, readModelStore)
 		{
 		}
 	}

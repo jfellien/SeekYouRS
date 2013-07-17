@@ -1,27 +1,25 @@
-using SeekYouRS.Contracts;
+using SeekYouRS.BaseComponents;
+using SeekYouRS.EventStore;
 using SeekYouRS.Tests.TestObjects.Aggregates;
 using SeekYouRS.Tests.TestObjects.Commands;
 
 namespace SeekYouRS.Tests.TestObjects.Handler
 {
-	public class CustomerCommands : SeekYouRS.Commands
+	public class CustomerCommands : AggregateCommandHandler
 	{
-		public CustomerCommands(IStoreAndRetrieveAggregateEvents aggregateEventsStore) 
-		: base(aggregateEventsStore) { }
-
-		public override void Execute(dynamic command)
+		public override void Handle(dynamic command)
 		{
-			Handle(command);
+			HandleThis(command);
 		}
 
-		private void Handle(CreateCustomer command)
+		private void HandleThis(CreateCustomer command)
 		{
 			var customer = AggregateStore.GetAggregate<Customer>(command.Id);
 			customer.Create(command.Id, command.Name);
 			AggregateStore.Save(customer);
 		}
 
-		private void Handle(ChangeCustomer command)
+		private void HandleThis(ChangeCustomer command)
 		{
 			var customer = AggregateStore.GetAggregate<Customer>(command.Id);
 			customer.Change(command.Name);
@@ -29,14 +27,14 @@ namespace SeekYouRS.Tests.TestObjects.Handler
 			
 		}
 
-		private void Handle(RemoveCustomer command)
+		private void HandleThis(RemoveCustomer command)
 		{
 			var customer = AggregateStore.GetAggregate<Customer>(command.Id);
 			customer.Remove();
 			AggregateStore.Save(customer);
 		}
 
-		private void Handle(CommandWithoutEventHandling command)
+		private void HandleThis(CommandWithoutEventHandling command)
 		{
 			var customer = AggregateStore.GetAggregate<Customer>(command.Id);
 			customer.RaiseUnhandledEvent();

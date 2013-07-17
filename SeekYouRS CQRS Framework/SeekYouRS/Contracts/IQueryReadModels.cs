@@ -12,5 +12,7 @@ namespace SeekYouRS.Contracts
 		/// <param name="query">The Query</param>
 		/// <returns>Result of Query</returns>
 		T Retrieve<T>(dynamic query);
+
+		IStoreAndRetrieveReadModels ReadModelStore { get; set; }
 	}
 }

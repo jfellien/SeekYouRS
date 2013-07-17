@@ -1,4 +1,5 @@
 using System;
+using SeekYouRS.BaseComponents;
 using SeekYouRS.Tests.TestObjects.Events;
 
 namespace SeekYouRS.Tests.TestObjects.Aggregates

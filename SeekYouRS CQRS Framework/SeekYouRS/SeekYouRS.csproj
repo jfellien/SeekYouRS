@@ -42,19 +42,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Aggregate.cs" />
-    <Compile Include="Aggregates.cs" />
-    <Compile Include="Commands.cs" />
-    <Compile Include="DomainContext.cs" />
-    <Compile Include="Contracts\IExecuteCommands.cs" />
+    <Compile Include="AggregateStore.cs" />
+    <Compile Include="BaseComponents\Aggregate.cs" />
+    <Compile Include="BaseComponents\AggregateCommandHandler.cs" />
+    <Compile Include="BaseComponents\AggregateEventHandler.cs" />
+    <Compile Include="BaseComponents\DomainContext.cs" />
+    <Compile Include="BaseComponents\ReadModelQueries.cs" />
+    <Compile Include="Contracts\IAmAnAggregateEvent.cs" />
+    <Compile Include="Contracts\IStoreAndRetrieveAggregateEvents.cs" />
+    <Compile Include="Contracts\IHandleCommands.cs" />
     <Compile Include="Contracts\IQueryReadModels.cs" />
     <Compile Include="Contracts\IHandleAggregateEvents.cs" />
-    <Compile Include="Contracts\IStoreAndRetrieveAggregateEvents.cs" />
     <Compile Include="Contracts\IStoreAndRetrieveReadModels.cs" />
-    <Compile Include="EventStore\AggregateEvent.cs" />
     <Compile Include="EventStore\AggregateEventBag.cs" />
-    <Compile Include="EventStore\AggregateEventHandler.cs" />
-    <Compile Include="Queries.cs" />
+    <Compile Include="EventStore\EventRecorder.cs" />
     <Compile Include="Reflector.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
