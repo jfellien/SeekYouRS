@@ -1,5 +1,5 @@
+using System.Threading.Tasks;
 using SeekYouRS.BaseComponents;
-using SeekYouRS.EventStore;
 using SeekYouRS.Tests.TestObjects.Aggregates;
 using SeekYouRS.Tests.TestObjects.Commands;
 
@@ -39,6 +39,12 @@ namespace SeekYouRS.Tests.TestObjects.Handler
 			var customer = AggregateStore.GetAggregate<Customer>(command.Id);
 			customer.RaiseUnhandledEvent();
 			AggregateStore.Save(customer);
+		}
+
+		private void HandleThis(LongRunningCommand command)
+		{
+			var customer = AggregateStore.GetAggregate<Customer>(command.Id);
+			customer.CallLongRunningMethod();
 		}
 	}
 }

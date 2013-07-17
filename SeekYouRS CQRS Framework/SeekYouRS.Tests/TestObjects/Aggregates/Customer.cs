@@ -1,4 +1,6 @@
 using System;
+using System.Diagnostics;
+using System.Threading;
 using SeekYouRS.BaseComponents;
 using SeekYouRS.Tests.TestObjects.Events;
 
@@ -48,6 +50,13 @@ namespace SeekYouRS.Tests.TestObjects.Aggregates
 		public void RaiseUnhandledEvent()
 		{
 			ApplyChanges(new UnhandlesEventRaised());
+		}
+
+		public void CallLongRunningMethod()
+		{
+			Thread.Sleep(5000);
+
+			Trace.WriteLine("Long running Method is finished");
 		}
 	}
 }

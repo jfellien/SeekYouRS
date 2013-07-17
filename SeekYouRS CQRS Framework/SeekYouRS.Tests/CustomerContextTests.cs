@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using FluentAssertions;
 using NUnit.Framework;
 using SeekYouRS.Contracts;
@@ -26,11 +27,14 @@ namespace SeekYouRS.Tests
 			var api = new CustomerContext(eventRecorder, readModelStore);
 			var id = Guid.NewGuid();
 
-			api.Process(new CreateCustomer{Id = id, Name = "My Customer"});
+			var createCustomer = api.Process(new CreateCustomer{Id = id, Name = "My Customer"});
 
-			var customerModel = api.ExecuteQuery<CustomerModel>(new GetCustomer {Id = id});
+			createCustomer.ContinueWith(task =>
+				{
+					var customerModel = api.ExecuteQuery<CustomerModel>(new GetCustomer { Id = id });
 
-			customerModel.Name.ShouldBeEquivalentTo("My Customer");
+					customerModel.Name.ShouldBeEquivalentTo("My Customer");
+				});
 		}
 
 		[Test]
@@ -42,15 +46,23 @@ namespace SeekYouRS.Tests
 			var api = new CustomerContext(eventRecorder, readModelStore);
 			var id = Guid.NewGuid();
 
-			api.Process(new CreateCustomer { Id = id, Name = "My Customer" });
-			api.Process(new ChangeCustomer { Id = id, Name = "New Name" });
+			var createCustomer = api.Process(new CreateCustomer { Id = id, Name = "My Customer" });
 
-			var customer = api.ExecuteQuery<CustomerModel>(new GetCustomer
+			createCustomer.ContinueWith(task =>
 				{
-					Id = id
-				});
+					var changeCustomer = api.Process(new ChangeCustomer {Id = id, Name = "New Name"});
 
-			customer.Name.ShouldBeEquivalentTo("New Name");
+					changeCustomer.ContinueWith(task1 =>
+						{
+							var customer = api.ExecuteQuery<CustomerModel>(new GetCustomer
+							{
+								Id = id
+							});
+
+							customer.Name.ShouldBeEquivalentTo("New Name");
+
+						});
+				});
 		}
 
 		[Test]
@@ -64,17 +76,32 @@ namespace SeekYouRS.Tests
 			var id1 = Guid.NewGuid();
 			var id2 = Guid.NewGuid();
 
-			api.Process(new CreateCustomer { Id = id1, Name = "Customer One" });
-			api.Process(new CreateCustomer { Id = id2, Name = "Customer Two" });
+			var createCustomer1 = api.Process(new CreateCustomer { Id = id1, Name = "Customer One" });
 
-			api.Process(new ChangeCustomer { Id = id2, Name = "Customer Two Changed" });
+			createCustomer1.ContinueWith(task =>
+				{
+					var createCustomer2 = api.Process(new CreateCustomer { Id = id2, Name = "Customer Two" });
 
-			var customer = api.ExecuteQuery<CustomerModel>(new GetCustomer
-			{
-				Id = id2
-			});
+					createCustomer2.ContinueWith(task1 =>
+						{
 
-			customer.Name.ShouldBeEquivalentTo("Customer Two Changed");
+
+							var changeCustomer2 = api.Process(new ChangeCustomer {Id = id2, Name = "Customer Two Changed"});
+
+							changeCustomer2.ContinueWith(task2 =>
+								{
+
+
+									var customer = api.ExecuteQuery<CustomerModel>(new GetCustomer
+										{
+											Id = id2
+										});
+
+									customer.Name.ShouldBeEquivalentTo("Customer Two Changed");
+								});
+						});
+				});
+			
 
 		}
 
@@ -88,23 +115,30 @@ namespace SeekYouRS.Tests
 
 			var id = Guid.NewGuid();
 
-			api.Process(new CreateCustomer { Id = id, Name = "Customer To Remove" });
+			var createCustomer = api.Process(new CreateCustomer { Id = id, Name = "Customer To Remove" });
 
-			var customer = api.ExecuteQuery<CustomerModel>(new GetCustomer
-			{
-				Id = id
-			});
+			createCustomer.ContinueWith(task =>
+				{
+					var customer = api.ExecuteQuery<CustomerModel>(new GetCustomer
+						{
+							Id = id
+						});
 
-			customer.Should().NotBeNull();
+					customer.Should().NotBeNull();
 
-			api.Process(new RemoveCustomer { Id = id });
+					var removeCustomer = api.Process(new RemoveCustomer { Id = id });
 
-			customer = api.ExecuteQuery<CustomerModel>(new GetCustomer
-			{
-				Id = id
-			});
+					removeCustomer.ContinueWith(task1 =>
+						{
+							customer = api.ExecuteQuery<CustomerModel>(new GetCustomer
+								{
+									Id = id
+								});
 
-			customer.Should().BeNull();
+							customer.Should().BeNull();
+
+						});
+				});
 		}
 
 		[Test]
@@ -118,16 +152,21 @@ namespace SeekYouRS.Tests
 			var id1 = Guid.NewGuid();
 			var id2 = Guid.NewGuid();
 
-			api.Process(new CreateCustomer { Id = id1, Name = "Customer One" });
-			api.Process(new CreateCustomer { Id = id2, Name = "Customer Two" });
+			var createCustomer1 = api.Process(new CreateCustomer { Id = id1, Name = "Customer One" });
 
-			var customers = api.ExecuteQuery<IEnumerable<CustomerModel>>(new GetAllCustomers()).ToList();
+			createCustomer1.ContinueWith(task =>
+				{
+					var createCustomer2 = api.Process(new CreateCustomer {Id = id2, Name = "Customer Two"});
+					createCustomer2.ContinueWith(task1 =>
+						{
+							var customers = api.ExecuteQuery<IEnumerable<CustomerModel>>(new GetAllCustomers()).ToList();
 
-			customers.Count().ShouldBeEquivalentTo(2);
+							customers.Count().ShouldBeEquivalentTo(2);
 
-			customers.Should().Contain(c => c.Id == id1);
-			customers.Should().Contain(c => c.Id == id2);
-
+							customers.Should().Contain(c => c.Id == id1);
+							customers.Should().Contain(c => c.Id == id2);
+						});
+				});
 		}
 
 		[Test]
@@ -138,7 +177,12 @@ namespace SeekYouRS.Tests
 
 			var api = new CustomerContext(eventRecorder, readModelStore);
 
-			Assert.Catch<ArgumentException>(() => api.Process(new UnknownCommand()));
+			var exception = api.Process(new UnknownCommand());
+
+			exception.ContinueWith(task =>
+				{
+					Assert.IsNotNullOrEmpty(task.Exception.Message);
+				});
 		}
 
 		[Test]
@@ -148,8 +192,11 @@ namespace SeekYouRS.Tests
 			var readModelStore = new InMemoryReadModelStore();
 
 			var api = new CustomerContext(eventRecorder, readModelStore);
-
-			Assert.Catch<ArgumentException>(() => api.Process(new CommandWithoutEventHandling()));
+			var exception = api.Process(new CommandWithoutEventHandling());
+			exception.ContinueWith(task =>
+				{
+					Assert.IsNotNullOrEmpty(task.Exception.Message);
+				});
 		}
 
 		[Test]
@@ -161,6 +208,28 @@ namespace SeekYouRS.Tests
 			var api = new CustomerContext(eventRecorder, readModelStore);
 			
 			Assert.Catch<ArgumentException>(() => api.ExecuteQuery<CustomerModel>(new UnknownQuery()));
+		}
+
+		[Test]
+		public void TestALongRunningCommand()
+		{
+			var eventRecorder = new EventRecorder(new InMemoryAggregateEventStore());
+			var readModelStore = new InMemoryReadModelStore();
+
+			var api = new CustomerContext(eventRecorder, readModelStore);
+			var id = Guid.NewGuid();
+
+			api.Process(new CreateCustomer { Id = id, Name = "My Customer" });
+
+			var startTime = DateTime.Now;
+
+			api.Process(new LongRunningCommand {Id = id});
+
+			var endTime = DateTime.Now;
+
+			var timeDiff = endTime - startTime;
+
+			Assert.LessOrEqual(timeDiff.Seconds, 2);
 		}
 	}
 }
