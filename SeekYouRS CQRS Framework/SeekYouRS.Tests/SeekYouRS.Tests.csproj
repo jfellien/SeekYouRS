@@ -52,7 +52,6 @@
     <Compile Include="InMemoryReadModelStore.cs" />
     <Compile Include="CustomerContextTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ReflectorTests.cs" />
     <Compile Include="TestObjects\Aggregates\Customer.cs" />
     <Compile Include="TestObjects\Aggregates\Vehicle.cs" />
     <Compile Include="TestObjects\Commands\CommandWithoutEventHandling.cs" />

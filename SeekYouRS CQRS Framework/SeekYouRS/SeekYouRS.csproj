@@ -56,7 +56,6 @@
     <Compile Include="Contracts\IStoreAndRetrieveReadModels.cs" />
     <Compile Include="EventStore\AggregateEventBag.cs" />
     <Compile Include="EventStore\EventRecorder.cs" />
-    <Compile Include="Reflector.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />

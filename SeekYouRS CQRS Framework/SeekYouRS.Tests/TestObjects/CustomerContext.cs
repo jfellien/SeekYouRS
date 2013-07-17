@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using SeekYouRS.BaseComponents;
 using SeekYouRS.Contracts;
 using SeekYouRS.EventStore;
@@ -9,8 +8,6 @@ namespace SeekYouRS.Tests.TestObjects
 {
 	public class CustomerContext : DomainContext<CustomerCommands, CustomerQueries, CustomerAggregateEventHandler>
 	{
-		readonly CustomerAggregateEventHandler _readModelHandler;
-
 		public CustomerContext(
 			EventRecorder eventRecorder, 
 			IStoreAndRetrieveReadModels readModelStore) 
