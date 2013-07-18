@@ -5,8 +5,8 @@ using SeekYouRS.EventStore;
 namespace SeekYouRS.Contracts
 {
 	/// <summary>
-	/// Represents the behaviour of a Command Handler. 
-	/// Use AggregateCommandHandler class as base for your projects. It contains all base features.
+	/// Describes the behaviour of a CommandHandler. 
+	/// Use CommandHandler class as base for your projects. It contains all base features.
 	/// </summary>
 	public interface IHandleCommands
 	{
@@ -16,6 +16,9 @@ namespace SeekYouRS.Contracts
 		/// <param name="command">Object with parameters of command</param>
 		void Handle(dynamic command);
 
+		/// <summary>
+		/// Sets the EventRecorder who record and replay the AggregateEvents
+		/// </summary>
 		EventRecorder EventRecorder { set; }
 	}
 }

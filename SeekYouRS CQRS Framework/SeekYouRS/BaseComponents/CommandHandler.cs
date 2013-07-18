@@ -6,24 +6,27 @@ using SeekYouRS.EventStore;
 namespace SeekYouRS.BaseComponents
 {
 	/// <summary>
-	/// Base class for AggregateCommandHandler.
-	/// This handles Commands who informs the Aggregates to change the state.
-	/// After Handling the Handler informs a Subscriber about state changes.
+	/// Base class for components who should handle Commands of an Aggregate. 
+	/// The handling of a Command should implemented by a HandleThis Metghod for any Command.
 	/// </summary>
-	public abstract class AggregateCommandHandler : IHandleCommands
+	public abstract class CommandHandler : IHandleCommands
 	{
 		AggregateStore _aggregateStore;
 
 		protected AggregateStore AggregateStore { get { return _aggregateStore; } }
 
 		/// <summary>
-		/// Derived method from interface IHandleCommands.
-		/// You should implement this Method by calling 'Handle(comand)' and 
-		/// implement for any Command an Handle method.
+		/// Calls the concrete HandleThis method of derived class.
 		/// </summary>
 		/// <param name="command">The Command who will handle</param>
-		public abstract void Handle(dynamic command);
+		public void Handle(dynamic command)
+		{
+			HandleThis(command);
+		}
 
+		/// <summary>
+		/// This is the reference to the EventRecorder who record and replay the AggregateEvents
+		/// </summary>
 		public EventRecorder EventRecorder
 		{
 			set
@@ -41,7 +44,9 @@ namespace SeekYouRS.BaseComponents
 		/// <param name="command"></param>
 		public void HandleThis(object command)
 		{
-			throw new ArgumentException("Unnown Command detected: " + command.GetType().Name);
+			throw new ArgumentException("Unknown Command detected: " 
+				+ command.GetType().Name 
+				+ " You should implement a HandleThis Metohd for your Command.");
 		}
 	}
 }

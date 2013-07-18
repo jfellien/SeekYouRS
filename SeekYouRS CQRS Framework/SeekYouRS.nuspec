@@ -4,7 +4,7 @@
         <id>SeekYouRS</id>
         <version>1.1.0</version>
         <title>SeekYouRS</title>
-        <authors>Jan Fellien, Carsten Koenig, Maximilian Krauss</authors>
+        <authors>Jan Fellien</authors>
         <owners>Jan Fellien</owners>
         <projectUrl>https://github.com/jfellien/SeekYouRS</projectUrl>
         <iconUrl>http://devcrowd.s3.amazonaws.com/community/seekyours.jpg</iconUrl>
@@ -18,5 +18,6 @@ This framework provides full control of Command, Query and Event Handling.</desc
     </metadata>
     <files>
         <file src="SeekYouRS\bin\Release\SeekYouRS.dll" target="lib\net45\SeekYouRS.dll" />
+		<file src="SeekYouRS\bin\Release\SeekYouRS.xml" target="lib\net45\SeekYouRS.xml" />
     </files>
 </package>

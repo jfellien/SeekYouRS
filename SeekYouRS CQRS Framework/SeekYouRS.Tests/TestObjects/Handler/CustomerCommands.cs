@@ -5,13 +5,8 @@ using SeekYouRS.Tests.TestObjects.Commands;
 
 namespace SeekYouRS.Tests.TestObjects.Handler
 {
-	public class CustomerCommands : AggregateCommandHandler
+	public class CustomerCommands : CommandHandler
 	{
-		public override void Handle(dynamic command)
-		{
-			HandleThis(command);
-		}
-
 		private void HandleThis(CreateCustomer command)
 		{
 			var customer = AggregateStore.GetAggregate<Customer>(command.Id);

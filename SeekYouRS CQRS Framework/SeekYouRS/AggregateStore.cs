@@ -6,12 +6,22 @@ using SeekYouRS.EventStore;
 
 namespace SeekYouRS
 {
-	public class AggregateStore
+	/// <summary>
+	/// This component helps to save and restore Aggregates. 
+	/// </summary>
+	public sealed class AggregateStore
 	{
 		readonly EventRecorder _eventRecorder;
 
+		/// <summary>
+		/// Raises if an AggregateEvent has change the status of an Aggregate
+		/// </summary>
 		public event Action<IAmAnAggregateEvent> AggregateHasChanged;
-
+		
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="eventRecorder">Provides the store and retrieve of AggregateEvents</param>
 		public AggregateStore(EventRecorder eventRecorder)
 		{
 			_eventRecorder = eventRecorder;
@@ -23,7 +33,11 @@ namespace SeekYouRS
 			if (AggregateHasChanged != null)
 				AggregateHasChanged(aggregateEvent);
 		}
-
+		/// <summary>
+		/// Saves an Aggregate
+		/// </summary>
+		/// <typeparam name="TAggregate"></typeparam>
+		/// <param name="aggregate"></param>
 		public void Save<TAggregate>(TAggregate aggregate) where TAggregate : Aggregate
 		{
 			var aggregateChanges = aggregate.Changes.ToList();
@@ -34,6 +48,12 @@ namespace SeekYouRS
 			aggregate.Changes.Clear();
 		}
 		
+		/// <summary>
+		/// Restores an Aggregate by its Id
+		/// </summary>
+		/// <typeparam name="TAggregate"></typeparam>
+		/// <param name="id">AggregateId of Aggregate who should restore</param>
+		/// <returns></returns>
 		public TAggregate GetAggregate<TAggregate>(Guid id) where TAggregate : Aggregate, new()
 		{
 			var aggregateHistory = _eventRecorder.ReplayFor(id).ToList();

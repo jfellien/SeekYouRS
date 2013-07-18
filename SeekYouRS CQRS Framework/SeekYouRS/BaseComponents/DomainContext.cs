@@ -6,7 +6,8 @@ namespace SeekYouRS.BaseComponents
 {
 	/// <summary>
 	/// Base class for CQRS DomainContext components.
-	/// DomainContext combines 
+	/// This Context component combined the CommandHandler and Queries of an Aggregate. 
+	/// Also provides this component the communication from Domain to the EventRecorder
 	/// </summary>
 	public abstract class DomainContext<TCommandHandler, TQueriesHandler, TAggregateEventHandler> 
 		where TCommandHandler : IHandleCommands, new()

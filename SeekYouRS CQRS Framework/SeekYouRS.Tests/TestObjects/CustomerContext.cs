@@ -6,7 +6,7 @@ using SeekYouRS.Tests.TestObjects.Queries;
 
 namespace SeekYouRS.Tests.TestObjects
 {
-	public class CustomerContext : DomainContext<CustomerCommands, CustomerQueries, CustomerAggregateEventHandler>
+	public class CustomerContext : DomainContext<CustomerCommands, CustomerQueries, CustomerEventHandler>
 	{
 		public CustomerContext(
 			EventRecorder eventRecorder, 

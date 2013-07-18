@@ -18,7 +18,7 @@ namespace SeekYouRS.BaseComponents
 		}
 
 		/// <summary>
-		/// Gets the id of the current Aggregeate. Derived class should implements the method to read Id from history.
+		/// Gets the id of the current Aggregeate. Derived class should implements the method to read Id from History.
 		/// </summary>
 		public abstract Guid Id { get; }
 
@@ -27,12 +27,12 @@ namespace SeekYouRS.BaseComponents
 		/// </summary>
 		public IList<IAmAnAggregateEvent> Changes{ get; private set; }
 		/// <summary>
-		/// Gets or sets the list of all status changes
+		/// Gets or sets the list of all status changes.
 		/// </summary>
 		public IEnumerable<IAmAnAggregateEvent> History { get; set; }
 
 		/// <summary>
-		/// Puts the change event into list of changes. The list will use by saveing the Aggregate.
+		/// Adds the change event into list of changes.
 		/// </summary>
 		/// <typeparam name="T">Type of Event</typeparam>
 		/// <param name="changeEvent">Event with change parameters</param>
@@ -41,13 +41,14 @@ namespace SeekYouRS.BaseComponents
 			Changes.Add(changeEvent);
 		}
 		/// <summary>
-		/// Gets all Events of specific type from the list of all historical AggregateEvents
+		/// Gets the last AggregateEvent of specific type from list of all historical Events
 		/// </summary>
 		/// <typeparam name="T">Type of Event</typeparam>
-		/// <returns>Data of history</returns>
+		/// <returns>Last AggregateEvent of Type T</returns>
 		protected T FromHistory<T>() where T : new()
 		{
 			var allEvents = History.Concat(Changes);
+
 			var lastEventOfSearchedType = allEvents
 				.OfType<T>()
 				.LastOrDefault();

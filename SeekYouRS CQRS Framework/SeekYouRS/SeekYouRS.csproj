@@ -31,6 +31,11 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
+    <DocumentationFile>bin\Release\SeekYouRS.XML</DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>
+    </ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -44,10 +49,10 @@
   <ItemGroup>
     <Compile Include="AggregateStore.cs" />
     <Compile Include="BaseComponents\Aggregate.cs" />
-    <Compile Include="BaseComponents\AggregateCommandHandler.cs" />
-    <Compile Include="BaseComponents\AggregateEventHandler.cs" />
+    <Compile Include="BaseComponents\CommandHandler.cs" />
+    <Compile Include="BaseComponents\EventHandler.cs" />
     <Compile Include="BaseComponents\DomainContext.cs" />
-    <Compile Include="BaseComponents\ReadModelQueries.cs" />
+    <Compile Include="BaseComponents\QueryHandler.cs" />
     <Compile Include="Contracts\IAmAnAggregateEvent.cs" />
     <Compile Include="Contracts\IStoreAndRetrieveAggregateEvents.cs" />
     <Compile Include="Contracts\IHandleCommands.cs" />

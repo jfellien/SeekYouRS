@@ -1,17 +1,11 @@
 using SeekYouRS.BaseComponents;
-using SeekYouRS.Contracts;
 using SeekYouRS.Tests.TestObjects.Events;
 using SeekYouRS.Tests.TestObjects.Models;
 
 namespace SeekYouRS.Tests.TestObjects.Handler
 {
-	public class CustomerAggregateEventHandler : AggregateEventHandler
+	public class CustomerEventHandler : EventHandler
 	{
-		public override void Handle(IAmAnAggregateEvent aggregateEvent)
-		{
-			HandleThis((dynamic)aggregateEvent);
-		}
-
 		void HandleThis(CustomerCreated customerCreated)
 		{
 			ReadModelStore.Add(new CustomerModel
