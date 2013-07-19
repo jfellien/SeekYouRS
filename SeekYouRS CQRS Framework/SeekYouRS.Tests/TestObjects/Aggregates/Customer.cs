@@ -24,7 +24,7 @@ namespace SeekYouRS.Tests.TestObjects.Aggregates
 			}
 		}
 
-		public override Guid Id {
+		protected override Guid Id {
 			get
 			{
 				var removed = FromHistory<CustomerRemoved>();

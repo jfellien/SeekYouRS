@@ -16,7 +16,7 @@ namespace SeekYouRS.Tests.TestObjects.Aggregates
             get { return FromHistory<VehicleCreated>().Typ; }
         }
 
-        public override Guid Id
+        protected override Guid Id
         {
             get { return FromHistory<VehicleCreated>().Id; }
         }

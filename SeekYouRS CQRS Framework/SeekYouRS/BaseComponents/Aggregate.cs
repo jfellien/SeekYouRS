@@ -20,16 +20,16 @@ namespace SeekYouRS.BaseComponents
 		/// <summary>
 		/// Gets the id of the current Aggregeate. Derived class should implements the method to read Id from History.
 		/// </summary>
-		public abstract Guid Id { get; }
+		protected abstract Guid Id { get; }
 
 		/// <summary>
 		/// Gets the list of current changes. List will reset after successful saving.
 		/// </summary>
-		public IList<IAmAnAggregateEvent> Changes{ get; private set; }
+		internal IList<IAmAnAggregateEvent> Changes{ get; private set; }
 		/// <summary>
 		/// Gets or sets the list of all status changes.
 		/// </summary>
-		public IEnumerable<IAmAnAggregateEvent> History { get; set; }
+		internal IEnumerable<IAmAnAggregateEvent> History { get; set; }
 
 		/// <summary>
 		/// Adds the change event into list of changes.

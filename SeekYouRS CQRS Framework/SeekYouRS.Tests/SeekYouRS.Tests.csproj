@@ -47,7 +47,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AggregateTests.cs" />
     <Compile Include="InMemoryAggregateEventStore.cs" />
     <Compile Include="InMemoryReadModelStore.cs" />
     <Compile Include="CustomerContextTests.cs" />
