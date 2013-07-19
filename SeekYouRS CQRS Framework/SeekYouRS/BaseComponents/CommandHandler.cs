@@ -23,6 +23,14 @@ namespace SeekYouRS.BaseComponents
 		{
 			HandleThis(command);
 		}
+		/// <summary>
+		/// Calls the concrete HandleThis method of derived class and returns the result.
+		/// </summary>
+		/// <param name="command">The Command who will handle</param>
+		public TResult Handle<TResult>(dynamic command)
+		{
+			return HandleThis<TResult>(command);
+		}
 
 		/// <summary>
 		/// This is the reference to the EventRecorder who record and replay the AggregateEvents
@@ -46,6 +54,16 @@ namespace SeekYouRS.BaseComponents
 		{
 			throw new ArgumentException("Unknown Command detected: " 
 				+ command.GetType().Name 
+				+ " You should implement a HandleThis Metohd for your Command.");
+		}
+		/// <summary>
+		/// Fallback method to handle unassigned Commands
+		/// </summary>
+		/// <param name="command"></param>S
+		public TResult HandleThis<TResult>(object command)
+		{
+			throw new ArgumentException("Unknown Command detected: "
+				+ command.GetType().Name
 				+ " You should implement a HandleThis Metohd for your Command.");
 		}
 	}

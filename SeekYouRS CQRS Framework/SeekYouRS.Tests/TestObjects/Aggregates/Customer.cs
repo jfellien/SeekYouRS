@@ -58,5 +58,15 @@ namespace SeekYouRS.Tests.TestObjects.Aggregates
 
 			Trace.WriteLine("Long running Method is finished");
 		}
+
+		public string GetStringResult(string name)
+		{
+			return name;
+		}
+
+		public int GetIntResult(int number)
+		{
+			return number;
+		}
 	}
 }

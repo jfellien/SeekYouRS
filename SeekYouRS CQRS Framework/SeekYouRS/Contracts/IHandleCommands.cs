@@ -15,6 +15,11 @@ namespace SeekYouRS.Contracts
 		/// </summary>
 		/// <param name="command">Object with parameters of command</param>
 		void Handle(dynamic command);
+		/// <summary>
+		/// Starts the processing of a command
+		/// </summary>
+		/// <param name="command">Object with parameters of command</param>
+		TResult Handle<TResult>(dynamic command);
 
 		/// <summary>
 		/// Sets the EventRecorder who record and replay the AggregateEvents

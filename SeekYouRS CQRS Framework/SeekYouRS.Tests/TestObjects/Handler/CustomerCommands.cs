@@ -1,3 +1,4 @@
+using System;
 using System.Threading.Tasks;
 using SeekYouRS.BaseComponents;
 using SeekYouRS.Tests.TestObjects.Aggregates;
@@ -40,6 +41,24 @@ namespace SeekYouRS.Tests.TestObjects.Handler
 		{
 			var customer = AggregateStore.GetAggregate<Customer>(command.Id);
 			customer.CallLongRunningMethod();
+		}
+
+		private String HandleThis(GetStringResult command)
+		{
+			var customer = AggregateStore.GetAggregate<Customer>(command.Id);
+			var result = customer.GetStringResult(command.Name);
+			AggregateStore.Save(customer);
+
+			return result;
+		}
+
+		private int HandleThis(GetIntResult command)
+		{
+			var customer = AggregateStore.GetAggregate<Customer>(command.Id);
+			var result = customer.GetIntResult(command.Number);
+			AggregateStore.Save(customer);
+
+			return result;
 		}
 	}
 }

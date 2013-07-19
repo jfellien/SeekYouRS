@@ -46,6 +46,14 @@ namespace SeekYouRS.BaseComponents
 		{
 			await _commands.Handle(command);
 		}
+		/// <summary>
+		/// Passed the command to the Command Handler for processing the command.
+		/// </summary>
+		/// <param name="command">The Command to process</param>
+		public async Task<TResult> Process<TResult>(dynamic command)
+		{
+			return await _commands.Handle<TResult>(command);
+		}
 
 		/// <summary>
 		/// Gets the result of query

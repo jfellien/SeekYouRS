@@ -170,6 +170,44 @@ namespace SeekYouRS.Tests
 		}
 
 		[Test]
+		public void TestToCreateAndGetResultValueOfTypeString()
+		{
+			var eventRecorder = new EventRecorder(new InMemoryAggregateEventStore());
+			var readModelStore = new InMemoryReadModelStore();
+
+			var api = new CustomerContext(eventRecorder, readModelStore);
+			var id = Guid.NewGuid();
+
+			var createCustomer = api.Process(new CreateCustomer { Id = id, Name = "My Customer" });
+
+			createCustomer.ContinueWith(task =>
+			{
+				var resultString = api.Process<String>(new GetStringResult { Id = id, Name = "New Name" });
+
+				resultString.ContinueWith(task1 => task1.Result.ShouldBeEquivalentTo("New Name"));
+			});
+		}
+
+		[Test]
+		public void TestToCreateAndGetResultValueOfTypeInt()
+		{
+			var eventRecorder = new EventRecorder(new InMemoryAggregateEventStore());
+			var readModelStore = new InMemoryReadModelStore();
+
+			var api = new CustomerContext(eventRecorder, readModelStore);
+			var id = Guid.NewGuid();
+
+			var createCustomer = api.Process(new CreateCustomer { Id = id, Name = "My Customer" });
+
+			createCustomer.ContinueWith(task =>
+			{
+				var resultString = api.Process<int>(new GetIntResult { Id = id, Number = 12 });
+
+				resultString.ContinueWith(task1 => task1.Result.ShouldBeEquivalentTo(12));
+			});
+		}
+
+		[Test]
 		public void TestToGetAnExceptionIfACommandUnkown()
 		{
 			var eventRecorder = new EventRecorder(new InMemoryAggregateEventStore());
