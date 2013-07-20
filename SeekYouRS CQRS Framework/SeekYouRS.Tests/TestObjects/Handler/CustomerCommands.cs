@@ -11,6 +11,11 @@ namespace SeekYouRS.Tests.TestObjects.Handler
 			HandleThis(command);
 		}
 
+		public override TResult Handle<TResult>(dynamic command)
+		{
+			return HandleThis(command);
+		}
+
 		private void HandleThis(CreateCustomer command)
 		{
 			var customer = AggregateStore.GetAggregate<Customer>(command.Id);
@@ -38,6 +43,18 @@ namespace SeekYouRS.Tests.TestObjects.Handler
 			var customer = AggregateStore.GetAggregate<Customer>(command.Id);
 			customer.RaiseUnhandledEvent();
 			AggregateStore.Save(customer);
+		}
+
+		private string HandleThis(GetStringResult command)
+		{
+			var customer = AggregateStore.GetAggregate<Customer>(command.Id);
+			return customer.GetStringResult(command.ExpectedResult);
+		}
+
+		private int HandleThis(GetIntResult command)
+		{
+			var customer = AggregateStore.GetAggregate<Customer>(command.Id);
+			return customer.GetIntResult(command.ExpectedResult);
 		}
 	}
 }

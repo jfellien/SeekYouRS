@@ -31,7 +31,7 @@ namespace SeekYouRS.Tests
 		}
 
 		[Test]
-		public void TestToCreateAndChangeKundeViaApi()
+		public void TestToCreateAndChangeCustomerViaApi()
 		{
 			var eventRecorder = new EventRecorder(new InMemoryAggregateEventStore());
 			var readModelStore = new InMemoryReadModelStore();
@@ -48,6 +48,36 @@ namespace SeekYouRS.Tests
 				});
 
 			customer.Name.ShouldBeEquivalentTo("New Name");
+		}
+
+		[Test]
+		public void TestToReturnsAStringValueFromDomain()
+		{
+			var eventRecorder = new EventRecorder(new InMemoryAggregateEventStore());
+			var readModelStore = new InMemoryReadModelStore();
+
+			var api = new CustomerContext(eventRecorder, readModelStore);
+			var id = Guid.NewGuid();
+
+			api.Process(new CreateCustomer { Id = id, Name = "My Customer" });
+			var commandResult = api.Process<String>(new GetStringResult { Id = id, ExpectedResult = "Test" });
+
+			commandResult.ShouldBeEquivalentTo("Test");
+		}
+
+		[Test]
+		public void TestToReturnsAIntegerValueFromDomain()
+		{
+			var eventRecorder = new EventRecorder(new InMemoryAggregateEventStore());
+			var readModelStore = new InMemoryReadModelStore();
+
+			var api = new CustomerContext(eventRecorder, readModelStore);
+			var id = Guid.NewGuid();
+
+			api.Process(new CreateCustomer { Id = id, Name = "My Customer" });
+			var commandResult = api.Process<int>(new GetIntResult { Id = id, ExpectedResult = 12 });
+
+			commandResult.ShouldBeEquivalentTo(12);
 		}
 
 		[Test]

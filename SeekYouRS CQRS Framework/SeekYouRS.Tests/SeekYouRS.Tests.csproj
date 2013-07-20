@@ -58,6 +58,8 @@
     <Compile Include="TestObjects\Commands\CreateVehicle.cs" />
     <Compile Include="TestObjects\Commands\CreateCustomer.cs" />
     <Compile Include="TestObjects\Commands\ChangeCustomer.cs" />
+    <Compile Include="TestObjects\Commands\GetIntResult.cs" />
+    <Compile Include="TestObjects\Commands\GetStringResult.cs" />
     <Compile Include="TestObjects\Commands\RemoveCustomer.cs" />
     <Compile Include="TestObjects\Events\CustomerRemoved.cs" />
     <Compile Include="TestObjects\Events\UnhandlesEventRaised.cs" />

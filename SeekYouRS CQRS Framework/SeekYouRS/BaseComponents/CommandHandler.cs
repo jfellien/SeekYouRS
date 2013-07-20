@@ -16,12 +16,18 @@ namespace SeekYouRS.BaseComponents
 		protected AggregateStore AggregateStore { get { return _aggregateStore; } }
 
 		/// <summary>
-		/// Derived method from interface IHandleCommands.
 		/// You should implement this Method by calling 'Handle(comand)' and 
 		/// implement for any Command an Handle method.
 		/// </summary>
 		/// <param name="command">The Command who will handle</param>
 		public abstract void Handle(dynamic command);
+
+		/// <summary>
+		/// You should implement this Method by calling 'Handle(comand)' and 
+		/// implement for any Command an Handle method.
+		/// </summary>
+		/// <param name="command">The Command who will handle</param>
+		public abstract TResult Handle<TResult>(dynamic command);
 
 		public EventRecorder EventRecorder
 		{

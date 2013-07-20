@@ -9,8 +9,6 @@ namespace SeekYouRS.Tests.TestObjects
 {
 	public class CustomerContext : DomainContext<CustomerCommands, CustomerQueryHandler, CustomerEventHandler>
 	{
-		readonly CustomerEventHandler _readModelHandler;
-
 		public CustomerContext(
 			EventRecorder eventRecorder, 
 			IStoreAndRetrieveReadModels readModelStore) 

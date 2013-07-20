@@ -49,5 +49,15 @@ namespace SeekYouRS.Tests.TestObjects.Aggregates
 		{
 			ApplyChanges(new UnhandlesEventRaised());
 		}
+
+		public String GetStringResult(string expectedResult)
+		{
+			return expectedResult;
+		}
+
+		public int GetIntResult(int expectedResult)
+		{
+			return expectedResult;
+		}
 	}
 }

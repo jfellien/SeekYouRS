@@ -46,6 +46,15 @@ namespace SeekYouRS.BaseComponents
 		}
 
 		/// <summary>
+		/// Passed the command to the Command Handler for processing the command.
+		/// </summary>
+		/// <param name="command">The Command to process</param>
+		public TResult Process<TResult>(dynamic command)
+		{
+			return _commandHandler.Handle<TResult>(command);
+		}
+
+		/// <summary>
 		/// Gets the result of query
 		/// </summary>
 		/// <typeparam name="T">Type of expected result</typeparam>
