@@ -6,7 +6,7 @@ namespace SeekYouRS.BaseComponents
 	/// <summary>
 	/// Base class for Query Repositories.
 	/// </summary>
-	public abstract class ReadModelQueries : IQueryReadModels
+	public abstract class QueriesHandler : IQueryReadModels
 	{
 		/// <summary>
 		/// Gets the ReadModelStore who knows the ReadModels to retrieve
@@ -25,7 +25,7 @@ namespace SeekYouRS.BaseComponents
 
 		public object ExecuteQuery(object query)
 		{
-			throw new ArgumentException(String.Format("I'm so sorry, this query {0} is not assigned to this ReadModelQueries Repository", query.GetType().Name));
+			throw new ArgumentException(String.Format("I'm so sorry, this query {0} is not assigned to this QueriesHandler Repository", query.GetType().Name));
 		}
 	}
 }

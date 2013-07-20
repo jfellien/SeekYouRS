@@ -5,7 +5,7 @@ namespace SeekYouRS.Contracts
 {
 	/// <summary>
 	/// Represents the behaviour of a Command Handler. 
-	/// Use AggregateCommandHandler class as base for your projects. It contains all base features.
+	/// Use CommandHandler class as base for your projects. It contains all base features.
 	/// </summary>
 	public interface IHandleCommands
 	{

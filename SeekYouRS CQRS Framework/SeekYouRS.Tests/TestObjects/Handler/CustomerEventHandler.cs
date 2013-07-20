@@ -5,7 +5,7 @@ using SeekYouRS.Tests.TestObjects.Models;
 
 namespace SeekYouRS.Tests.TestObjects.Handler
 {
-	public class CustomerAggregateEventHandler : AggregateEventHandler
+	public class CustomerEventHandler : EventHandler
 	{
 		public override void Handle(IAmAnAggregateEvent aggregateEvent)
 		{

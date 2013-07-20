@@ -3,7 +3,7 @@ using SeekYouRS.Contracts;
 
 namespace SeekYouRS.BaseComponents
 {
-	public abstract class AggregateEventHandler : IHandleAggregateEvents
+	public abstract class EventHandler : IHandleAggregateEvents
 	{
 		public IStoreAndRetrieveReadModels ReadModelStore { get; set; }
 

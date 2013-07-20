@@ -7,9 +7,9 @@ using SeekYouRS.Tests.TestObjects.Queries;
 
 namespace SeekYouRS.Tests.TestObjects
 {
-	public class CustomerContext : DomainContext<CustomerCommands, CustomerQueries, CustomerAggregateEventHandler>
+	public class CustomerContext : DomainContext<CustomerCommands, CustomerQueriesHandler, CustomerEventHandler>
 	{
-		readonly CustomerAggregateEventHandler _readModelHandler;
+		readonly CustomerEventHandler _readModelHandler;
 
 		public CustomerContext(
 			EventRecorder eventRecorder, 

@@ -63,12 +63,12 @@
     <Compile Include="TestObjects\Events\CustomerRemoved.cs" />
     <Compile Include="TestObjects\Events\UnhandlesEventRaised.cs" />
     <Compile Include="TestObjects\GenerischeKlasseMitEigenschaft.cs" />
-    <Compile Include="TestObjects\Handler\CustomerAggregateEventHandler.cs" />
-    <Compile Include="TestObjects\Handler\VehicleAggregateEventHandler.cs" />
+    <Compile Include="TestObjects\Handler\CustomerEventHandler.cs" />
+    <Compile Include="TestObjects\Handler\VehicleEventHandler.cs" />
     <Compile Include="TestObjects\KlasseMitEigenschaft.cs" />
     <Compile Include="TestObjects\KlasseMitFeld.cs" />
     <Compile Include="TestObjects\Models\VehicleBaseOfferForNewCustomers.cs" />
-    <Compile Include="TestObjects\Queries\CustomerQueries.cs" />
+    <Compile Include="TestObjects\Queries\CustomerQueriesHandler.cs" />
     <Compile Include="TestObjects\Queries\GetAllCustomers.cs" />
     <Compile Include="TestObjects\Events\VehicleCreated.cs" />
     <Compile Include="TestObjects\Events\CustomerCreated.cs" />

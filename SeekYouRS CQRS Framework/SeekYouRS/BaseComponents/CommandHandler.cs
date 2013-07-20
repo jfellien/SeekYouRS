@@ -5,11 +5,11 @@ using SeekYouRS.EventStore;
 namespace SeekYouRS.BaseComponents
 {
 	/// <summary>
-	/// Base class for AggregateCommandHandler.
+	/// Base class for CommandHandler.
 	/// This handles Commands who informs the Aggregates to change the state.
 	/// After Handling the Handler informs a Subscriber about state changes.
 	/// </summary>
-	public abstract class AggregateCommandHandler : IHandleCommands
+	public abstract class CommandHandler : IHandleCommands
 	{
 		AggregateStore _aggregateStore;
 

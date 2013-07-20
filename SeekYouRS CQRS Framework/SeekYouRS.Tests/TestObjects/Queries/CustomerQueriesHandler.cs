@@ -6,7 +6,7 @@ using SeekYouRS.Tests.TestObjects.Models;
 
 namespace SeekYouRS.Tests.TestObjects.Queries
 {
-	public class CustomerQueries : ReadModelQueries
+	public class CustomerQueriesHandler : QueriesHandler
 	{
 		public override T Retrieve<T>(dynamic query)
 		{ 

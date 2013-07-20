@@ -3,12 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using FluentAssertions;
 using NUnit.Framework;
-using SeekYouRS.Contracts;
 using SeekYouRS.EventStore;
 using SeekYouRS.Tests.TestObjects;
 using SeekYouRS.Tests.TestObjects.Commands;
-using SeekYouRS.Tests.TestObjects.Events;
-using SeekYouRS.Tests.TestObjects.Handler;
 using SeekYouRS.Tests.TestObjects.Models;
 using SeekYouRS.Tests.TestObjects.Queries;
 

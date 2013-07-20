@@ -1,11 +1,10 @@
 using SeekYouRS.BaseComponents;
-using SeekYouRS.EventStore;
 using SeekYouRS.Tests.TestObjects.Aggregates;
 using SeekYouRS.Tests.TestObjects.Commands;
 
 namespace SeekYouRS.Tests.TestObjects.Handler
 {
-	public class CustomerCommands : AggregateCommandHandler
+	public class CustomerCommands : CommandHandler
 	{
 		public override void Handle(dynamic command)
 		{
