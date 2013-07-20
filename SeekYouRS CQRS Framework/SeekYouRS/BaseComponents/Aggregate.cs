@@ -15,6 +15,7 @@ namespace SeekYouRS.BaseComponents
 		protected Aggregate()
 		{
 			Changes = new List<IAmAnAggregateEvent>();
+			History = new List<IAmAnAggregateEvent>();
 		}
 
 		/// <summary>
@@ -25,7 +26,8 @@ namespace SeekYouRS.BaseComponents
 		/// <summary>
 		/// Gets the list of current changes. List will reset after successful saving.
 		/// </summary>
-		public IList<IAmAnAggregateEvent> Changes{ get; private set; }
+		public IList<IAmAnAggregateEvent> Changes { get; private set; }
+
 		/// <summary>
 		/// Gets or sets the list of all status changes
 		/// </summary>
@@ -40,6 +42,7 @@ namespace SeekYouRS.BaseComponents
 		{
 			Changes.Add(changeEvent);
 		}
+
 		/// <summary>
 		/// Gets all Events of specific type from the list of all historical AggregateEvents
 		/// </summary>
@@ -53,8 +56,8 @@ namespace SeekYouRS.BaseComponents
 				.LastOrDefault();
 
 			return lastEventOfSearchedType == null
-				? default(T)
-				: lastEventOfSearchedType;
+				       ? default(T)
+				       : lastEventOfSearchedType;
 		}
 	}
 }

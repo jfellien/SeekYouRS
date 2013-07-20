@@ -17,6 +17,25 @@ namespace SeekYouRS.Tests
 	internal class CustomerContextTests
 	{
 		[Test]
+		public async void TestToCreateCustomerWithoutAggregateStore()
+		{
+			var eventRecorder = new EventRecorder(new InMemoryAggregateEventStore());
+			var readModelStore = new InMemoryReadModelStore();
+
+			var api = new CustomerContext(eventRecorder, readModelStore);
+			var id = Guid.NewGuid();
+
+			await api.Process(new CreateCustomerWithoutAggregatStore {Id = id, Name = "My Customer"});
+
+			var customerModel = api.ExecuteQuery<CustomerModel>(new GetCustomer {Id = id});
+
+			Trace.WriteLine(customerModel);
+			Console.WriteLine(customerModel);
+
+			customerModel.Name.ShouldBeEquivalentTo("My Customer");
+		}
+
+		[Test]
 		public async void TestToCreateCustomerAndReadIt()
 		{
 			var eventRecorder = new EventRecorder(new InMemoryAggregateEventStore());
@@ -25,9 +44,9 @@ namespace SeekYouRS.Tests
 			var api = new CustomerContext(eventRecorder, readModelStore);
 			var id = Guid.NewGuid();
 
-			await api.Process(new CreateCustomer{Id = id, Name = "My Customer"});
-		
-			var customerModel = api.ExecuteQuery<CustomerModel>(new GetCustomer { Id = id });
+			await api.Process(new CreateCustomer {Id = id, Name = "My Customer"});
+
+			var customerModel = api.ExecuteQuery<CustomerModel>(new GetCustomer {Id = id});
 
 			Trace.WriteLine(customerModel);
 			Console.WriteLine(customerModel);
@@ -160,7 +179,6 @@ namespace SeekYouRS.Tests
 
 			customers.Should().Contain(c => c.Id == id1);
 			customers.Should().Contain(c => c.Id == id2);
-
 		}
 
 		[Test]
@@ -208,7 +226,7 @@ namespace SeekYouRS.Tests
 
 			var beforeStart = DateTime.Now;
 
-			api.Process(new StartLongRunningProcess { Id = id, Milliseconds = 5000 });
+			api.Process(new StartLongRunningProcess {Id = id, Milliseconds = 5000});
 			var afterStart = DateTime.Now;
 			var timeDiff = afterStart - beforeStart;
 

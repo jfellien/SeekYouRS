@@ -16,48 +16,54 @@ namespace SeekYouRS.Tests.TestObjects.Handler
 			return HandleThis(command);
 		}
 
-		private void HandleThis(CreateCustomer command)
+		void HandleThis(CreateCustomer command)
 		{
 			var customer = AggregateStore.GetAggregate<Customer>(command.Id);
 			customer.Create(command.Id, command.Name);
 			AggregateStore.Save(customer);
 		}
 
-		private void HandleThis(ChangeCustomer command)
+		void HandleThis(CreateCustomerWithoutAggregatStore command)
+		{
+			var customer = new Customer();
+			customer.Create(command.Id, command.Name);
+			AggregateStore.Save(customer);
+		}
+
+		void HandleThis(ChangeCustomer command)
 		{
 			var customer = AggregateStore.GetAggregate<Customer>(command.Id);
 			customer.Change(command.Name);
 			AggregateStore.Save(customer);
-			
 		}
 
-		private void HandleThis(RemoveCustomer command)
+		void HandleThis(RemoveCustomer command)
 		{
 			var customer = AggregateStore.GetAggregate<Customer>(command.Id);
 			customer.Remove();
 			AggregateStore.Save(customer);
 		}
 
-		private void HandleThis(CommandWithoutEventHandling command)
+		void HandleThis(CommandWithoutEventHandling command)
 		{
 			var customer = AggregateStore.GetAggregate<Customer>(command.Id);
 			customer.RaiseUnhandledEvent();
 			AggregateStore.Save(customer);
 		}
 
-		private string HandleThis(GetStringResult command)
+		string HandleThis(GetStringResult command)
 		{
 			var customer = AggregateStore.GetAggregate<Customer>(command.Id);
 			return customer.GetStringResult(command.ExpectedResult);
 		}
 
-		private int HandleThis(GetIntResult command)
+		int HandleThis(GetIntResult command)
 		{
 			var customer = AggregateStore.GetAggregate<Customer>(command.Id);
 			return customer.GetIntResult(command.ExpectedResult);
 		}
 
-		private void HandleThis(StartLongRunningProcess command)
+		void HandleThis(StartLongRunningProcess command)
 		{
 			var customer = AggregateStore.GetAggregate<Customer>(command.Id);
 			customer.StartLongRunningProcess(command.Milliseconds);
