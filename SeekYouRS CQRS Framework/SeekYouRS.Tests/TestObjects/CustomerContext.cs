@@ -7,7 +7,7 @@ using SeekYouRS.Tests.TestObjects.Queries;
 
 namespace SeekYouRS.Tests.TestObjects
 {
-	public class CustomerContext : DomainContext<CustomerCommands, CustomerQueriesHandler, CustomerEventHandler>
+	public class CustomerContext : DomainContext<CustomerCommands, CustomerQueryHandler, CustomerEventHandler>
 	{
 		readonly CustomerEventHandler _readModelHandler;
 

@@ -47,12 +47,9 @@
     <Compile Include="BaseComponents\CommandHandler.cs" />
     <Compile Include="BaseComponents\EventHandler.cs" />
     <Compile Include="BaseComponents\DomainContext.cs" />
-    <Compile Include="BaseComponents\QueriesHandler.cs" />
+    <Compile Include="BaseComponents\QueryHandler.cs" />
     <Compile Include="Contracts\IAmAnAggregateEvent.cs" />
     <Compile Include="Contracts\IStoreAndRetrieveAggregateEvents.cs" />
-    <Compile Include="Contracts\IHandleCommands.cs" />
-    <Compile Include="Contracts\IQueryReadModels.cs" />
-    <Compile Include="Contracts\IHandleAggregateEvents.cs" />
     <Compile Include="Contracts\IStoreAndRetrieveReadModels.cs" />
     <Compile Include="EventStore\AggregateEventBag.cs" />
     <Compile Include="EventStore\EventRecorder.cs" />

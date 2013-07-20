@@ -9,7 +9,7 @@ namespace SeekYouRS.BaseComponents
 	/// This handles Commands who informs the Aggregates to change the state.
 	/// After Handling the Handler informs a Subscriber about state changes.
 	/// </summary>
-	public abstract class CommandHandler : IHandleCommands
+	public abstract class CommandHandler
 	{
 		AggregateStore _aggregateStore;
 

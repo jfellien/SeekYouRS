@@ -67,7 +67,7 @@
     <Compile Include="TestObjects\KlasseMitEigenschaft.cs" />
     <Compile Include="TestObjects\KlasseMitFeld.cs" />
     <Compile Include="TestObjects\Models\VehicleBaseOfferForNewCustomers.cs" />
-    <Compile Include="TestObjects\Queries\CustomerQueriesHandler.cs" />
+    <Compile Include="TestObjects\Queries\CustomerQueryHandler.cs" />
     <Compile Include="TestObjects\Queries\GetAllCustomers.cs" />
     <Compile Include="TestObjects\Events\VehicleCreated.cs" />
     <Compile Include="TestObjects\Events\CustomerCreated.cs" />

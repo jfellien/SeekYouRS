@@ -8,32 +8,32 @@ namespace SeekYouRS.BaseComponents
 	/// DomainContext combines 
 	/// </summary>
 	public abstract class DomainContext<TCommandHandler, TQueriesHandler, TAggregateEventHandler> 
-		where TCommandHandler : IHandleCommands, new()
-		where TQueriesHandler : IQueryReadModels, new()
-		where TAggregateEventHandler : IHandleAggregateEvents, new()
+		where TCommandHandler : CommandHandler, new()
+		where TQueriesHandler : QueryHandler, new()
+		where TAggregateEventHandler : EventHandler, new()
 	{
-		readonly IHandleCommands _commands;
-		readonly IQueryReadModels _queries;
-		readonly IHandleAggregateEvents _aggregateEventHandler;
+		readonly CommandHandler _commandHandler;
+		readonly QueryHandler _queryHandler;
+		readonly EventHandler _eventHandler;
 
 		protected DomainContext(EventRecorder eventRecorder, IStoreAndRetrieveReadModels readModelStore)
 		{
-			_commands = new TCommandHandler
+			_commandHandler = new TCommandHandler
 				{
 					EventRecorder = eventRecorder
 				};
 
-			_queries = new TQueriesHandler
+			_queryHandler = new TQueriesHandler
 				{
 					ReadModelStore = readModelStore
 				};
 
-			_aggregateEventHandler = new TAggregateEventHandler
+			_eventHandler = new TAggregateEventHandler
 				{
 					ReadModelStore = readModelStore
 				};
 
-			eventRecorder.EventHasStored += _aggregateEventHandler.Handle;
+			eventRecorder.EventHasStored += _eventHandler.Handle;
 		}
 
 		/// <summary>
@@ -42,7 +42,7 @@ namespace SeekYouRS.BaseComponents
 		/// <param name="command">The Command to process</param>
 		public void Process(dynamic command)
 		{
-			_commands.Handle(command);
+			_commandHandler.Handle(command);
 		}
 
 		/// <summary>
@@ -53,7 +53,7 @@ namespace SeekYouRS.BaseComponents
 		/// <returns>Query result</returns>
 		public T ExecuteQuery<T>(dynamic query)
 		{
-			return (T)_queries.Retrieve<T>(query);
+			return (T)_queryHandler.Retrieve<T>(query);
 		}
 	}
 }
