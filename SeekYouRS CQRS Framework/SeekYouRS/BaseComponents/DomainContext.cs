@@ -1,3 +1,5 @@
+using System;
+using System.Threading.Tasks;
 using SeekYouRS.Contracts;
 using SeekYouRS.EventStore;
 
@@ -40,9 +42,11 @@ namespace SeekYouRS.BaseComponents
 		/// Passed the command to the Command Handler for processing the command.
 		/// </summary>
 		/// <param name="command">The Command to process</param>
-		public void Process(dynamic command)
+		public Task Process(dynamic command)
 		{
-			_commandHandler.Handle(command);
+			Action<dynamic> handle = cmd => _commandHandler.Handle(cmd);
+
+			return Task.Factory.StartNew(handle, command);
 		}
 
 		/// <summary>

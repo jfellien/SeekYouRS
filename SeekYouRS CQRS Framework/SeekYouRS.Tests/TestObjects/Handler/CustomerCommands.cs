@@ -56,5 +56,11 @@ namespace SeekYouRS.Tests.TestObjects.Handler
 			var customer = AggregateStore.GetAggregate<Customer>(command.Id);
 			return customer.GetIntResult(command.ExpectedResult);
 		}
+
+		private void HandleThis(StartLongRunningProcess command)
+		{
+			var customer = AggregateStore.GetAggregate<Customer>(command.Id);
+			customer.StartLongRunningProcess(command.Milliseconds);
+		}
 	}
 }

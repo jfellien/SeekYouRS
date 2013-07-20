@@ -61,6 +61,7 @@
     <Compile Include="TestObjects\Commands\GetIntResult.cs" />
     <Compile Include="TestObjects\Commands\GetStringResult.cs" />
     <Compile Include="TestObjects\Commands\RemoveCustomer.cs" />
+    <Compile Include="TestObjects\Commands\StartLongRunningProcess.cs" />
     <Compile Include="TestObjects\Events\CustomerRemoved.cs" />
     <Compile Include="TestObjects\Events\UnhandlesEventRaised.cs" />
     <Compile Include="TestObjects\GenerischeKlasseMitEigenschaft.cs" />

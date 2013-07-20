@@ -1,4 +1,5 @@
 using System;
+using System.Threading;
 using SeekYouRS.BaseComponents;
 using SeekYouRS.Tests.TestObjects.Events;
 
@@ -58,6 +59,11 @@ namespace SeekYouRS.Tests.TestObjects.Aggregates
 		public int GetIntResult(int expectedResult)
 		{
 			return expectedResult;
+		}
+
+		public void StartLongRunningProcess(int milliseconds)
+		{
+			Thread.Sleep(milliseconds);
 		}
 	}
 }
