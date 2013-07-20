@@ -6,7 +6,7 @@ using SeekYouRS.Contracts;
 namespace SeekYouRS.BaseComponents
 {
 	/// <summary>
-	/// Base class of an Aggregate. 
+	/// Base class of an Aggregate.
 	/// Aggregates collects Entities and Value Objects of a specific domain context. 
 	/// An Aggreagte should be private in Domain scope.
 	/// </summary>

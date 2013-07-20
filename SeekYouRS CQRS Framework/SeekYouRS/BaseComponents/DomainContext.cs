@@ -9,6 +9,9 @@ namespace SeekYouRS.BaseComponents
 	/// Base class for CQRS DomainContext components.
 	/// DomainContext combines 
 	/// </summary>
+	/// <typeparam name="TCommandHandler">Type of concrete CommandHandler</typeparam>
+	/// <typeparam name="TQueriesHandler">Type of concrete QueriesHandler</typeparam>
+	/// <typeparam name="TAggregateEventHandler">Type of concrete EventHandler</typeparam>
 	public abstract class DomainContext<TCommandHandler, TQueriesHandler, TAggregateEventHandler> 
 		where TCommandHandler : CommandHandler, new()
 		where TQueriesHandler : QueryHandler, new()

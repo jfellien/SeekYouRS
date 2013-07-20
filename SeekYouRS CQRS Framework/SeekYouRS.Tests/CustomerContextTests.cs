@@ -182,7 +182,8 @@ namespace SeekYouRS.Tests
 
 			var api = new CustomerContext(eventRecorder, readModelStore);
 
-			Assert.Catch<ArgumentException>(() => api.Process(new CommandWithoutEventHandling()));
+			var exceptionShouldThrown = api.Process(new CommandWithoutEventHandling());
+			exceptionShouldThrown.ContinueWith(task => task.Exception.Should().NotBeNull());
 		}
 
 		[Test]

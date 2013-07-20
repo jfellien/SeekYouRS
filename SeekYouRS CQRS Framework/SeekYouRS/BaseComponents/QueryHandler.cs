@@ -4,7 +4,7 @@ using SeekYouRS.Contracts;
 namespace SeekYouRS.BaseComponents
 {
 	/// <summary>
-	/// Base class for Query Repositories.
+	/// Base class for a Query Repositories.
 	/// </summary>
 	public abstract class QueryHandler
 	{
@@ -23,6 +23,10 @@ namespace SeekYouRS.BaseComponents
 		/// <returns></returns>
 		public abstract T Retrieve<T>(dynamic query);
 
+		/// <summary>
+		/// This is the fallback method to inform that an Event could not handle.
+		/// </summary>
+		/// <param name="query"></param>
 		public object ExecuteQuery(object query)
 		{
 			throw new ArgumentException(String.Format("I'm so sorry, this query {0} is not assigned to this QueryHandler Repository", query.GetType().Name));
