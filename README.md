@@ -1,5 +1,3 @@
-[TOC]
-
 # SeekYouRS
 
 
@@ -18,15 +16,33 @@ Load the package by Nuget using the Package Manager Console
 
 Your CQRS solution needs follow main components:
 
-
 1.  Domain Context
 1.  Command Handler
 1.  Event Handler
 1.  Query Handler
 1.  Aggregate
 1.  Commands and Events
+1.  EventRecorder
 
-#### Domain Context ####
+The fastes way to integrate SeekYouRS by code shown below:
+
+	// 1.) Instantiate a EventRecorder with a concrete implementation of data access
+	var eventRecorder = new EventRecorder(new InMemoryAggregateEventStore());
+	
+	// 2.) Instantiate your data access to your Read Models
+	var readModelStore = new InMemoryReadModelStore();
+
+	// 3.) Instantiate your Context with the EventRecorder and ReadModelStore
+	var api = new CustomerContext(eventRecorder, readModelStore);
+
+	// 4.) Call Context Methodes to change the state of your Domain
+	api.Process(new CreateCustomer {Id = id, Name = "My Customer"});
+	
+	// or query data From ReadModel
+	var customerModel = api.ExecuteQuery<CustomerModel>(new GetCustomer {Id = id});
+	
+
+### Domain Context ####
 
 This component binds all working handler and enabled the connection between Domain and EventStore. The bindable components are  CommandHandler, QueryHandler and EventHandler.
 
