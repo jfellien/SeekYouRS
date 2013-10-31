@@ -6,7 +6,7 @@ using SeekYouRS.EventStore;
 
 namespace SeekYouRS.Tests
 {
-	class InMemoryAggregateEventStore : IStoreAndRetrieveAggregateEvents
+	public class InMemoryAggregateEventStore : IStoreAndRetrieveAggregateEvents
 	{
 		private readonly List<AggregateEventBag> _worldhistory;
 

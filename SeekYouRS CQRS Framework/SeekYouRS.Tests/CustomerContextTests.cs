@@ -19,15 +19,22 @@ namespace SeekYouRS.Tests
 		[Test]
 		public async void TestToCreateCustomerWithoutAggregateStore()
 		{
-			var eventRecorder = new EventRecorder(new InMemoryAggregateEventStore());
-			var readModelStore = new InMemoryReadModelStore();
+		    var eventRecorder = new EventRecorder(new InMemoryAggregateEventStore());
+		    var readModelStore = new InMemoryReadModelStore();
 
-			var api = new CustomerContext(eventRecorder, readModelStore);
-			var id = Guid.NewGuid();
+		    var api = new CustomerContext(eventRecorder, readModelStore);
+		    var id = Guid.NewGuid();
 
-			await api.Process(new CreateCustomerWithoutAggregatStore {Id = id, Name = "My Customer"});
+		    await api.Process(new CreateCustomerWithoutAggregatStore
+		    {
+		        Id = id,
+		        Name = "My Customer"
+		    });
 
-			var customerModel = api.ExecuteQuery<CustomerModel>(new GetCustomer {Id = id});
+		    var customerModel = api.ExecuteQuery<CustomerModel>(new GetCustomer
+		    {
+		        Id = id
+		    });
 
 			Trace.WriteLine(customerModel);
 			Console.WriteLine(customerModel);

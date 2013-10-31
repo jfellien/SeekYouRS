@@ -1,0 +1,18 @@
+﻿<Properties>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="SeekYouRS.Tests/TestObjects/Events/CustomerCreated.cs">
+    <Files>
+      <File FileName="SeekYouRS.Tests/TestObjects/Handler/CustomerCommands.cs" Line="45" Column="4" />
+      <File FileName="SeekYouRS/BaseComponents/CommandHandler.cs" Line="1" Column="1" />
+      <File FileName="SeekYouRS/BaseComponents/DomainContext.cs" Line="24" Column="98" />
+      <File FileName="SeekYouRS.Tests/TestObjects/CustomerContext.cs" Line="1" Column="1" />
+      <File FileName="SeekYouRS.Tests/TestObjects/Handler/CustomerEventHandler.cs" Line="37" Column="3" />
+      <File FileName="SeekYouRS.Tests/TestObjects/Queries/CustomerQueryHandler.cs" Line="28" Column="2" />
+      <File FileName="SeekYouRS.Tests/TestObjects/Events/CustomerCreated.cs" Line="11" Column="6" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>
