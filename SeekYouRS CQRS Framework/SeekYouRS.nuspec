@@ -2,9 +2,9 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
     <metadata>
         <id>SeekYouRS</id>
-        <version>1.1.0</version>
+        <version>1.6.0</version>
         <title>SeekYouRS</title>
-        <authors>Jan Fellien, Carsten Koenig, Maximilian Krauss</authors>
+        <authors>Jan Fellien</authors>
         <owners>Jan Fellien</owners>
         <projectUrl>https://github.com/jfellien/SeekYouRS</projectUrl>
         <iconUrl>http://devcrowd.s3.amazonaws.com/community/seekyours.jpg</iconUrl>
